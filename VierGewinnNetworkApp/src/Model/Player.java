@@ -14,7 +14,7 @@ public class Player {
 	//id of the player
 	private int diskId;
 	
-	public Player(String pName, int playerNmbr)
+	public Player(String pName)
 	{
 		this.name = pName;
 		this.diskId = getPrimNumber();
