@@ -47,7 +47,7 @@ public class Game {
 			for(int x = 1; x <= (height-3); x++){
 				int number = 0;
 				for(int n = 1; n <= 4; n++){
-					number += gameArray[];
+					number += gameArray[(y*6)+x+((n-1)*6)];
 				}
 				numbers[i] = number;
 				i++;
@@ -65,6 +65,10 @@ public class Game {
 				i++;
 			}
 		}
+		
+		// Werte aller diagonale steigende Möglichkeiten
+		
+		// Werte aller diagonale sinkende Möglichkeiten
 		
 		
 		return numbers;
