@@ -6,7 +6,7 @@ public class Game {
 	private int[] score;
 	private Player player1;
 	private Player player2;
-    
+	private Player player3;
 	public Game(){
 		
 	}
