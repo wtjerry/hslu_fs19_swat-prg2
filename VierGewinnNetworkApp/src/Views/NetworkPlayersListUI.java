@@ -1,5 +1,11 @@
 package Views;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class NetworkPlayersListUI extends javax.swing.JFrame {
 
 	public NetworkPlayersListUI() {
@@ -18,6 +24,7 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -32,6 +39,8 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        jTextField1.setText("127.0.0.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -39,7 +48,9 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
+                        .addGap(33, 33, 33)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
@@ -50,7 +61,9 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(101, Short.MAX_VALUE))
@@ -60,7 +73,27 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jTextArea1.setText("hello world");
+	jTextArea1.setText("hello world");
+	
+	for (int i = 0; i < 255; i++) {
+		String host = jTextField1.getText() + i;
+		try {
+			final int timeoutInMilliseconds = 50;
+			boolean isReachable = InetAddress.getByName(host).isReachable(timeoutInMilliseconds);
+			if (isReachable) {
+				jTextArea1.append("\n" + host + " is reachable");
+			}
+			else {
+				jTextArea1.append("\n" + host + " is NOT reachable");
+			}
+		} catch (UnknownHostException ex) {
+			Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+	}
+	
     }//GEN-LAST:event_jButton1ActionPerformed
 
 	public static void main(String args[]) {
@@ -100,5 +133,6 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
