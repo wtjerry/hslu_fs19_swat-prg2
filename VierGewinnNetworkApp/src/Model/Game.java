@@ -1,4 +1,5 @@
 package Model;
+import java.util.*;
 
 public class Game {
 	
@@ -8,9 +9,8 @@ public class Game {
 	private int[] gameArray;
 	private Player player1;
 	private Player player2;
-<<<<<<< HEAD
-	public Game(){
-=======
+
+//=======
 	private GameState state;
     
 	public Game(String name, int width, int height, String PlayerName1, String PlayerName2)
@@ -26,7 +26,7 @@ public class Game {
 	
 	public void setDisk()
 	{
->>>>>>> branch 'Dev' of https://github.com/Meledor/VierGewinntPRG.git
+// >>>>>>> branch 'Dev' of https://github.com/Meledor/VierGewinntPRG.git
 		
 	}
 	
@@ -35,41 +35,63 @@ public class Game {
 	 return 0;	
 	}
 	
-	public int[] getNumbers()
+	public ArrayList<Integer> getNumbers()
 	{
 		// List besser?
 		int possibilities = 4*height*width + 18 - 9*(width+height);
-		int[] numbers = new int[possibilities];
-		int i = 0; 
+		ArrayList<Integer> numbers = new ArrayList<Integer>();
 		
-		// Werte aller vertikalen Möglichkeiten
-		for(int y = 1; y <= (width); y++){
-			for(int x = 1; x <= (height-3); x++){
-				int number = 0;
-				for(int n = 1; n <= 4; n++){
-					number += gameArray[(y*6)+x+((n-1)*6)];
+		for(int gameheight = 0;gameheight < height*width;gameheight+=width)
+		{
+			for(int gameposition = 0;gameposition < (width - 3);gameposition++)
+			{
+				int result = 0;
+				for(int gamewidht = 0; gamewidht < 4;gamewidht++)
+				{
+					result += this.gameArray[gameheight + gameposition + gamewidht];
 				}
-				numbers[i] = number;
-				i++;
+				numbers.add(result);
 			}
 		}
 		
-		// Werte aller horizontalen Möglichkeiten
-		for(int x = 1; x <= (width-3); x++){
-			for(int y = 1; y <= (height); y++){
-				int number = 0;
-				for(int n = 0; n < 4; n++){
-					number += gameArray[((y-1)*6)+n+x];
+		for(int gamewidht = 0;gamewidht < height - 3;gamewidht++)
+		{
+			for(int gameposition = 0;gameposition < (width);gameposition++)
+			{
+				int result = 0;
+				for(int gameheight = 0; gameheight < 4*width;gameheight+=width)
+				{
+					result += this.gameArray[gameheight + gameposition + gamewidht];
 				}
-				numbers[i] = number;
-				i++;
+				numbers.add(result);
 			}
 		}
 		
-		// Werte aller diagonale steigende Möglichkeiten
+		for(int gamewidht = 0;gamewidht < height - 3;gamewidht+=width)
+		{
+			for(int gameposition = 0;gameposition < (width - 3);gameposition++)
+			{
+				int result = 0;
+				for(int gameheight = 0; gameheight < 4*(width+1);gameheight+=width+1)
+				{
+					result += this.gameArray[gameheight + gameposition + gamewidht];
+				}
+				numbers.add(result);
+			}
+		}
 		
-		// Werte aller diagonale sinkende Möglichkeiten
-		
+		for(int gamewidht = 0;gamewidht < height - 3;gamewidht+=width)
+		{
+			for(int gameposition = 0;gameposition < (width - 3);gameposition++)
+			{
+				int result = 0;
+				for(int gameheight = 3; gameheight < 4*(width-1);gameheight+=width-1)
+				{
+					result += this.gameArray[gameheight + gameposition + gamewidht];
+				}
+				numbers.add(result);
+			}
+		}
 		
 		return numbers;
 	}
