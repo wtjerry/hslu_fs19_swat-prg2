@@ -1,5 +1,6 @@
 package Views;
 
+import Network.NetworkPlayersSearch;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -81,21 +82,35 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		String baseIpAddress = jTextField1.getText();
-		final int timeoutInMilliseconds = 50;
-		final List<String> availableHosts = GetAvailableHostsInNetwork(baseIpAddress, timeoutInMilliseconds);
-		
-		jTextArea1.append("available hosts:\n");
-		jTextArea1.append(String.join("\n", availableHosts));
-		jTextArea1.append("\nend of list");
-		
-		final int DedicatedPort = 5400;
-		final List<String> answeringHosts = GetAnsweringHosts(availableHosts, DedicatedPort);
-		
-		jTextArea1.append("answering hosts:\n");
-		jTextArea1.append(String.join("\n", answeringHosts));
-		jTextArea1.append("\nend of list");
+		NetworkPlayersSearch networkSearch = new NetworkPlayersSearch(baseIpAddress);
+		networkSearch.setListener(answeringHosts -> {
+			jTextArea1.append("answering hosts:\n");
+			jTextArea1.append(String.join("\n", answeringHosts));
+			jTextArea1.append("\nend of list");
+		});
+		new Thread(networkSearch).start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+	private List<String> GetAvailableHostsInNetwork(final String baseIpAddress, final int timeoutInMilliseconds) {
+		List<String> availableHosts = new ArrayList<>();
+
+		for (int i = 0; i < 255; i++) {
+			String host = baseIpAddress + i;
+			try {
+				boolean isReachable = InetAddress.getByName(host).isReachable(timeoutInMilliseconds);
+				if (isReachable) {
+					availableHosts.add(host);
+				}
+			} catch (UnknownHostException ex) {
+				Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (IOException ex) {
+				Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+
+		return availableHosts;
+	}
+	
 	private List<String> GetAnsweringHosts(final List<String> availableHosts, final int DedicatedPort) {
 		List<String> answeringHosts = new ArrayList<>();
 		
@@ -117,26 +132,6 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 		}
 		
 		return answeringHosts;
-	}
-
-	private List<String> GetAvailableHostsInNetwork(final String baseIpAddress, final int timeoutInMilliseconds) {
-		List<String> availableHosts = new ArrayList<>();
-		
-		for (int i = 0; i < 255; i++) {
-			String host = baseIpAddress + i;
-			try {
-				boolean isReachable = InetAddress.getByName(host).isReachable(timeoutInMilliseconds);
-				if (isReachable) {
-					availableHosts.add(host);
-				}
-			} catch (UnknownHostException ex) {
-				Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (IOException ex) {
-				Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-		
-		return availableHosts;
 	}
 
 	public static void main(String args[]) {
