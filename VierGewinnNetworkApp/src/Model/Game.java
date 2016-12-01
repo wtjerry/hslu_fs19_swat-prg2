@@ -30,6 +30,7 @@ public class Game {
 		
 	}
 	
+	//Jesus
 	public int checkResult()
 	{
 		int result = 0;
