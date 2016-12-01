@@ -9,8 +9,6 @@ public class Game {
 	private int[] gameArray;
 	private Player player1;
 	private Player player2;
-
-//=======
 	private GameState state;
     
 	public Game(String name, int width, int height, String PlayerName1, String PlayerName2)
@@ -24,11 +22,32 @@ public class Game {
 		//gameState
 	}
 	
-	public void setDisk()
+	public void setDisk(int row, boolean oponent)
 	{
-// >>>>>>> branch 'Dev' of https://github.com/Meledor/VierGewinntPRG.git
-		
+		if(row <= this.width)
+		{
+			if(oponent)
+			{
+				addDiskToArray(row, player1.getDiskId());
+			}
+			else
+			{
+				addDiskToArray(row, player2.getDiskId());
+			}
+		}
 	}
+	
+	private void addDiskToArray(int row, int diskId)
+	{
+		for(int gameHeight = 0;gameHeight < this.height;gameHeight+=6)
+		{
+			if(this.gameArray[row + gameHeight] != 0)
+			{
+				this.gameArray[row + gameHeight] = diskId;
+			}
+		}
+	}
+	
 	
 	//Jesus
 	public int checkResult()
