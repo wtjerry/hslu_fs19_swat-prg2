@@ -1,8 +1,15 @@
 package Views;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,37 +71,73 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-	jTextArea1.setText("hello world");
-	
-	for (int i = 0; i < 255; i++) {
-		String host = jTextField1.getText() + i;
-		try {
-			final int timeoutInMilliseconds = 50;
-			boolean isReachable = InetAddress.getByName(host).isReachable(timeoutInMilliseconds);
-			if (isReachable) {
-				jTextArea1.append("\n" + host + " is reachable");
+		String baseIpAddress = jTextField1.getText();
+		final int timeoutInMilliseconds = 50;
+		final List<String> availableHosts = GetAvailableHostsInNetwork(baseIpAddress, timeoutInMilliseconds);
+		
+		jTextArea1.append("available hosts:\n");
+		jTextArea1.append(String.join("\n", availableHosts));
+		jTextArea1.append("\nend of list");
+		
+		final int DedicatedPort = 5400;
+		final List<String> answeringHosts = GetAnsweringHosts(availableHosts, DedicatedPort);
+		
+		jTextArea1.append("answering hosts:\n");
+		jTextArea1.append(String.join("\n", answeringHosts));
+		jTextArea1.append("\nend of list");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+	private List<String> GetAnsweringHosts(final List<String> availableHosts, final int DedicatedPort) {
+		List<String> answeringHosts = new ArrayList<>();
+		
+		for (String host : availableHosts) {
+			try {
+				try (Socket clientSocket = new Socket(host, DedicatedPort)) {
+					DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
+					BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+					outToServer.writeBytes("I want to play a game.");
+					String response = inFromServer.readLine();
+					Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.FINE, "response: {0}", response);
+					if ("Oh shit...".equals(response)) {
+						answeringHosts.add(host);
+					}
+				}
+			} catch (IOException ex) {
+				//Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, "io exception for host {0}. This guy probably does not want to play.", host);
 			}
-			else {
-				jTextArea1.append("\n" + host + " is NOT reachable");
-			}
-		} catch (UnknownHostException ex) {
-			Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (IOException ex) {
-			Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
 		}
 		
+		return answeringHosts;
 	}
-	
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+	private List<String> GetAvailableHostsInNetwork(final String baseIpAddress, final int timeoutInMilliseconds) {
+		List<String> availableHosts = new ArrayList<>();
+		
+		for (int i = 0; i < 255; i++) {
+			String host = baseIpAddress + i;
+			try {
+				boolean isReachable = InetAddress.getByName(host).isReachable(timeoutInMilliseconds);
+				if (isReachable) {
+					availableHosts.add(host);
+				}
+			} catch (UnknownHostException ex) {
+				Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
+			} catch (IOException ex) {
+				Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		
+		return availableHosts;
+	}
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
