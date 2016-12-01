@@ -32,15 +32,28 @@ public class Game {
 	
 	public int checkResult()
 	{
-	 return 0;	
+		int result = 0;
+		for(int i : getNumbers())
+		{
+			if(i == this.player1.getDiskId() * 4)
+			{
+				result = 1;
+			}
+			if(i == this.player2.getDiskId() * 4)
+			{
+				result = 2;
+			}
+		}
+	    return result;	
 	}
 	
-	public ArrayList<Integer> getNumbers()
+	private ArrayList<Integer> getNumbers()
 	{
 		// List besser?
 		int possibilities = 4*height*width + 18 - 9*(width+height);
 		ArrayList<Integer> numbers = new ArrayList<Integer>();
 		
+		//Vertikal
 		for(int gameheight = 0;gameheight < height*width;gameheight+=width)
 		{
 			for(int gameposition = 0;gameposition < (width - 3);gameposition++)
@@ -54,6 +67,7 @@ public class Game {
 			}
 		}
 		
+		//Height
 		for(int gamewidht = 0;gamewidht < height - 3;gamewidht++)
 		{
 			for(int gameposition = 0;gameposition < (width);gameposition++)
@@ -67,6 +81,7 @@ public class Game {
 			}
 		}
 		
+		//Diagonal
 		for(int gamewidht = 0;gamewidht < height - 3;gamewidht+=width)
 		{
 			for(int gameposition = 0;gameposition < (width - 3);gameposition++)
@@ -80,6 +95,7 @@ public class Game {
 			}
 		}
 		
+		//Diagonal
 		for(int gamewidht = 0;gamewidht < height - 3;gamewidht+=width)
 		{
 			for(int gameposition = 0;gameposition < (width - 3);gameposition++)
