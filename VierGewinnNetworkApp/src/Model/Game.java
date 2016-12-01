@@ -2,7 +2,7 @@ package Model;
 import java.util.*;
 
 public class Game {
-	
+
 	private String name;
 	private int width;
 	private int height;
@@ -10,9 +10,8 @@ public class Game {
 	private Player player1;
 	private Player player2;
 	private GameState state;
-    
-	public Game(String name, int width, int height, String PlayerName1, String PlayerName2)
-	{
+
+	public Game(String name, int width, int height, String PlayerName1, String PlayerName2) {
 		this.name = name;
 		this.width = width;
 		this.height = height;
@@ -64,15 +63,15 @@ public class Game {
 				result = 2;
 			}
 		}
-	    return result;	
-	}
-	
-	private ArrayList<Integer> getNumbers()
+	    return result;
+	}  
+
+	public ArrayList<Integer> getNumbers()
 	{
 		// List besser?
 		int possibilities = 4*height*width + 18 - 9*(width+height);
 		ArrayList<Integer> numbers = new ArrayList<Integer>();
-		
+
 		//Vertikal
 		for(int gameheight = 0;gameheight < height*width;gameheight+=width)
 		{
@@ -131,6 +130,4 @@ public class Game {
 		
 		return numbers;
 	}
-	
-
 }
