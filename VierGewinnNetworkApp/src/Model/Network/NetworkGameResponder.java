@@ -30,7 +30,8 @@ public class NetworkGameResponder implements Runnable {
 				String request = streamIn.readLine();
 				System.out.println("Received: " + request);
 				if ("I want to play a game.".equals(request)) {					
-					streamOut.writeBytes("Oh shit...");
+					streamOut.writeBytes("Oh shit...\n");
+					streamOut.flush();
 				}
 			}
 		}

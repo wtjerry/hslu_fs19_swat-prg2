@@ -26,6 +26,11 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -38,7 +43,7 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jTextField1.setText("127.0.0.");
+        jTextField1.setText("192.168.1.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,7 +78,6 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		String baseIpAddress = jTextField1.getText();
-		NetworkGameResponder networkGameResponder = new NetworkGameResponder();
 		NetworkPlayersSearch networkSearch = new NetworkPlayersSearch(baseIpAddress);
 		networkSearch.setListener(answeringHosts -> {
 			jTextArea1.append("\nanswering hosts:\n");
@@ -81,9 +85,13 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 			jTextArea1.append("\nend of list");
 		});
 		
-		new Thread(networkGameResponder).start();
-		//new Thread(networkSearch).start();
+		new Thread(networkSearch).start();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+		NetworkGameResponder networkGameResponder = new NetworkGameResponder();
+		new Thread(networkGameResponder).start();
+    }//GEN-LAST:event_formWindowOpened
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
