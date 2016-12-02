@@ -1,16 +1,18 @@
 package Views;
 
-import Model.Network.NetworkGameResponder;
-import Model.Network.NetworkPlayersSearch;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Model.Network.NetworkPlayerSearchResponder;
+import Model.Network.NetworkPlayerSearcher;
 
 public class NetworkPlayersListUI extends javax.swing.JFrame {
 
-	private int port = 5400;
+	private final int port = 5400;
+	private final NetworkPlayerSearchResponder networkPlayerSearchResponder;
+	private final NetworkPlayerSearcher networkPlayerSearcher;
 	
 	public NetworkPlayersListUI() {
 		initComponents();
+		this.networkPlayerSearcher = new NetworkPlayerSearcher(port);
+		this.networkPlayerSearchResponder= new NetworkPlayerSearchResponder(port);
 	}
 
 	/**
@@ -26,6 +28,8 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -34,7 +38,7 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        jButton1.setText("start search");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -47,21 +51,36 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 
         jTextField1.setText("192.168.1.");
 
+        jTextField2.setText("ip");
+
+        jButton2.setText("initiate game");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(112, Short.MAX_VALUE))
+                        .addGap(65, 65, 65)
+                        .addComponent(jButton2)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,9 +89,17 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -80,20 +107,48 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		String baseIpAddress = jTextField1.getText();
-		NetworkPlayersSearch networkSearch = new NetworkPlayersSearch(baseIpAddress, port);
-		networkSearch.setListener(answeringHosts -> {
+		this.networkPlayerSearcher.setBaseIpAddress(baseIpAddress);
+		this.networkPlayerSearcher.setListener(answeringHosts -> {
 			jTextArea1.append("\nanswering hosts:\n");
 			jTextArea1.append(String.join("\n", answeringHosts));
 			jTextArea1.append("\nend of list");
 		});
 		
-		new Thread(networkSearch).start();
+		new Thread(this.networkPlayerSearcher).start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-		NetworkGameResponder networkGameResponder = new NetworkGameResponder(port);
-		new Thread(networkGameResponder).start();
+		new Thread(this.networkPlayerSearchResponder).start();
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+		this.networkPlayerSearchResponder.stopResponding();
+		this.networkPlayerSearcher.stopSearching();
+		
+		/*
+				
+		new class with ----- will this be the two oponent classes?
+		method: playNextDisk(position)	--> internaly saves nextTurn, ?throws ex when not in state MyTurn or nextTurn already set?
+		event: otherPlayerPlayedDisk(position)
+		method: initiateGame():			--> starts new thread which when in state:
+			- MyTurn checks for this.nextTurn and sends it
+			- WaitingForOpponent listens and throws event when something received
+			
+		
+		
+		set state to InitiatingGame
+		oponent.initiateGame()
+		
+		------- repeat
+		on event oponent.otherplayerPlayedDisk(pos) -> {
+			tell ui 
+		}
+				
+		oponent.playNextDisk(pos);
+		-------
+		
+		*/
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
@@ -130,8 +185,10 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,12 +9,12 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NetworkGameResponder implements Runnable {
+public class NetworkPlayerSearchResponder implements Runnable {
 
 	private final int port;
 	private boolean continueResponding;
 
-	public NetworkGameResponder(int port) {
+	public NetworkPlayerSearchResponder(int port) {
 		this.port = port;
 		this.continueResponding = true;
 	}	
@@ -36,7 +36,7 @@ public class NetworkGameResponder implements Runnable {
 			}
 		}
 		} catch (IOException ex) {
-			Logger.getLogger(NetworkGameResponder.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(NetworkPlayerSearchResponder.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 

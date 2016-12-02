@@ -13,29 +13,32 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class NetworkPlayersSearch implements Runnable {
+public class NetworkPlayerSearcher implements Runnable {
 
-	private final int port;
 	private final int timeoutInMilliseconds = 50;
+	private final int port;
 			
-	private final String baseIpAddress;
+	private String baseIpAddress = null;
 	private NewPlayersFoundListener newPlayersFoundListener;
 	private boolean continueSearching;
 
-	public NetworkPlayersSearch(String baseIpAddress, int port) {
+	public NetworkPlayerSearcher(int port) {
 		this.port = port;
-		this.baseIpAddress = baseIpAddress;
 		this.continueSearching = true;
 	}	
 	
 	@Override
 	public void run() {
+		if (this.baseIpAddress == null) {
+			throw new RuntimeException("baseIpAddress not set.") {};
+		}
+		
 		while (this.continueSearching) {			
 			SearchPlayersAndThrowEvent();
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException ex) {
-				Logger.getLogger(NetworkPlayersSearch.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(NetworkPlayerSearcher.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 	}
@@ -59,9 +62,9 @@ public class NetworkPlayersSearch implements Runnable {
 					availableHosts.add(host);
 				}
 			} catch (UnknownHostException ex) {
-				Logger.getLogger(NetworkPlayersSearch.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(NetworkPlayerSearcher.class.getName()).log(Level.SEVERE, null, ex);
 			} catch (IOException ex) {
-				Logger.getLogger(NetworkPlayersSearch.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(NetworkPlayerSearcher.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 
@@ -90,6 +93,10 @@ public class NetworkPlayersSearch implements Runnable {
 		}
 
 		return answeringHosts;
+	}
+	
+	public void setBaseIpAddress(String baseIpAddress) {
+		this.baseIpAddress = baseIpAddress;
 	}
 	
 	public void setListener(NewPlayersFoundListener newPlayersFoundListener) {
