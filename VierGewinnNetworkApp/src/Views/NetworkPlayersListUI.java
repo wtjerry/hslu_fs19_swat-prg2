@@ -91,49 +91,6 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 		new Thread(networkSearch).start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-	private List<String> GetAvailableHostsInNetwork(final String baseIpAddress, final int timeoutInMilliseconds) {
-		List<String> availableHosts = new ArrayList<>();
-
-		for (int i = 0; i < 255; i++) {
-			String host = baseIpAddress + i;
-			try {
-				boolean isReachable = InetAddress.getByName(host).isReachable(timeoutInMilliseconds);
-				if (isReachable) {
-					availableHosts.add(host);
-				}
-			} catch (UnknownHostException ex) {
-				Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (IOException ex) {
-				Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-
-		return availableHosts;
-	}
-	
-	private List<String> GetAnsweringHosts(final List<String> availableHosts, final int DedicatedPort) {
-		List<String> answeringHosts = new ArrayList<>();
-		
-		for (String host : availableHosts) {
-			try {
-				try (Socket clientSocket = new Socket(host, DedicatedPort)) {
-					DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-					BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-					outToServer.writeBytes("I want to play a game.");
-					String response = inFromServer.readLine();
-					Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.FINE, "response: {0}", response);
-					if ("Oh shit...".equals(response)) {
-						answeringHosts.add(host);
-					}
-				}
-			} catch (IOException ex) {
-				//Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, "io exception for host {0}. This guy probably does not want to play.", host);
-			}
-		}
-		
-		return answeringHosts;
-	}
-
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
