@@ -84,7 +84,7 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 		String baseIpAddress = jTextField1.getText();
 		NetworkPlayersSearch networkSearch = new NetworkPlayersSearch(baseIpAddress);
 		networkSearch.setListener(answeringHosts -> {
-			jTextArea1.append("answering hosts:\n");
+			jTextArea1.append("\nanswering hosts:\n");
 			jTextArea1.append(String.join("\n", answeringHosts));
 			jTextArea1.append("\nend of list");
 		});

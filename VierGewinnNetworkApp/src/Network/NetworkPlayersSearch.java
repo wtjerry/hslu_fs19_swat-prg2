@@ -20,22 +20,31 @@ public class NetworkPlayersSearch implements Runnable {
 			
 	private final String baseIpAddress;
 	private NewPlayersFoundListener newPlayersFoundListener;
+	private boolean continueSearching;
 
 	public NetworkPlayersSearch(String baseIpAddress) {
 		this.baseIpAddress = baseIpAddress;
+		this.continueSearching = true;
 	}	
 	
 	@Override
 	public void run() {
+		while (this.continueSearching) {			
+			SearchPlayersAndThrowEvent();
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException ex) {
+				Logger.getLogger(NetworkPlayersSearch.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
+
+	private void SearchPlayersAndThrowEvent() {
 		final List<String> availableHosts = this.GetAvailableHostsInNetwork();
 		final List<String> answeringHosts = this.GetAnsweringHosts(availableHosts);
 		if (this.newPlayersFoundListener != null) {
 			newPlayersFoundListener.NewPlayersFound(answeringHosts);
 		}
-	}
-	
-	public void setListener(NewPlayersFoundListener newPlayersFoundListener) {
-		this.newPlayersFoundListener = newPlayersFoundListener;
 	}
 	
 	private List<String> GetAvailableHostsInNetwork() {
@@ -79,5 +88,13 @@ public class NetworkPlayersSearch implements Runnable {
 		}
 
 		return answeringHosts;
+	}
+	
+	public void setListener(NewPlayersFoundListener newPlayersFoundListener) {
+		this.newPlayersFoundListener = newPlayersFoundListener;
+	}
+	
+	public void stopSearching() {
+		this.continueSearching = false;
 	}
 }
