@@ -1,6 +1,9 @@
 package Views;
 
+import Model.Network.NetworkGameResponder;
 import Model.Network.NetworkPlayersSearch;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NetworkPlayersListUI extends javax.swing.JFrame {
 
@@ -70,13 +73,16 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		String baseIpAddress = jTextField1.getText();
+		NetworkGameResponder networkGameResponder = new NetworkGameResponder();
 		NetworkPlayersSearch networkSearch = new NetworkPlayersSearch(baseIpAddress);
 		networkSearch.setListener(answeringHosts -> {
 			jTextArea1.append("\nanswering hosts:\n");
 			jTextArea1.append(String.join("\n", answeringHosts));
 			jTextArea1.append("\nend of list");
 		});
-		new Thread(networkSearch).start();
+		
+		new Thread(networkGameResponder).start();
+		//new Thread(networkSearch).start();
     }//GEN-LAST:event_jButton1ActionPerformed
 
 	public static void main(String args[]) {

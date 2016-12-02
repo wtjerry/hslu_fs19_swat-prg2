@@ -72,11 +72,11 @@ public class NetworkPlayersSearch implements Runnable {
 
 		for (String host : availableHosts) {
 			try {
-				try (Socket clientSocket = new Socket(host, this.dedicatedPort)) {
-					DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
-					BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-					outToServer.writeBytes("I want to play a game.");
-					String response = inFromServer.readLine();
+				try (Socket hostSocket = new Socket(host, this.dedicatedPort)) {
+					DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
+					BufferedReader streamFromHost = new BufferedReader(new InputStreamReader(hostSocket.getInputStream()));
+					streamToHost.writeBytes("I want to play a game.");
+					String response = streamFromHost.readLine();
 					Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.FINE, "response: {0}", response);
 					if ("Oh shit...".equals(response)) {
 						answeringHosts.add(host);
