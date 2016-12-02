@@ -11,24 +11,24 @@ import java.util.logging.Logger;
 
 public class NetworkGameResponder implements Runnable {
 
-	private final int dedicatedPort = 5400;
+	private final int port;
 	private boolean continueResponding;
 
-	public NetworkGameResponder() {
+	public NetworkGameResponder(int port) {
+		this.port = port;
 		this.continueResponding = true;
 	}	
 	
 	@Override
 	public void run() {
 		try {
-		ServerSocket localSocket = new ServerSocket(this.dedicatedPort);
+		ServerSocket localSocket = new ServerSocket(this.port);
 		while (this.continueResponding) {
 			try (Socket connectionSocket = localSocket.accept()) {
 				BufferedReader streamIn
 						= new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 				DataOutputStream streamOut = new DataOutputStream(connectionSocket.getOutputStream());
 				String request = streamIn.readLine();
-				System.out.println("Received: " + request);
 				if ("I want to play a game.".equals(request)) {					
 					streamOut.writeBytes("Oh shit...\n");
 					streamOut.flush();

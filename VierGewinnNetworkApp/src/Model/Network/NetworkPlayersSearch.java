@@ -15,14 +15,15 @@ import java.util.logging.Logger;
 
 public class NetworkPlayersSearch implements Runnable {
 
-	private final int dedicatedPort = 5400;
+	private final int port;
 	private final int timeoutInMilliseconds = 50;
 			
 	private final String baseIpAddress;
 	private NewPlayersFoundListener newPlayersFoundListener;
 	private boolean continueSearching;
 
-	public NetworkPlayersSearch(String baseIpAddress) {
+	public NetworkPlayersSearch(String baseIpAddress, int port) {
+		this.port = port;
 		this.baseIpAddress = baseIpAddress;
 		this.continueSearching = true;
 	}	
@@ -72,7 +73,7 @@ public class NetworkPlayersSearch implements Runnable {
 
 		for (String host : availableHosts) {
 			try {
-				try (Socket hostSocket = new Socket(host, this.dedicatedPort)) {
+				try (Socket hostSocket = new Socket(host, this.port)) {
 					DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
 					BufferedReader streamFromHost = new BufferedReader(new InputStreamReader(hostSocket.getInputStream()));
 					streamToHost.writeBytes("I want to play a game.\n");

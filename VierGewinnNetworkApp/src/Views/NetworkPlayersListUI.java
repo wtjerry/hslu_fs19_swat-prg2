@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 
 public class NetworkPlayersListUI extends javax.swing.JFrame {
 
+	private int port = 5400;
+	
 	public NetworkPlayersListUI() {
 		initComponents();
 	}
@@ -78,7 +80,7 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 		String baseIpAddress = jTextField1.getText();
-		NetworkPlayersSearch networkSearch = new NetworkPlayersSearch(baseIpAddress);
+		NetworkPlayersSearch networkSearch = new NetworkPlayersSearch(baseIpAddress, port);
 		networkSearch.setListener(answeringHosts -> {
 			jTextArea1.append("\nanswering hosts:\n");
 			jTextArea1.append(String.join("\n", answeringHosts));
@@ -89,7 +91,7 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-		NetworkGameResponder networkGameResponder = new NetworkGameResponder();
+		NetworkGameResponder networkGameResponder = new NetworkGameResponder(port);
 		new Thread(networkGameResponder).start();
     }//GEN-LAST:event_formWindowOpened
 
