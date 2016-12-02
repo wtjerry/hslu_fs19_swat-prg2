@@ -1,18 +1,6 @@
 package Views;
 
-import Network.NetworkPlayersSearch;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Model.Network.NetworkPlayersSearch;
 
 public class NetworkPlayersListUI extends javax.swing.JFrame {
 

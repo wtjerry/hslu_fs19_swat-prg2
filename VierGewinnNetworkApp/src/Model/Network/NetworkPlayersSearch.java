@@ -1,4 +1,4 @@
-package Network;
+package Model.Network;
 
 import Views.NetworkPlayersListUI;
 import java.io.BufferedReader;
