@@ -54,6 +54,7 @@ public class NetworkPlayerSearcher implements Runnable {
 	private List<String> GetAvailableHostsInNetwork() {
 		List<String> availableHosts = new ArrayList<>();
 
+		//todo: jeremy don't ping myself 
 		for (int i = 0; i < 255; i++) {
 			String host = baseIpAddress + i;
 			try {
