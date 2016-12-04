@@ -50,6 +50,9 @@ public class NetworkRequestManager {
 			case ProtocolKeywords.AvailableNetworkPlayerListingRequest:
 				requestHandler = new NetworkListingHandler(connectionSocket);
 				break;
+			case ProtocolKeywords.InitGameRequest:
+				requestHandler = new InitGameHandler(connectionSocket);
+				break;
 			default:
 				requestHandler = new DefaultHandler(request, connectionSocket);
 				break;

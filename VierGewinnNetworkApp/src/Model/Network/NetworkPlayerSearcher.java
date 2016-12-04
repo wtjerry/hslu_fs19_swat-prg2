@@ -81,7 +81,6 @@ public class NetworkPlayerSearcher implements Runnable {
 					streamToHost.writeBytes(ProtocolKeywords.AvailableNetworkPlayerListingRequest + "\n");
 					streamToHost.flush();
 					String response = streamFromHost.readLine();
-					Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.FINE, "response: {0}", response);
 					if (ProtocolKeywords.AvailableNetworkPlayerListingAnswer.equals(response)) {
 						answeringHosts.add(host);
 					}

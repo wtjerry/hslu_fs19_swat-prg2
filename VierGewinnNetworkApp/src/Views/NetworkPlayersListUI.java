@@ -1,5 +1,6 @@
 package Views;
 
+import Controller.NetworkGameController;
 import Model.Network.NetworkPlayerSearcher;
 import Model.Network.RequestHandling.NetworkRequestManager;
 
@@ -8,11 +9,13 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 	private final int port = 5400;
 	private final NetworkRequestManager networkRequestManager;
 	private final NetworkPlayerSearcher networkPlayerSearcher;
+	private final NetworkGameController networkGameController;
 	
 	public NetworkPlayersListUI() {
 		initComponents();
 		this.networkPlayerSearcher = new NetworkPlayerSearcher(this.port);
 		this.networkRequestManager = new NetworkRequestManager(this.port);
+		this.networkGameController = new NetworkGameController(this.port);
 	}
 
 	/**
@@ -123,8 +126,8 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-		this.networkRequestManager.stopHandlingRequests();
 		this.networkPlayerSearcher.stopSearching();
+		this.networkGameController.InitiateGame(jTextField2.getText());
 		
 		/*
 				
