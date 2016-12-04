@@ -9,13 +9,12 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 	private final int port = 5400;
 	private final NetworkRequestManager networkRequestManager;
 	private final NetworkPlayerSearcher networkPlayerSearcher;
-	private final NetworkGameController networkGameController;
+	NetworkGameController networkGameController;
 	
 	public NetworkPlayersListUI() {
 		initComponents();
 		this.networkPlayerSearcher = new NetworkPlayerSearcher(this.port);
 		this.networkRequestManager = new NetworkRequestManager(this.port);
-		this.networkGameController = new NetworkGameController(this.port);
 	}
 
 	/**
@@ -33,6 +32,8 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jTextField3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -63,6 +64,15 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("play disk");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jTextField3.setText("row");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,7 +83,11 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
-                        .addComponent(jButton2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton3)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
@@ -102,7 +116,11 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton3)
+                        .addGap(74, 74, 74))))
         );
 
         pack();
@@ -127,32 +145,15 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 		this.networkPlayerSearcher.stopSearching();
-		this.networkGameController.InitiateGame(jTextField2.getText());
-		
-		/*
-				
-		new class with ----- will this be the two oponent classes?
-		method: playNextDisk(position)	--> internaly saves nextTurn, ?throws ex when not in state MyTurn or nextTurn already set?
-		event: otherPlayerPlayedDisk(position)
-		method: initiateGame():			--> starts new thread which when in state:
-			- MyTurn checks for this.nextTurn and sends it
-			- WaitingForOpponent listens and throws event when something received
-			
-		
-		
-		set state to InitiatingGame
-		oponent.initiateGame()
-		
-		------- repeat
-		on event oponent.otherplayerPlayedDisk(pos) -> {
-			tell ui 
-		}
-				
-		oponent.playNextDisk(pos);
-		-------
-		
-		*/
+		final String opponentAddress = jTextField2.getText();
+		networkGameController = new NetworkGameController(this.port, opponentAddress);
+		networkGameController.InitiateGame();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+		int row = Integer.parseInt(jTextField3.getText());
+		networkGameController.PlayDisk(row);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
@@ -190,9 +191,11 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

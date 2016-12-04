@@ -53,6 +53,9 @@ public class NetworkRequestManager {
 			case ProtocolKeywords.InitGameRequest:
 				requestHandler = new InitGameHandler(connectionSocket);
 				break;
+			case ProtocolKeywords.PlayDisk:
+				requestHandler = new DiskPlayedHandler(connectionSocket);
+				break;
 			default:
 				requestHandler = new DefaultHandler(request, connectionSocket);
 				break;

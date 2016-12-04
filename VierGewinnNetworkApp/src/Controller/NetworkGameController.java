@@ -11,22 +11,24 @@ import java.util.concurrent.CompletableFuture;
 public class NetworkGameController {
 
 	private final int port;
+	private final String opponentAddress;
 
-	public NetworkGameController(int port) {
+	public NetworkGameController(int port, String opponentAddress) {
 		this.port = port;		
+		this.opponentAddress = opponentAddress;
 	}
 
-	public void InitiateGame(String opponentAddress) {
-		CompletableFuture f = CompletableFuture.supplyAsync(() -> sendRequestToOpponent(opponentAddress));
-		f.thenAccept(answer -> opponentAnswer((boolean) answer));
+	public void InitiateGame() {
+		CompletableFuture f = CompletableFuture.supplyAsync(() -> sendInitGameRequest());
+		f.thenAccept(answer -> initGameAnswer((boolean) answer));
 	}
 	
-	private boolean sendRequestToOpponent(String opponentAddress){
+	private boolean sendInitGameRequest(){
 		
 		boolean opponentAnwer = false;
 		
 		try {
-			try (Socket hostSocket = new Socket(opponentAddress, this.port)) {
+			try (Socket hostSocket = new Socket(this.opponentAddress, this.port)) {
 				DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
 				BufferedReader streamFromHost = new BufferedReader(new InputStreamReader(hostSocket.getInputStream()));
 				streamToHost.writeBytes(ProtocolKeywords.InitGameRequest + "\n");
@@ -40,9 +42,26 @@ public class NetworkGameController {
 		return opponentAnwer;
 	}
 
-	private void opponentAnswer(boolean answer) {
+	private void initGameAnswer(boolean answer) {
 		//todo jeremy: notify listeners
 		System.out.println("opponentAnswer");
 		System.out.println(answer);
+	}
+	
+	public void PlayDisk(int row) {
+		CompletableFuture.runAsync(() -> sendPlayDisk(row));
+	}
+
+	private void sendPlayDisk(int row) {
+		try {
+			try (Socket hostSocket = new Socket(this.opponentAddress, this.port)) {
+				DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
+				BufferedReader streamFromHost = new BufferedReader(new InputStreamReader(hostSocket.getInputStream()));
+				streamToHost.writeBytes(ProtocolKeywords.PlayDisk + "\n");
+				streamToHost.writeBytes(row + "\n");
+				streamToHost.flush();
+			}
+		} catch (IOException ex) {
+		}
 	}
 }
