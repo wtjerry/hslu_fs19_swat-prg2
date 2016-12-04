@@ -51,7 +51,7 @@ public class NetworkRequestManager {
 				requestHandler = new NetworkListingHandler(connectionSocket);
 				break;
 			default:
-				requestHandler = new DefaultHandler();
+				requestHandler = new DefaultHandler(request, connectionSocket);
 				break;
 		}
 		return requestHandler;
