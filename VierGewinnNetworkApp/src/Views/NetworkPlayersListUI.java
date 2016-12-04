@@ -1,18 +1,18 @@
 package Views;
 
-import Model.Network.NetworkPlayerSearchResponder;
 import Model.Network.NetworkPlayerSearcher;
+import Model.Network.RequestHandling.NetworkRequestManager;
 
 public class NetworkPlayersListUI extends javax.swing.JFrame {
 
 	private final int port = 5400;
-	private final NetworkPlayerSearchResponder networkPlayerSearchResponder;
+	private final NetworkRequestManager networkRequestManager;
 	private final NetworkPlayerSearcher networkPlayerSearcher;
 	
 	public NetworkPlayersListUI() {
 		initComponents();
-		this.networkPlayerSearcher = new NetworkPlayerSearcher(port);
-		this.networkPlayerSearchResponder= new NetworkPlayerSearchResponder(port);
+		this.networkPlayerSearcher = new NetworkPlayerSearcher(this.port);
+		this.networkRequestManager = new NetworkRequestManager(this.port);
 	}
 
 	/**
@@ -118,11 +118,12 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-		new Thread(this.networkPlayerSearchResponder).start();
+
+		this.networkRequestManager.start();
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-		this.networkPlayerSearchResponder.stopResponding();
+		this.networkRequestManager.stopHandlingRequests();
 		this.networkPlayerSearcher.stopSearching();
 		
 		/*

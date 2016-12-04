@@ -78,16 +78,15 @@ public class NetworkPlayerSearcher implements Runnable {
 				try (Socket hostSocket = new Socket(host, this.port)) {
 					DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
 					BufferedReader streamFromHost = new BufferedReader(new InputStreamReader(hostSocket.getInputStream()));
-					streamToHost.writeBytes("I want to play a game.\n");
+					streamToHost.writeBytes(ProtocolKeywords.AvailableNetworkPlayerListingRequest + "\n");
 					streamToHost.flush();
 					String response = streamFromHost.readLine();
 					Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.FINE, "response: {0}", response);
-					if ("Oh shit...".equals(response)) {
+					if (ProtocolKeywords.AvailableNetworkPlayerListingAnswer.equals(response)) {
 						answeringHosts.add(host);
 					}
 				}
 			} catch (IOException ex) {
-				//Logger.getLogger(NetworkPlayersListUI.class.getName()).log(Level.SEVERE, "io exception for host {0}. This guy probably does not want to play.", host);
 			}
 		}
 
