@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -34,16 +35,16 @@ public class NetworkPlayerSearcher implements Runnable {
 		}
 		
 		while (this.continueSearching) {			
-			SearchPlayersAndThrowEvent();
 			try {
+				SearchPlayersAndThrowEvent();
 				Thread.sleep(10000);
-			} catch (InterruptedException ex) {
+			}catch (IOException | InterruptedException ex) {
 				Logger.getLogger(NetworkPlayerSearcher.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 	}
 
-	private void SearchPlayersAndThrowEvent() {
+	private void SearchPlayersAndThrowEvent() throws IOException {
 		final List<String> availableHosts = this.GetAvailableHostsInNetwork();
 		final List<String> answeringHosts = this.GetAnsweringHosts(availableHosts);
 		if (this.newPlayersFoundListener != null) {
@@ -51,21 +52,19 @@ public class NetworkPlayerSearcher implements Runnable {
 		}
 	}
 	
-	private List<String> GetAvailableHostsInNetwork() {
+	private List<String> GetAvailableHostsInNetwork() throws UnknownHostException, IOException {
 		List<String> availableHosts = new ArrayList<>();
 
-		//todo: jeremy don't ping myself 
+		InetAddress localHostLANAddress = LocalIpProvider.getLocalHostLANAddress();
+		String localHostAddress = localHostLANAddress.getHostAddress();
+		
 		for (int i = 0; i < 255; i++) {
 			String host = baseIpAddress + i;
-			try {
+			if (!host.equals(localHostAddress)) {
 				boolean isReachable = InetAddress.getByName(host).isReachable(this.timeoutInMilliseconds);
 				if (isReachable) {
 					availableHosts.add(host);
 				}
-			} catch (UnknownHostException ex) {
-				Logger.getLogger(NetworkPlayerSearcher.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (IOException ex) {
-				Logger.getLogger(NetworkPlayerSearcher.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 
