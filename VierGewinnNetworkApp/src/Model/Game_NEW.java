@@ -18,6 +18,7 @@ public class Game_NEW implements OpponentPlayedDiskListener{
 	public void playDisk(int row) {
 		this.currentGameState = GameState_NEW.MyTurn;
 		//this.gameField.setMyDisk(row);
+		//this.evaluateWhetherSomebodyHasWon();
 		this.opponent.opponentPlayedDisk(row);
 	}
 
@@ -32,6 +33,9 @@ public class Game_NEW implements OpponentPlayedDiskListener{
 		}
 		
 		this.currentGameState = GameState_NEW.MyTurn;
+		
+		//this.gameField.setOpponentDisk(row);
+		//this.evaluateWhetherSomebodyHasWon();
 		
 		this.opponentPlayedDiskListeners.forEach(x -> x.opponentPlayedDisk(row));
 	}
