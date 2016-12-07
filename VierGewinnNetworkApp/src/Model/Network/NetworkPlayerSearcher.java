@@ -21,8 +21,8 @@ public class NetworkPlayerSearcher implements Runnable {
 	private NewPlayersFoundListener newPlayersFoundListener;
 	private boolean continueSearching;
 
-	public NetworkPlayerSearcher(int port) {
-		this.port = port;
+	public NetworkPlayerSearcher() {
+		this.port = Settings.getPort();
 		this.continueSearching = true;
 	}	
 	

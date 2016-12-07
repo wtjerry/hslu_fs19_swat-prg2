@@ -57,7 +57,7 @@ public class NetworkGameController {
 			try (Socket hostSocket = new Socket(this.opponentAddress, this.port)) {
 				DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
 				BufferedReader streamFromHost = new BufferedReader(new InputStreamReader(hostSocket.getInputStream()));
-				streamToHost.writeBytes(ProtocolKeywords.PlayDisk + "\n");
+				streamToHost.writeBytes(ProtocolKeywords.DiskPlayed + "\n");
 				streamToHost.writeBytes(row + "\n");
 				streamToHost.flush();
 			}

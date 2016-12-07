@@ -7,10 +7,10 @@ public class Game_NEW implements OpponentPlayedDiskListener{
 
 	private final Player_NEW opponent;
 	private GameState_NEW currentGameState;
-	private final List<OpponentPlayedDiskListener> diskplayedListeners;
+	private final List<OpponentPlayedDiskListener> opponentPlayedDiskListeners;
 	
 	public Game_NEW(Player_NEW opponent) {
-		this.diskplayedListeners = new ArrayList<>();
+		this.opponentPlayedDiskListeners = new ArrayList<>();
 		this.opponent = opponent;
 		this.currentGameState = GameState_NEW.OpponentsTurn;
 	}
@@ -22,7 +22,7 @@ public class Game_NEW implements OpponentPlayedDiskListener{
 	}
 
 	public void addListener(OpponentPlayedDiskListener diskPlayedListener) {
-		this.diskplayedListeners.add(diskPlayedListener);
+		this.opponentPlayedDiskListeners.add(diskPlayedListener);
 	}
 
 	@Override
@@ -33,6 +33,6 @@ public class Game_NEW implements OpponentPlayedDiskListener{
 		
 		this.currentGameState = GameState_NEW.MyTurn;
 		
-		this.diskplayedListeners.forEach(x -> x.opponentPlayedDisk(row));
+		this.opponentPlayedDiskListeners.forEach(x -> x.opponentPlayedDisk(row));
 	}
 }

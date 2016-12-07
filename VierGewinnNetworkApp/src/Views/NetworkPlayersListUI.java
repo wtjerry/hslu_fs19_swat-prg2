@@ -13,8 +13,8 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 	
 	public NetworkPlayersListUI() {
 		initComponents();
-		this.networkPlayerSearcher = new NetworkPlayerSearcher(this.port);
-		this.networkRequestManager = new NetworkRequestManager(this.port);
+		this.networkPlayerSearcher = new NetworkPlayerSearcher();
+		this.networkRequestManager = new NetworkRequestManager();
 	}
 
 	/**

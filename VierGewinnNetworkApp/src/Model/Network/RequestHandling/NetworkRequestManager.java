@@ -1,6 +1,8 @@
 package Model.Network.RequestHandling;
 
 import Model.Network.ProtocolKeywords;
+import Model.Network.Settings;
+import Model.OpponentPlayedDiskListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,9 +18,10 @@ public class NetworkRequestManager {
 	private final int port;
 	private final ExecutorService threadPool;
 	private boolean continueHandlingRequests;
+	private OpponentPlayedDiskListener opponentPlayedDiskListener;
 
-	public NetworkRequestManager(int port) {
-		this.port = port;
+	public NetworkRequestManager() {
+		this.port = Settings.getPort();
 		this.threadPool = Executors.newFixedThreadPool(poolSize);
 		this.continueHandlingRequests = true;
 	}	
@@ -53,8 +56,8 @@ public class NetworkRequestManager {
 			case ProtocolKeywords.InitGameRequest:
 				requestHandler = new InitGameHandler(connectionSocket);
 				break;
-			case ProtocolKeywords.PlayDisk:
-				requestHandler = new DiskPlayedHandler(connectionSocket);
+			case ProtocolKeywords.DiskPlayed:
+				requestHandler = new DiskPlayedHandler(connectionSocket, this.opponentPlayedDiskListener);
 				break;
 			default:
 				requestHandler = new DefaultHandler(request, connectionSocket);
@@ -65,5 +68,9 @@ public class NetworkRequestManager {
 
 	public void stopHandlingRequests() {
 		this.continueHandlingRequests = false;
+	}
+	
+	public void setOpponentPlayedDiskListener(OpponentPlayedDiskListener opponentPlayedDiskListener){
+		this.opponentPlayedDiskListener = opponentPlayedDiskListener;
 	}
 }
