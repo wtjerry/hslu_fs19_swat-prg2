@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package viewclasses;
+package Views;
 
-import viewclasses.subPanel.StartViewPanel;
+import Views.subPanel.StartViewPanel;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import viewclasses.subPanel.HelpViewPanel;
-import viewclasses.subPanel.NetworkViewPanel;
+import Views.subPanel.HelpViewPanel;
+import Views.subPanel.NetworkViewPanel;
 
 /**
  *
@@ -32,7 +32,7 @@ public class ViewHandler extends JFrame{
     }
     
     private void initComponent(){
-        URL iconURL = getClass().getResource("test.png");
+        URL iconURL = this.getClass().getResource("test.png");
         ImageIcon icon = new ImageIcon(iconURL);
         this.setIconImage(icon.getImage());
         

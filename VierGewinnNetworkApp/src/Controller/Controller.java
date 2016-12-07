@@ -6,17 +6,20 @@ import Model.Network.RequestHandling.NetworkRequestManager;
 import Model.NetworkPlayer;
 import Model.OpponentPlayedDiskListener;
 import Model.Player_NEW;
+import Views.ViewHandler;
 
 public class Controller implements OpponentPlayedDiskListener {
 
 	private final NetworkRequestManager networkRequestManager;
 	private Game_NEW game;
+	private final ViewHandler viewHandler;
 	
-	public Controller(){
+	public Controller(ViewHandler viewHandler){
+		this.viewHandler = viewHandler;
 		this.networkRequestManager = new NetworkRequestManager();
 		this.networkRequestManager.start();
 	}
-			
+		
 	public void playLocalPressed(){
 		Player_NEW opponent = new AIPlayer();
 		this.game = new Game_NEW(opponent);
@@ -40,5 +43,9 @@ public class Controller implements OpponentPlayedDiskListener {
 	@Override
 	public void opponentPlayedDisk(int row) {
 		//this.ui.updateUI();
+	}
+
+	public void init() {
+		//this.viewHandler.switchToStartView(this);
 	}
 }
