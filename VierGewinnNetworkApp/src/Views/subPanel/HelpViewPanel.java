@@ -17,29 +17,23 @@ import Views.ViewHandler;
  *
  * @author Dane Wicki
  */
-public class HelpViewPanel extends CardsClass{
-    public HelpViewPanel(JPanel cards){
-        super(cards);
+public class HelpViewPanel extends JPanel{
+    public HelpViewPanel(){
         initComponent();
     }
-    @Override
+    
     protected final void initComponent(){
         helpText = new JTextArea("How to play This Game:\n TO BE DEFINED");
         back = new JButton("close");
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                backActionPerformed(ae);
+                //backActionPerformed(ae);
             }
         });
         
         this.add(back);     
         this.add(helpText);
-    }
-    
-    private void backActionPerformed(ActionEvent ae){
-        super.switchToCard(ViewHandler.STARTVIEWNAME);
-        
     }
     
     private JTextArea helpText;

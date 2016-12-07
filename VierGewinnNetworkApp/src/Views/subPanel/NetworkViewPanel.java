@@ -5,24 +5,21 @@
  */
 package Views.subPanel;
 
+import Views.Interfaces.NetworkView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import Views.ViewHandler;
 
-/**
- *
- * @author dane
- */
-public class NetworkViewPanel extends CardsClass{
-    public NetworkViewPanel(JPanel cards){
-        super(cards);
+
+public class NetworkViewPanel extends JPanel implements NetworkView{
+    public NetworkViewPanel(){
         initComponent();
     }
-    @Override
+    
     protected final void initComponent(){
         listScrollPane = new JScrollPane();
         computerList = new JList<>();
@@ -49,15 +46,20 @@ public class NetworkViewPanel extends CardsClass{
         this.add(startGame);
     }
     private void startGameActionPerformed(ActionEvent ae) {
-        super.switchToCard(ViewHandler.STARTVIEWNAME);
+        //super.switchToCard(ViewHandler.STARTVIEWNAME);
     }
     private void backActionPerformed(ActionEvent ae){
-        super.switchToCard(ViewHandler.STARTVIEWNAME);
+        //super.switchToCard(ViewHandler.STARTVIEWNAME);
+    }
+    //private JButton search;
+
+    @Override
+    public void showAvailablePlayers(List<String> allPlayers) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     private JScrollPane listScrollPane;
     private JList<String> computerList;
     private JButton startGame;
     private JButton back;
-    //private JButton search;
 }
