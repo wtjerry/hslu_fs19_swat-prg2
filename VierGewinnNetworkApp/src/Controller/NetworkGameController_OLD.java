@@ -8,12 +8,12 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.concurrent.CompletableFuture;
 
-public class NetworkGameController {
+public class NetworkGameController_OLD {
 
 	private final int port;
 	private final String opponentAddress;
 
-	public NetworkGameController(int port, String opponentAddress) {
+	public NetworkGameController_OLD(int port, String opponentAddress) {
 		this.port = port;		
 		this.opponentAddress = opponentAddress;
 	}
