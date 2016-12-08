@@ -5,6 +5,10 @@
  */
 package Views;
 
+import Views.Interfaces.GameView;
+import Views.Interfaces.LocalGameCreationView;
+import Views.Interfaces.NetworkView;
+import Views.Interfaces.StartView;
 import Views.Interfaces.ViewHandler;
 import Views.subPanel.StartViewPanel;
 import java.awt.CardLayout;
@@ -64,5 +68,25 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
     private StartViewPanel startView;
     private HelpViewPanel helpView;
     private NetworkViewPanel networkView;
+
+    @Override
+    public StartView switchToStartView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public LocalGameCreationView switchToLocalGameCreationView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public NetworkView switchToNetworkView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public GameView switchToGameView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
