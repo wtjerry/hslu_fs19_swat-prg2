@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import Views.ViewHandler;
+import Views.ViewHandlerImpl;
 
 /**
  *
@@ -38,7 +38,7 @@ public class HelpViewPanel extends CardsClass{
     }
     
     private void backActionPerformed(ActionEvent ae){
-        super.switchToCard(ViewHandler.STARTVIEWNAME);
+        super.switchToCard(ViewHandlerImpl.STARTVIEWNAME);
         
     }
     

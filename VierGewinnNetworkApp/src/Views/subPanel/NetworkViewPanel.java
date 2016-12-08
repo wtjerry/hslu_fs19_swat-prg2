@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import Views.ViewHandler;
+import Views.ViewHandlerImpl;
 
 /**
  *
@@ -49,10 +49,10 @@ public class NetworkViewPanel extends CardsClass{
         this.add(startGame);
     }
     private void startGameActionPerformed(ActionEvent ae) {
-        super.switchToCard(ViewHandler.STARTVIEWNAME);
+        super.switchToCard(ViewHandlerImpl.STARTVIEWNAME);
     }
     private void backActionPerformed(ActionEvent ae){
-        super.switchToCard(ViewHandler.STARTVIEWNAME);
+        super.switchToCard(ViewHandlerImpl.STARTVIEWNAME);
     }
     
     private JScrollPane listScrollPane;

@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Views.Interfaces.ViewHandler;
 import Views.subPanel.StartViewPanel;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -19,7 +20,7 @@ import Views.subPanel.NetworkViewPanel;
  *
  * @author Dane Wicki
  */
-public class ViewHandler extends JFrame{
+public class ViewHandlerImpl extends JFrame implements ViewHandler{
     private final int MIN_HEIGHT = 300;
     private final int MIN_WIDTH = 400;
     public static final String STARTVIEWNAME = "startview";
@@ -27,7 +28,7 @@ public class ViewHandler extends JFrame{
     public static final String NETWORKVIEW = "networkview";
     
     
-    public ViewHandler(){
+    public ViewHandlerImpl(){
         initComponent();
     }
     

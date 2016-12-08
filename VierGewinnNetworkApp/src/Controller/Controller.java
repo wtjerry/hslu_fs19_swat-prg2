@@ -6,7 +6,7 @@ import Model.Network.RequestHandling.NetworkRequestManager;
 import Model.NetworkPlayer;
 import Model.OpponentPlayedDiskListener;
 import Model.Player_NEW;
-import Views.ViewHandler;
+import Views.Interfaces.ViewHandler;
 
 public class Controller implements OpponentPlayedDiskListener {
 

@@ -13,7 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import Views.ViewHandler;
+import Views.ViewHandlerImpl;
 
 /**
  *
@@ -70,11 +70,11 @@ public class StartViewPanel extends CardsClass {
 	}
 
 	private void startNetGameActionPerformed(ActionEvent evt) {
-		super.switchToCard(ViewHandler.NETWORKVIEW);
+		super.switchToCard(ViewHandlerImpl.NETWORKVIEW);
 	}
 
 	private void openHelpActionPerformed(ActionEvent evt) {
-		super.switchToCard(ViewHandler.HELPVIEWNAME);
+		super.switchToCard(ViewHandlerImpl.HELPVIEWNAME);
 	}
 
 	JButton startAI;
