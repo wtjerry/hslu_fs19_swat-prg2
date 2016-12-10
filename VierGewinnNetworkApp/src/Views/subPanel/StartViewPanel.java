@@ -5,13 +5,15 @@
  */
 package Views.subPanel;
 
+import Views.Interfaces.StartView;
 import Views.Interfaces.StartViewListener;
 import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class StartViewPanel extends JPanel{
+public class StartViewPanel extends JPanel implements StartView{
+    
     public StartViewPanel(){
         initComponent();
     }
@@ -39,9 +41,15 @@ public class StartViewPanel extends JPanel{
         this.add(startNetGame);
         this.add(openHelp);
     }
+
+    @Override
+    public void addListener(StartViewListener startViewListener) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     JButton startAI;
     JButton startNetGame;
     JButton openHelp;
+
 }

@@ -1,6 +1,6 @@
 package Views;
 
-import Controller.NetworkGameController;
+import Controller.NetworkGameController_OLD;
 import Model.Network.NetworkPlayerSearcher;
 import Model.Network.RequestHandling.NetworkRequestManager;
 
@@ -9,7 +9,7 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
 	private final int port = 5400;
 	private final NetworkRequestManager networkRequestManager;
 	private final NetworkPlayerSearcher networkPlayerSearcher;
-	NetworkGameController networkGameController;
+	NetworkGameController_OLD networkGameController;
 	
 	public NetworkPlayersListUI() {
 		initComponents();
@@ -146,7 +146,7 @@ public class NetworkPlayersListUI extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 		this.networkPlayerSearcher.stopSearching();
 		final String opponentAddress = jTextField2.getText();
-		networkGameController = new NetworkGameController(this.port, opponentAddress);
+		networkGameController = new NetworkGameController_OLD(this.port, opponentAddress);
 		networkGameController.InitiateGame();
     }//GEN-LAST:event_jButton2ActionPerformed
 

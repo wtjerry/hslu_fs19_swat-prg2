@@ -1,6 +1,7 @@
 package Views.subPanel;
 
 import Views.Interfaces.GameView;
+import Views.Interfaces.GameViewListener;
 import javax.swing.JPanel;
 
 /**
@@ -18,6 +19,11 @@ public class GameViewPanel extends JPanel implements GameView{
 
     @Override
     public void showCurrentPlayer(int player) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addListener(GameViewListener gameViewListener) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

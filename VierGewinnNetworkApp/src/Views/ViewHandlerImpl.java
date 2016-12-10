@@ -5,11 +5,13 @@
  */
 package Views;
 
-
 import Views.subPanel.LocalGameCreationViewPanel;
 import Views.subPanel.GameViewPanel;
 import Views.Interfaces.GameView;
+import Views.Interfaces.LocalGameCreationView;
 import Views.Interfaces.NetworkView;
+import Views.Interfaces.StartView;
+import Views.Interfaces.ViewHandler;
 import Views.subPanel.StartViewPanel;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -20,11 +22,8 @@ import javax.swing.JPanel;
 import Views.subPanel.HelpViewPanel;
 import Views.subPanel.NetworkViewPanel;
 
-/**
- *
- * @author Dane Wicki
- */
-public class ViewHandler extends JFrame{
+
+public class ViewHandlerImpl extends JFrame implements ViewHandler{
     private final int MIN_HEIGHT = 300;
     private final int MIN_WIDTH = 400;
     
@@ -35,20 +34,26 @@ public class ViewHandler extends JFrame{
     public static final String GAMEVIEW = "gameview";
     
     
-    
-    public void switchToStartView(){
+    @Override
+    public  StartView switchToStartView(){
         clayout.show(cards, STARTVIEWNAME);
+        return startView;
     }
+    @Override
     public void switchToHelpView(){
         clayout.show(cards, HELPVIEWNAME);
     }
+    @Override
     public NetworkView switchToNetworkView(){
         clayout.show(cards, NETWORKVIEW);
         return networkView;
     }
-    public void switchToLocalGameCreationView(){
+    @Override
+    public LocalGameCreationView switchToLocalGameCreationView(){
         clayout.show(cards, LOCALGAMECREATIONVIEW);
+        return localGameCreationView;
     }    
+    @Override
     public GameView switchToGameView(){
         clayout.show(cards, GAMEVIEW);
         return gameView;
@@ -56,7 +61,7 @@ public class ViewHandler extends JFrame{
     
     
     
-    public ViewHandler(){
+    public ViewHandlerImpl(){
         initComponent();
     }
     
@@ -87,6 +92,8 @@ public class ViewHandler extends JFrame{
         cards.add(startView, STARTVIEWNAME);
         cards.add(helpView, HELPVIEWNAME);
         cards.add(networkView, NETWORKVIEW);
+        cards.add(gameView, GAMEVIEW);
+        cards.add(localGameCreationView, LOCALGAMECREATIONVIEW);
         
         this.add(cards);
         this.setVisible(true);        
@@ -101,5 +108,6 @@ public class ViewHandler extends JFrame{
     private HelpViewPanel helpView;
     private NetworkViewPanel networkView;
     private GameViewPanel gameView;
+
     
 }

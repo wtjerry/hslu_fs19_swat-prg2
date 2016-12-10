@@ -6,6 +6,7 @@
 package Views.subPanel;
 
 import Views.Interfaces.NetworkView;
+import Views.Interfaces.NetworkViewListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -31,13 +32,13 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                backActionPerformed(ae);
+                //backActionPerformed(ae);
             }
         });
         startGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                startGameActionPerformed(ae);
+               // startGameActionPerformed(ae);
             }
         });
         
@@ -45,14 +46,6 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
         this.add(back);
         this.add(startGame);
     }
-    private void startGameActionPerformed(ActionEvent ae) {
-        //super.switchToCard(ViewHandler.STARTVIEWNAME);
-    }
-    private void backActionPerformed(ActionEvent ae){
-        //super.switchToCard(ViewHandler.STARTVIEWNAME);
-    }
-    //private JButton search;
-
     @Override
     public void showAvailablePlayers(List<String> allPlayers) {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -62,4 +55,9 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
     private JList<String> computerList;
     private JButton startGame;
     private JButton back;
+
+    @Override
+    public void addListener(NetworkViewListener networkViewListener) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
