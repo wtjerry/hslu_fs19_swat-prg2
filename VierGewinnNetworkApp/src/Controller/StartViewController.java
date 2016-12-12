@@ -22,4 +22,9 @@ public class StartViewController implements StartViewListener {
     public void PlayOverNetworkPressed() {
         this.navigator.navigateToNetworkView();
     }
+
+    @Override
+    public void OpenHelpPressed() {
+        this.navigator.navigateToHelpView();
+    }
 }

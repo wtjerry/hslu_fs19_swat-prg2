@@ -40,6 +40,12 @@ public class StartViewPanel extends JPanel implements StartView{
                 this.startViewListener.PlayOverNetworkPressed();
             }
         });
+        
+        openHelp.addActionListener(x -> {
+            if (this.startViewListener != null) {
+                this.startViewListener.OpenHelpPressed();
+            }
+        });
                 
         startAI.setPreferredSize(startNetGame.getPreferredSize());
         openHelp.setPreferredSize(startNetGame.getPreferredSize());

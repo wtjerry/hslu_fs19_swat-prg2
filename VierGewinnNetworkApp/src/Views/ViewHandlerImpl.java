@@ -8,6 +8,7 @@ package Views;
 import Views.subPanel.LocalGameCreationViewPanel;
 import Views.subPanel.GameViewPanel;
 import Views.Interfaces.GameView;
+import Views.Interfaces.HelpView;
 import Views.Interfaces.LocalGameCreationView;
 import Views.Interfaces.NetworkView;
 import Views.Interfaces.StartView;
@@ -35,13 +36,14 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
     
     
     @Override
-    public  StartView switchToStartView(){
+    public StartView switchToStartView(){
         clayout.show(cards, STARTVIEWNAME);
         return startView;
     }
     @Override
-    public void switchToHelpView(){
+    public HelpView switchToHelpView(){
         clayout.show(cards, HELPVIEWNAME);
+        return helpView;
     }
     @Override
     public NetworkView switchToNetworkView(){

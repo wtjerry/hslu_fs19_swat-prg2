@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Network.NetworkPlayerSearcher;
 import Views.Interfaces.GameView;
+import Views.Interfaces.HelpView;
 import Views.Interfaces.LocalGameCreationView;
 import Views.Interfaces.NetworkView;
 import Views.Interfaces.StartView;
@@ -41,6 +42,13 @@ public class Navigator {
     public void navigateToGameView() {
         GameView view = this.viewHandler.switchToGameView();
         GameViewController controller = new GameViewController(view, this);
+        view.setListener(controller);
+        controller.init();
+    }
+
+    public void navigateToHelpView() {
+        HelpView view = this.viewHandler.switchToHelpView();
+        HelpViewController controller = new HelpViewController(this);
         view.setListener(controller);
         controller.init();
     }

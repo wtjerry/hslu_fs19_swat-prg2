@@ -5,8 +5,8 @@
  */
 package Views.subPanel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import Views.Interfaces.HelpView;
+import Views.Interfaces.HelpViewListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -15,7 +15,9 @@ import javax.swing.JTextArea;
  *
  * @author Dane Wicki
  */
-public class HelpViewPanel extends JPanel{
+public class HelpViewPanel extends JPanel implements HelpView{
+    private HelpViewListener helpViewListener;
+    
     public HelpViewPanel(){
         initComponent();
     }
@@ -23,10 +25,10 @@ public class HelpViewPanel extends JPanel{
     protected final void initComponent(){
         helpText = new JTextArea("How to play This Game:\n TO BE DEFINED");
         back = new JButton("close");
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                //backActionPerformed(ae);
+        
+        back.addActionListener(x -> {
+            if (this.helpViewListener != null) {
+                this.helpViewListener.BackPressed();
             }
         });
         
@@ -36,4 +38,9 @@ public class HelpViewPanel extends JPanel{
     
     private JTextArea helpText;
     private JButton back;
+
+    @Override
+    public void setListener(HelpViewListener listener) {
+        this.helpViewListener = listener;
+    }
 }
