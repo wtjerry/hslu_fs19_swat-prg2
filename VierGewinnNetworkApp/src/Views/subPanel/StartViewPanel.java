@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 
 public class StartViewPanel extends JPanel implements StartView{
     
+    private StartViewListener startViewListener;
+    
     public StartViewPanel(){
         initComponent();
     }
@@ -27,12 +29,18 @@ public class StartViewPanel extends JPanel implements StartView{
         this.setBorder(BorderFactory.createEmptyBorder(80, 20, 80, 20));
         layout.setVgap(5);
         
+        startAI.addActionListener(x -> { 
+            if (this.startViewListener != null) {                
+                this.startViewListener.PlayerAgainstComputerPressed();
+            }
+        });
         
-        
-        StartViewListener startViewListener = null;
-        // Implementation of all ActionListener
-        startAI.addActionListener(x -> startViewListener.PlayOverNetworkPressed());
-        
+        startNetGame.addActionListener(x -> {
+            if (this.startViewListener != null) {
+                this.startViewListener.PlayOverNetworkPressed();
+            }
+        });
+                
         startAI.setPreferredSize(startNetGame.getPreferredSize());
         openHelp.setPreferredSize(startNetGame.getPreferredSize());
         
@@ -41,15 +49,13 @@ public class StartViewPanel extends JPanel implements StartView{
         this.add(startNetGame);
         this.add(openHelp);
     }
-
-    @Override
-    public void addListener(StartViewListener startViewListener) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     
     JButton startAI;
     JButton startNetGame;
     JButton openHelp;
 
+    @Override
+    public void setListener(StartViewListener listener) {
+        this.startViewListener = listener;
+    }
 }

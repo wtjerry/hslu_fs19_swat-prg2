@@ -2,7 +2,6 @@ package Views.Interfaces;
 
 import java.util.List;
 
-public interface NetworkView {
+public interface NetworkView extends ListenerSetter<NetworkViewListener> {
     public void showAvailablePlayers(List<String> allPlayers);
-    public void addListener(NetworkViewListener networkViewListener);
 }

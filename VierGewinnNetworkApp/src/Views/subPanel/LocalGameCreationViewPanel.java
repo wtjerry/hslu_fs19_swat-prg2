@@ -11,8 +11,7 @@ public class LocalGameCreationViewPanel extends JPanel implements LocalGameCreat
     }
 
     @Override
-    public void addListener(LocalGameCreationViewListener localGameCreationViewListener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setListener(LocalGameCreationViewListener localGameCreationViewListener) {
     }
 
 }

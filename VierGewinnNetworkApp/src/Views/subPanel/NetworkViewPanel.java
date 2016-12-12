@@ -17,6 +17,9 @@ import javax.swing.JScrollPane;
 
 
 public class NetworkViewPanel extends JPanel implements NetworkView{
+    
+    private NetworkViewListener networkViewListener;
+    
     public NetworkViewPanel(){
         initComponent();
     }
@@ -29,19 +32,18 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
         
         listScrollPane.setViewportView(computerList);
         
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                //backActionPerformed(ae);
-            }
-        });
-        startGame.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-               // startGameActionPerformed(ae);
+        back.addActionListener(x -> {
+            if (this.networkViewListener != null) {
+                this.networkViewListener.BackPressed();
             }
         });
         
+        startGame.addActionListener(x -> {
+            if (this.networkViewListener != null) {
+                this.networkViewListener.StartGamePressed();
+            }
+        });
+                
         this.add(listScrollPane);
         this.add(back);
         this.add(startGame);
@@ -57,7 +59,7 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
     private JButton back;
 
     @Override
-    public void addListener(NetworkViewListener networkViewListener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void setListener(NetworkViewListener networkViewListener) {
+        this.networkViewListener = networkViewListener;
     }
 }

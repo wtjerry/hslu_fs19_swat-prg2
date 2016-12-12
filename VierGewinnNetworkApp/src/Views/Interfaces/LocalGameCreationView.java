@@ -1,5 +1,4 @@
 package Views.Interfaces;
 
-public interface LocalGameCreationView {
-    public void addListener(LocalGameCreationViewListener localGameCreationViewListener);
+public interface LocalGameCreationView extends ListenerSetter<LocalGameCreationViewListener> {
 }

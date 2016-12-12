@@ -66,7 +66,7 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
     }
     
     private void initComponent(){
-        URL iconURL = this.getClass().getResource("test.png");
+        URL iconURL = this.getClass().getResource("/Views/test.png");
         ImageIcon icon = new ImageIcon(iconURL);
         this.setIconImage(icon.getImage());
         

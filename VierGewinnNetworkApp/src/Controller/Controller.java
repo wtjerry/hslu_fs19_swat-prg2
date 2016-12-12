@@ -10,6 +10,10 @@ import Views.Interfaces.ViewHandler;
 
 public class Controller implements OpponentPlayedDiskListener {
 
+    
+//    move logic from Controller.java and NetworkGameController_OLD.java to respective controllers
+    
+    
 	private final NetworkRequestManager networkRequestManager;
 	private Game_NEW game;
 	private final ViewHandler viewHandler;
