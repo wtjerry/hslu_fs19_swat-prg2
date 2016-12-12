@@ -7,8 +7,6 @@ package Views.subPanel;
 
 import Views.Interfaces.NetworkView;
 import Views.Interfaces.NetworkViewListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -38,9 +36,10 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
             }
         });
         
+        String selectedIpAddress = "192.168.1.8";
         startGame.addActionListener(x -> {
             if (this.networkViewListener != null) {
-                this.networkViewListener.StartGamePressed();
+                this.networkViewListener.StartGamePressed(selectedIpAddress);
             }
         });
                 

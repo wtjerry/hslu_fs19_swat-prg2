@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Network.NetworkPlayerSearcher;
+import Model.Network.RequestHandling.NetworkRequestManager;
 import Views.Interfaces.GameView;
 import Views.Interfaces.HelpView;
 import Views.Interfaces.LocalGameCreationView;
@@ -12,10 +13,12 @@ public class Navigator {
 
     private final ViewHandler viewHandler;
     private final NetworkPlayerSearcher networkPlayerSearcher;
+    private final NetworkRequestManager networkRequestManager;
 
-    public Navigator(ViewHandler viewHandler, NetworkPlayerSearcher networkPlayerSearcher) {
+    public Navigator(ViewHandler viewHandler, NetworkPlayerSearcher networkPlayerSearcher, NetworkRequestManager networkRequestManager) {
         this.viewHandler = viewHandler;
         this.networkPlayerSearcher = networkPlayerSearcher;
+        this.networkRequestManager = networkRequestManager;
     }
 
     public void navigateToStartView() {
@@ -39,9 +42,16 @@ public class Navigator {
         controller.init();
     }
 
-    public void navigateToGameView() {
+    public void navigateToGameViewForLocalPlay() {
         GameView view = this.viewHandler.switchToGameView();
-        GameViewController controller = new GameViewController(view, this);
+        GameViewController controller = new LocalGameViewController(view, this);
+        view.setListener(controller);
+        controller.init();
+    }
+    
+    public void navigateToGameViewForNetworkPlay(String ipAddress) {
+        GameView view = this.viewHandler.switchToGameView();
+        GameViewController controller = new NetworkGameViewController(view, this, this.networkRequestManager, ipAddress);
         view.setListener(controller);
         controller.init();
     }

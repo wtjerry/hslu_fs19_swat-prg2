@@ -22,7 +22,7 @@ public class NetworkViewController implements NetworkViewListener{
     }
 
     @Override
-    public void StartGamePressed() {
-        this.navigator.navigateToGameView();
+    public void StartGamePressed(String ipAddress) {
+        this.navigator.navigateToGameViewForNetworkPlay(ipAddress);
     }
 }
