@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.DiskPosition;
 import Model.Game;
 import Model.NewOpponentDiskAvailableOnGameFieldListener;
 import Views.Interfaces.GameView;
@@ -21,8 +22,8 @@ public abstract class GameViewController implements GameViewListener, NewOpponen
     
     @Override
     public void DiskColumnPressed(int column) {
-        int row = this.game.playDisk(column);
-        this.view.showNewDiskForMe(column, row);
+        DiskPosition diskPosition = this.game.playDisk(column);
+        this.view.showNewDiskForMe(diskPosition.getColumn(), diskPosition.getRow());
     }
 
     @Override
@@ -31,7 +32,7 @@ public abstract class GameViewController implements GameViewListener, NewOpponen
     }
 
     @Override
-    public void newOpponentDiskAvailableOnGameField(int column, int row) {
-        this.view.showNewDiskForOpponent(column, row);
+    public void newOpponentDiskAvailableOnGameField(DiskPosition diskPosition) {
+        this.view.showNewDiskForOpponent(diskPosition.getColumn(), diskPosition.getRow());
     }
 }
