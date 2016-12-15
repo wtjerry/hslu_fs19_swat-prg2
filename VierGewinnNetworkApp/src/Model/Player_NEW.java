@@ -4,15 +4,15 @@ public abstract class Player_NEW {
 
     private OpponentHasMadeATurnListener opponentHasMadeATurnListener;
 
-    public abstract void makeYourTurnNowAsync(int rowOfPreviousDisk);
+    public abstract void makeYourTurnNowAsync(int columnOfPreviousDisk);
 
     public void setListener(OpponentHasMadeATurnListener opponentHasMadeATurnListeners) {
         this.opponentHasMadeATurnListener = opponentHasMadeATurnListeners;
     }
 
-    protected void notifyDiskPlayedListeners(int row) {
+    protected void notifyOpponentHadMadeATurn(int column) {
         if (this.opponentHasMadeATurnListener != null) {
-            this.opponentHasMadeATurnListener.opponentHasMadeATurn(row);
+            this.opponentHasMadeATurnListener.opponentHasMadeATurn(column);
         }
     }
 }

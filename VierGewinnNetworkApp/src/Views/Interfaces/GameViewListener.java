@@ -1,6 +1,6 @@
 package Views.Interfaces;
 
 public interface GameViewListener {
-	public void DiskRowPressed(int row);
+	public void DiskColumnPressed(int column);
 	public void SaveGamePressed();
 }

@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 public class AIPlayer extends Player_NEW {
 
     @Override
-    public void makeYourTurnNowAsync(int rowOfPreviousTurn) {
+    public void makeYourTurnNowAsync(int columnOfPreviousTurn) {
         CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(1000);
@@ -24,7 +24,7 @@ public class AIPlayer extends Player_NEW {
     
     private void playDiskAndNotify(){
         //todo determine where to play my next disk. May be done as easy as just choosing a random column
-        int rowOfMyNextDisk = 1;
-        this.notifyDiskPlayedListeners(rowOfMyNextDisk);
+        int columnOfMyNextDisk = 1;
+        this.notifyOpponentHadMadeATurn(columnOfMyNextDisk);
     }
 }

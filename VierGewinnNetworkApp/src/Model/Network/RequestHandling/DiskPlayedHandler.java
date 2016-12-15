@@ -22,14 +22,14 @@ public class DiskPlayedHandler implements RequestHandler {
 	public void run() {
 		try {
 			BufferedReader streamIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-			int row = Integer.parseInt(streamIn.readLine());
-			Logger.getLogger(DiskPlayedHandler.class.getName()).log(Level.INFO, "Opponent played disk in row: {0}:", row);
+			int column = Integer.parseInt(streamIn.readLine());
+			Logger.getLogger(DiskPlayedHandler.class.getName()).log(Level.INFO, "Opponent played disk in column: {0}:", column);
 			if (!this.socket.isClosed()) {
 				this.socket.close();
 			}
 			
 			if (this.opponentHasMadeATurnListener != null) {
-				this.opponentHasMadeATurnListener.opponentHasMadeATurn(row);
+				this.opponentHasMadeATurnListener.opponentHasMadeATurn(column);
 			}
 		} catch (IOException ex) {
 			Logger.getLogger(DiskPlayedHandler.class.getName()).log(Level.SEVERE, null, ex);

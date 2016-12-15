@@ -21,28 +21,28 @@ public class Game {
 		//gameState
 	}
 	
-	public void setDisk(int row, boolean oponent)
+	public void setDisk(int column, boolean oponent)
 	{
-		if(row <= this.width)
+		if(column <= this.width)
 		{
 			if(oponent)
 			{
-				addDiskToArray(row, player1.getDiskId());
+				addDiskToArray(column, player1.getDiskId());
 			}
 			else
 			{
-				addDiskToArray(row, player2.getDiskId());
+				addDiskToArray(column, player2.getDiskId());
 			}
 		}
 	}
 	
-	private void addDiskToArray(int row, int diskId)
+	private void addDiskToArray(int column, int diskId)
 	{
 		for(int gameHeight = 0;gameHeight < this.height;gameHeight+=6)
 		{
-			if(this.gameArray[row + gameHeight] != 0)
+			if(this.gameArray[column + gameHeight] != 0)
 			{
-				this.gameArray[row + gameHeight] = diskId;
+				this.gameArray[column + gameHeight] = diskId;
 			}
 		}
 	}

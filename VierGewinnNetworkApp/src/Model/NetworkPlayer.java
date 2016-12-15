@@ -20,17 +20,17 @@ public class NetworkPlayer extends Player_NEW {
     }
 
     @Override
-    public void makeYourTurnNowAsync(int rowOfPreviousTurn) {
-        CompletableFuture.runAsync(() -> this.sendPlayDisk(rowOfPreviousTurn));
+    public void makeYourTurnNowAsync(int columnOfPreviousTurn) {
+        CompletableFuture.runAsync(() -> this.sendPlayDisk(columnOfPreviousTurn));
     }
 
-    private void sendPlayDisk(int row) {
+    private void sendPlayDisk(int columnOfPreviousTurn) {
         try {
             try (Socket hostSocket = new Socket(this.opponentAddress, this.port)) {
                 DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
                 BufferedReader streamFromHost = new BufferedReader(new InputStreamReader(hostSocket.getInputStream()));
                 streamToHost.writeBytes(ProtocolKeywords.DiskPlayed + "\n");
-                streamToHost.writeBytes(row + "\n");
+                streamToHost.writeBytes(columnOfPreviousTurn + "\n");
                 streamToHost.flush();
             }
         } catch (IOException ex) {

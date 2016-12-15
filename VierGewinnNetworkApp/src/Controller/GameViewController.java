@@ -4,8 +4,6 @@ import Model.Game_NEW;
 import Model.NewOpponentDiskAvailableOnGameFieldListener;
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public abstract class GameViewController implements GameViewListener, NewOpponentDiskAvailableOnGameFieldListener{
 
@@ -22,8 +20,8 @@ public abstract class GameViewController implements GameViewListener, NewOpponen
     abstract void init();
     
     @Override
-    public void DiskRowPressed(int row) {
-        int column = this.game.playDisk(row);
+    public void DiskColumnPressed(int column) {
+        int row = this.game.playDisk(column);
         this.view.showNewDiskForMe(column, row);
     }
 

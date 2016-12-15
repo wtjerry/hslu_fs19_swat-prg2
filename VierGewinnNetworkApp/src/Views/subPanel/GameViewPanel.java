@@ -19,25 +19,25 @@ public class GameViewPanel extends JPanel implements GameView{
     }
 
     protected final void initComponent() {
-        this.diskRowTextField = new JTextField("1");
+        this.diskColumnTextField = new JTextField("1");
         this.playDiskButton = new JButton("play disk");
         this.log = new JTextArea();
 
         this.playDiskButton.addActionListener(x -> {
             if (this.gameViewListener != null) {
-                final int row = Integer.parseInt( this.diskRowTextField.getText());
-                this.gameViewListener.DiskRowPressed(row);
+                final int column = Integer.parseInt( this.diskColumnTextField.getText());
+                this.gameViewListener.DiskColumnPressed(column);
             }
         });
 
-        this.add(diskRowTextField);
+        this.add(diskColumnTextField);
         this.add(playDiskButton);
         this.add(log);
         
         this.log.append("view finished initializing\n");
     }
 
-    private JTextField diskRowTextField;
+    private JTextField diskColumnTextField;
     private JButton playDiskButton;
     private JTextArea log;
     
