@@ -37,7 +37,7 @@ public class Navigator {
 
     public void navigateToNetworkView() {
         NetworkView view = this.viewHandler.switchToNetworkView();
-        NetworkViewController controller = new NetworkViewController(view, this);
+        NetworkViewController controller = new NetworkViewController(view, this, this.networkPlayerSearcher);
         view.setListener(controller);
         controller.init();
     }
