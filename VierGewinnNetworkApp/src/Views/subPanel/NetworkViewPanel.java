@@ -49,7 +49,7 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
     }
     @Override
     public void showAvailablePlayers(List<String> allPlayers) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //todo implement show available players
     }
     
     private JScrollPane listScrollPane;

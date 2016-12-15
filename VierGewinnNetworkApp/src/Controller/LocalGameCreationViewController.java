@@ -15,7 +15,7 @@ public class LocalGameCreationViewController implements LocalGameCreationViewLis
     
     @Override
     public void ResumeGamePressed() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //todo implement resume game pressed.
     }
 
     @Override

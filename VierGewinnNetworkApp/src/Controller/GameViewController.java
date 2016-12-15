@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Game_NEW;
-import Model.Network.RequestHandling.DefaultHandler;
 import Model.OpponentPlayedDiskListener;
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
@@ -25,16 +24,19 @@ public abstract class GameViewController implements GameViewListener, OpponentPl
     @Override
     public void DiskRowPressed(int row) {
         this.game.playDisk(row);
+        //todo ui must know which row AND column the played disk finaly arrived (as it should not calculate that again) get this information from the game field maybe?
+        //this.view.showNewDiskForMe(column, row);
     }
 
     @Override
     public void SaveGamePressed() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //todo implement save game handling
     }
 
     @Override
     public void opponentPlayedDisk(int row) {
         Logger.getLogger(GameViewController.class.getName()).log(Level.INFO, "Opponent played disk in row: {0}:", row);
-        //this.view.showNewDisk(row, row, row);
+        //todo ui must know which row AND column the played disk finaly arrived (as it should not calculate that again) get this information from the game field maybe?
+        //this.view.showNewDiskForOpponent(column, row);
     }
 }

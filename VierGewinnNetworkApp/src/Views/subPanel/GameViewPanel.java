@@ -13,13 +13,18 @@ public class GameViewPanel extends JPanel implements GameView{
     }
 
     @Override
-    public void showNewDisk(int x, int y, int player) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void showNewDiskForMe(int column, int row) {
+        //todo implement showing my next disk on screen
+    }
+    
+    @Override
+    public void showNewDiskForOpponent(int column, int row) {
+        //todo implement showing opponents next disk on screen
     }
 
     @Override
     public void showCurrentPlayer(int player) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //todo probably not needed, see comment on interface 
     }
     
     @Override

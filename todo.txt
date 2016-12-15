@@ -1,0 +1,13 @@
+
+required:
+-todos
+-remove / merge Game, GameState, Player with Game_NEW, /, Player_New
+-PlayerStates needed?
+-When an init game is received nothing happens yet (notify controller, change state?, actually ask player if he wants to play?)
+-playing an invalid disk (outside column-range / column full / etc) not handled
+-playing (me / opponent) when not my / opponents turn raises currently an exception
+-ui
+
+nice to have:
+-split up OpponentPlayedDiskListener
+-check log levels

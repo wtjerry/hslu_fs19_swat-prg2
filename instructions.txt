@@ -1,6 +1,0 @@
-
-Listing network players feature:
-Run "java -cp vierGewinnt.jar Views.NetworkPlayersListUI" to open the experimental network player listing ui.
-On load a new thread is created with the purpose to respond to every request "I want to play a game." with "Oh shit..." on port 5400. This thread lives until the ui is closed.
-On button click a new thread is started which first checks all hosts in the specified network and sends "I want to play a game." to those listening on port 5400. It then lists the ones answering correctly. This thread lives until the ui is closed. 
-
