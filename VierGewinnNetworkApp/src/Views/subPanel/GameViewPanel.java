@@ -54,11 +54,6 @@ public class GameViewPanel extends JPanel implements GameView{
     }
 
     @Override
-    public void showCurrentPlayer(int player) {
-        //todo probably not needed, see comment on interface 
-    }
-    
-    @Override
     public void setListener(GameViewListener listener) {
         this.gameViewListener = listener;
     }
