@@ -1,10 +1,21 @@
 package Model;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class AIPlayer extends Player_NEW {
 
     @Override
-    public void opponentPlayedDisk(int row) {
-        this.playDiskAndNotify();
+    public void makeYourTurnNowAsync(int rowOfPreviousTurn) {
+        CompletableFuture.runAsync(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Game_NEW.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            this.playDiskAndNotify();
+        });
     }
 
     public void startWithFirstDisk() {

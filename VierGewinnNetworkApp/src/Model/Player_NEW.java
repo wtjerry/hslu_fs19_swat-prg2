@@ -1,23 +1,18 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Player_NEW {
 
-    private final List<OpponentPlayedDiskListener> diskplayedListeners;
+    private OpponentHasMadeATurnListener opponentHasMadeATurnListener;
 
-    public Player_NEW() {
-        this.diskplayedListeners = new ArrayList<>();
-    }
+    public abstract void makeYourTurnNowAsync(int rowOfPreviousDisk);
 
-    public abstract void opponentPlayedDisk(int row);
-
-    public void addListener(OpponentPlayedDiskListener diskPlayedListener) {
-        this.diskplayedListeners.add(diskPlayedListener);
+    public void setListener(OpponentHasMadeATurnListener opponentHasMadeATurnListeners) {
+        this.opponentHasMadeATurnListener = opponentHasMadeATurnListeners;
     }
 
     protected void notifyDiskPlayedListeners(int row) {
-        this.diskplayedListeners.forEach(x -> x.opponentPlayedDisk(row));
+        if (this.opponentHasMadeATurnListener != null) {
+            this.opponentHasMadeATurnListener.opponentHasMadeATurn(row);
+        }
     }
 }

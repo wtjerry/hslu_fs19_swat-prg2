@@ -14,8 +14,8 @@ public class LocalGameViewController extends GameViewController {
     void init() {
         AIPlayer opponent = new AIPlayer();
         this.game = new Game_NEW(opponent);
-        this.game.addListener(this);
-        opponent.addListener(this.game);
+        this.game.setListener(this);
+        opponent.setListener(this.game);
         opponent.startWithFirstDisk();
     }
 }

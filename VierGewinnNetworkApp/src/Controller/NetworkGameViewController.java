@@ -21,7 +21,7 @@ public class NetworkGameViewController extends GameViewController{
     void init() {
         Player_NEW opponent = new NetworkPlayer(this.ipAddress);
         this.game = new Game_NEW(opponent);
-        this.game.addListener(this);
-        this.networkRequestManager.setOpponentPlayedDiskListener(this);
+        this.game.setListener(this);
+        this.networkRequestManager.setOpponentHasMadeATurnListener(this.game);
     }
 }

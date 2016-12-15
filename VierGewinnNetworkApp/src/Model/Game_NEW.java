@@ -1,21 +1,17 @@
 package Model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Game_NEW implements OpponentPlayedDiskListener {
+public class Game_NEW implements OpponentHasMadeATurnListener {
 
     private final Player_NEW opponent;
     private GameState_NEW currentGameState;
-    private final List<OpponentPlayedDiskListener> opponentPlayedDiskListeners;
+    private NewOpponentDiskAvailableOnGameFieldListener newOpponentDiskAvailableOnGameFieldListener;
 
     public Game_NEW(Player_NEW opponent) {
-        this.opponentPlayedDiskListeners = new ArrayList<>();
         this.opponent = opponent;
         this.currentGameState = GameState_NEW.OpponentsTurn;
     }
 
-    public void playDisk(int row) {
+    public int playDisk(int row) {
         if (this.currentGameState == GameState_NEW.OpponentsTurn) {
             throw new IllegalStateException("I played a disk while it was opponents turn.");
         }
@@ -24,15 +20,18 @@ public class Game_NEW implements OpponentPlayedDiskListener {
         //todo this.gameField.setMyDisk(row);
         //todo evaluate whether somebody won
         //todo jerry if somebody won, somehow notify ui (controller listener) and detach NetworkHandler for DiskPlayed
-        this.opponent.opponentPlayedDisk(row);
+        this.opponent.makeYourTurnNowAsync(row);
+        
+        int column = 2; // todo check on which column my played disk landed in the end
+        return column;
     }
 
-    public void addListener(OpponentPlayedDiskListener diskPlayedListener) {
-        this.opponentPlayedDiskListeners.add(diskPlayedListener);
+    public void setListener(NewOpponentDiskAvailableOnGameFieldListener newOpponentDiskAvailableOnGameFieldListener) {
+        this.newOpponentDiskAvailableOnGameFieldListener = newOpponentDiskAvailableOnGameFieldListener;
     }
 
     @Override
-    public void opponentPlayedDisk(int row) {
+    public void opponentHasMadeATurn(int row) {
         if (this.currentGameState == GameState_NEW.MyTurn) {
             throw new IllegalStateException("Opponent played a disk while it was my turn.");
         }
@@ -42,6 +41,10 @@ public class Game_NEW implements OpponentPlayedDiskListener {
         //todo this.gameField.setOpponentDisk(row);
         //todo evaluate whether somebody won
         //todo jerry if somebody won, somehow notify ui (controller listener) and detach NetworkHandler for DiskPlayed
-        this.opponentPlayedDiskListeners.forEach(x -> x.opponentPlayedDisk(row));
+        
+        if (this.newOpponentDiskAvailableOnGameFieldListener != null) {
+            int column = 3; // todo check on which column the disk landed in the end
+            this.newOpponentDiskAvailableOnGameFieldListener.newOpponentDiskAvailableOnGameField(column, row);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package Model.Network.RequestHandling;
 
-import Model.OpponentPlayedDiskListener;
+import Model.OpponentHasMadeATurnListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,11 +11,11 @@ import java.util.logging.Logger;
 public class DiskPlayedHandler implements RequestHandler {
 
 	private final Socket socket;
-	private final OpponentPlayedDiskListener opponentPlayedDiskListener;
+	private final OpponentHasMadeATurnListener opponentHasMadeATurnListener;
 
-	DiskPlayedHandler(Socket socket, OpponentPlayedDiskListener opponentPlayedDiskListener) {
+	DiskPlayedHandler(Socket socket, OpponentHasMadeATurnListener opponentHasMadeATurnListener) {
 		this.socket = socket;
-		this.opponentPlayedDiskListener = opponentPlayedDiskListener;
+		this.opponentHasMadeATurnListener = opponentHasMadeATurnListener;
 	}
 	
 	@Override
@@ -28,8 +28,8 @@ public class DiskPlayedHandler implements RequestHandler {
 				this.socket.close();
 			}
 			
-			if (this.opponentPlayedDiskListener != null) {
-				this.opponentPlayedDiskListener.opponentPlayedDisk(row);
+			if (this.opponentHasMadeATurnListener != null) {
+				this.opponentHasMadeATurnListener.opponentHasMadeATurn(row);
 			}
 		} catch (IOException ex) {
 			Logger.getLogger(DiskPlayedHandler.class.getName()).log(Level.SEVERE, null, ex);

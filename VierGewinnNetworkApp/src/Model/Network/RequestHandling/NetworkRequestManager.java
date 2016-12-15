@@ -2,7 +2,7 @@ package Model.Network.RequestHandling;
 
 import Model.Network.ProtocolKeywords;
 import Model.Network.Settings;
-import Model.OpponentPlayedDiskListener;
+import Model.OpponentHasMadeATurnListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +18,7 @@ public class NetworkRequestManager {
     private final int port;
     private final ExecutorService threadPool;
     private boolean continueHandlingRequests;
-    private OpponentPlayedDiskListener opponentPlayedDiskListener;
+    private OpponentHasMadeATurnListener opponentHasMadeATurnListener;
 
     public NetworkRequestManager() {
         this.port = Settings.getPort();
@@ -59,7 +59,7 @@ public class NetworkRequestManager {
                 requestHandler = new InitGameHandler(connectionSocket);
                 break;
             case ProtocolKeywords.DiskPlayed:
-                requestHandler = new DiskPlayedHandler(connectionSocket, this.opponentPlayedDiskListener);
+                requestHandler = new DiskPlayedHandler(connectionSocket, this.opponentHasMadeATurnListener);
                 break;
             default:
                 requestHandler = new DefaultHandler(request, connectionSocket);
@@ -72,7 +72,7 @@ public class NetworkRequestManager {
         this.continueHandlingRequests = false;
     }
 
-    public void setOpponentPlayedDiskListener(OpponentPlayedDiskListener opponentPlayedDiskListener) {
-        this.opponentPlayedDiskListener = opponentPlayedDiskListener;
+    public void setOpponentHasMadeATurnListener(OpponentHasMadeATurnListener opponentHasMadeATurnListener) {
+        this.opponentHasMadeATurnListener = opponentHasMadeATurnListener;
     }
 }

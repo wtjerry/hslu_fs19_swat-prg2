@@ -20,9 +20,8 @@ public class NetworkPlayer extends Player_NEW {
     }
 
     @Override
-    public void opponentPlayedDisk(int row) {
-        //todo is async really needed here?
-        CompletableFuture.runAsync(() -> sendPlayDisk(row));
+    public void makeYourTurnNowAsync(int rowOfPreviousTurn) {
+        CompletableFuture.runAsync(() -> this.sendPlayDisk(rowOfPreviousTurn));
     }
 
     private void sendPlayDisk(int row) {

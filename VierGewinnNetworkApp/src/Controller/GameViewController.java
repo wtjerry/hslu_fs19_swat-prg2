@@ -1,13 +1,13 @@
 package Controller;
 
 import Model.Game_NEW;
-import Model.OpponentPlayedDiskListener;
+import Model.NewOpponentDiskAvailableOnGameFieldListener;
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class GameViewController implements GameViewListener, OpponentPlayedDiskListener{
+public abstract class GameViewController implements GameViewListener, NewOpponentDiskAvailableOnGameFieldListener{
 
     private final GameView view;
     private final Navigator navigator;
@@ -23,9 +23,8 @@ public abstract class GameViewController implements GameViewListener, OpponentPl
     
     @Override
     public void DiskRowPressed(int row) {
-        this.game.playDisk(row);
-        //todo ui must know which row AND column the played disk finaly arrived (as it should not calculate that again) get this information from the game field maybe?
-        //this.view.showNewDiskForMe(column, row);
+        int column = this.game.playDisk(row);
+        this.view.showNewDiskForMe(column, row);
     }
 
     @Override
@@ -34,9 +33,7 @@ public abstract class GameViewController implements GameViewListener, OpponentPl
     }
 
     @Override
-    public void opponentPlayedDisk(int row) {
-        Logger.getLogger(GameViewController.class.getName()).log(Level.INFO, "Opponent played disk in row: {0}:", row);
-        //todo ui must know which row AND column the played disk finaly arrived (as it should not calculate that again) get this information from the game field maybe?
-        //this.view.showNewDiskForOpponent(column, row);
+    public void newOpponentDiskAvailableOnGameField(int column, int row) {
+        this.view.showNewDiskForOpponent(column, row);
     }
 }
