@@ -1,9 +1,10 @@
 package Controller;
 
-import Model.Game_NEW;
+import Model.Game;
 import Model.Network.RequestHandling.NetworkRequestManager;
 import Model.NetworkPlayer;
-import Model.Player_NEW;
+import Model.Player;
+import Model.PrimeNumberProvider;
 import Views.Interfaces.GameView;
 
 public class NetworkGameViewController extends GameViewController{
@@ -19,8 +20,10 @@ public class NetworkGameViewController extends GameViewController{
 
     @Override
     void init() {
-        Player_NEW opponent = new NetworkPlayer(this.ipAddress);
-        this.game = new Game_NEW(opponent);
+        int myDiskId = PrimeNumberProvider.nextPrimeNumber();
+        int opponentDiskId = PrimeNumberProvider.nextPrimeNumber();
+        Player opponent = new NetworkPlayer(opponentDiskId, this.ipAddress);
+        this.game = new Game(myDiskId, opponent);
         this.game.setListener(this);
         this.networkRequestManager.setOpponentHasMadeATurnListener(this.game);
     }

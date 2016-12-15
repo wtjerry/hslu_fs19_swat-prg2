@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Game_NEW;
+import Model.Game;
 import Model.NewOpponentDiskAvailableOnGameFieldListener;
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
@@ -10,7 +10,7 @@ public abstract class GameViewController implements GameViewListener, NewOpponen
     private final GameView view;
     private final Navigator navigator;
     
-    protected Game_NEW game;
+    protected Game game;
 
     GameViewController(GameView view, Navigator navigator) {
         this.view = view;

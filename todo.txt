@@ -1,8 +1,6 @@
 
 required:
 -todos
--remove / merge Game, GameState, Player with Game_NEW, /, Player_New
--PlayerStates needed?
 -When an init game is received nothing happens yet (notify controller, change state?, actually ask player if he wants to play?)
 -playing an invalid disk (outside column-range / column full / etc) not handled
 -playing (me / opponent) when not my / opponents turn raises currently an exception
@@ -11,4 +9,4 @@ required:
 
 nice to have:
 -check log levels
-
+-split up Game.java into Game.java and GameField.java

@@ -9,12 +9,13 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.concurrent.CompletableFuture;
 
-public class NetworkPlayer extends Player_NEW {
+public class NetworkPlayer extends Player {
 
     private final String opponentAddress;
     private final int port;
 
-    public NetworkPlayer(String opponentAddress) {
+    public NetworkPlayer(int diskId, String opponentAddress) {
+        super(diskId);
         this.opponentAddress = opponentAddress;
         this.port = Settings.getPort();
     }

@@ -4,7 +4,11 @@ import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AIPlayer extends Player_NEW {
+public class AIPlayer extends Player {
+
+    public AIPlayer(int diskId) {
+        super(diskId);
+    }
 
     @Override
     public void makeYourTurnNowAsync(int columnOfPreviousTurn) {
