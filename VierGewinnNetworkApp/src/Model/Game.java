@@ -8,10 +8,10 @@ public class Game implements OpponentHasMadeATurnListener {
     private GameState currentGameState;
     private NewOpponentDiskAvailableOnGameFieldListener newOpponentDiskAvailableOnGameFieldListener;
 
-    public Game(int myDiskId, Player opponent) {
+    public Game(Player opponent) {
         this.opponent = opponent;
         this.currentGameState = GameState.OpponentsTurn;
-        this.gameField = new GameField(myDiskId, this.opponent.getDiskId());
+        this.gameField = new GameField();
     }
 
     public DiskPosition playDisk(int column) {

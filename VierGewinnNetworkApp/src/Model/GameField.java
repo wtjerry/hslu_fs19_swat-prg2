@@ -15,12 +15,13 @@ public class GameField {
     // to get the index of, for example, c2r1 we can do 2 +1*6 (c+r*width) = 8 
     private final int[] gameArray;
 
-    public GameField(int myDiskId, int opponentDiskId) {
+    public GameField() {
         this.width = Settings.getGameFieldWidth();
         this.height = Settings.getGameFieldHeight();
         this.gameArray = new int[this.width * this.height];
-        this.myDiskId = myDiskId;
-        this.opponentDiskId = opponentDiskId;
+        
+        this.myDiskId = PrimeNumberProvider.nextPrimeNumber();
+        this.opponentDiskId = PrimeNumberProvider.nextPrimeNumber();
     }
 
     public DiskPosition setMyDisk(int column) {

@@ -6,10 +6,6 @@ import java.util.logging.Logger;
 
 public class AIPlayer extends Player {
 
-    public AIPlayer(int diskId) {
-        super(diskId);
-    }
-
     @Override
     public void makeYourTurnNowAsync(int columnOfPreviousTurn) {
         CompletableFuture.runAsync(() -> {

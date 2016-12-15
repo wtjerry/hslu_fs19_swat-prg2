@@ -2,7 +2,6 @@ package Controller;
 
 import Model.AIPlayer;
 import Model.Game;
-import Model.PrimeNumberProvider;
 import Views.Interfaces.GameView;
 
 public class LocalGameViewController extends GameViewController {
@@ -13,10 +12,8 @@ public class LocalGameViewController extends GameViewController {
 
     @Override
     void init() {
-        int myDiskId = PrimeNumberProvider.nextPrimeNumber();
-        int opponentDiskId = PrimeNumberProvider.nextPrimeNumber();
-        AIPlayer opponent = new AIPlayer(opponentDiskId);
-        this.game = new Game(myDiskId, opponent);
+        AIPlayer opponent = new AIPlayer();
+        this.game = new Game(opponent);
         this.game.setListener(this);
         opponent.setListener(this.game);
         opponent.startWithFirstDisk();

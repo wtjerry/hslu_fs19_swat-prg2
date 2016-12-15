@@ -14,8 +14,7 @@ public class NetworkPlayer extends Player {
     private final String opponentAddress;
     private final int port;
 
-    public NetworkPlayer(int diskId, String opponentAddress) {
-        super(diskId);
+    public NetworkPlayer(String opponentAddress) {
         this.opponentAddress = opponentAddress;
         this.port = Settings.getPort();
     }
