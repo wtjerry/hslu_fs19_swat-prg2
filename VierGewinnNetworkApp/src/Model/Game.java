@@ -6,10 +6,14 @@ public class Game {
 	private String name;
 	private int width;
 	private int height;
-	private int[] gameArray;
 	private Player player1;
 	private Player player2;
 	private GameState state;
+    
+         // example of a array with height (rows, r) 4 and width (columns, c) 6:
+         // { c0r0, c1r0, c2r0, c3r0, c4r0, c5r0, c0r1, c1r1, c2r1 ... c2r3, c3r3, c4r3, c5r3 }
+         // to get the index of, for example, c2r1 we can do 2 +1*6 (c+r*width) = 8 
+	private int[] gameArray;
 
 	public Game(String name, int width, int height, String PlayerName1, String PlayerName2) {
 		this.name = name;
@@ -38,7 +42,7 @@ public class Game {
 	
 	private void addDiskToArray(int column, int diskId)
 	{
-		for(int gameHeight = 0;gameHeight < this.height;gameHeight+=6)
+		for(int gameHeight = 0;gameHeight < this.height;gameHeight+=this.width)
 		{
 			if(this.gameArray[column + gameHeight] != 0)
 			{
