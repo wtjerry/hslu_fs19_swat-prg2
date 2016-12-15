@@ -6,7 +6,7 @@ public class Game implements OpponentHasMadeATurnListener {
     private final GameField gameField;
 
     private GameState currentGameState;
-    private NewOpponentDiskAvailableOnGameFieldListener newOpponentDiskAvailableOnGameFieldListener;
+    private OpponentTurnEvaluatedListener opponentTurnEvaluatedListener;
 
     public Game(Player opponent) {
         this.opponent = opponent;
@@ -14,18 +14,18 @@ public class Game implements OpponentHasMadeATurnListener {
         this.gameField = new GameField();
     }
 
-    public DiskPosition playDisk(int column) {
+    public TurnResult playDisk(int column) {
         if (this.currentGameState == GameState.OpponentsTurn) {
             throw new IllegalStateException("I played a disk while it was opponents turn.");
         }
 
         this.currentGameState = GameState.OpponentsTurn;
         DiskPosition diskPosition = this.gameField.setMyDisk(column);
-        //todo evaluate whether somebody won
-        //todo jerry if somebody won, somehow notify ui (controller listener) and detach NetworkHandler for DiskPlayed
+        WinState winCheckResult = this.gameField.checkIfSomebodyWon();
+        
         this.opponent.makeYourTurnNowAsync(column);
 
-        return diskPosition;
+        return new TurnResult(winCheckResult, diskPosition);
     }
 
     @Override
@@ -37,14 +37,15 @@ public class Game implements OpponentHasMadeATurnListener {
         this.currentGameState = GameState.MyTurn;
 
         DiskPosition diskPosition = this.gameField.setOpponentsDisk(column);
-        //todo evaluate whether somebody won
-        //todo jerry if somebody won, somehow notify ui (controller listener) and detach NetworkHandler for DiskPlayed
-        if (this.newOpponentDiskAvailableOnGameFieldListener != null) {
-            this.newOpponentDiskAvailableOnGameFieldListener.newOpponentDiskAvailableOnGameField(diskPosition);
+        WinState winCheckResult = this.gameField.checkIfSomebodyWon();
+        
+        if (this.opponentTurnEvaluatedListener != null) {
+            TurnResult turnResult = new TurnResult(winCheckResult, diskPosition);
+            this.opponentTurnEvaluatedListener.opponentTurnEvaluated(turnResult);
         }
     }
 
-    public void setListener(NewOpponentDiskAvailableOnGameFieldListener newOpponentDiskAvailableOnGameFieldListener) {
-        this.newOpponentDiskAvailableOnGameFieldListener = newOpponentDiskAvailableOnGameFieldListener;
+    public void setListener(OpponentTurnEvaluatedListener opponentTurnEvaluatedListener) {
+        this.opponentTurnEvaluatedListener = opponentTurnEvaluatedListener;
     }
 }

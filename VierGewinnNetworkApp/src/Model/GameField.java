@@ -46,14 +46,14 @@ public class GameField {
         return DiskPosition.getInvalidDiskPosition();
     }
     
-    public TurnResult checkIfSomebodyWon() {
-        TurnResult result = TurnResult.NobodyWon;
+    public WinState checkIfSomebodyWon() {
+        WinState result = WinState.NobodyWon;
         for (int i : this.getNumbers()) {
             if (i == this.myDiskId * 4) {
-                result = TurnResult.IWon;
+                result = WinState.IWon;
             }
             if (i == this.opponentDiskId* 4) {
-                result = TurnResult.OpponentWon;
+                result = WinState.OpponentWon;
             }
         }
         return result;

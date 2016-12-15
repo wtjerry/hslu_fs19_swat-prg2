@@ -2,11 +2,12 @@ package Controller;
 
 import Model.DiskPosition;
 import Model.Game;
-import Model.NewOpponentDiskAvailableOnGameFieldListener;
+import Model.TurnResult;
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
+import Model.OpponentTurnEvaluatedListener;
 
-public abstract class GameViewController implements GameViewListener, NewOpponentDiskAvailableOnGameFieldListener{
+public abstract class GameViewController implements GameViewListener, OpponentTurnEvaluatedListener{
 
     private final GameView view;
     private final Navigator navigator;
@@ -22,7 +23,9 @@ public abstract class GameViewController implements GameViewListener, NewOpponen
     
     @Override
     public void DiskColumnPressed(int column) {
-        DiskPosition diskPosition = this.game.playDisk(column);
+        TurnResult turnResult = this.game.playDisk(column);
+        //todo jerry if somebody won, somehow notify ui and detach NetworkHandler for DiskPlayed
+        DiskPosition diskPosition = turnResult.getDiskPosition();
         this.view.showNewDiskForMe(diskPosition.getColumn(), diskPosition.getRow());
     }
 
@@ -32,7 +35,9 @@ public abstract class GameViewController implements GameViewListener, NewOpponen
     }
 
     @Override
-    public void newOpponentDiskAvailableOnGameField(DiskPosition diskPosition) {
+    public void opponentTurnEvaluated(TurnResult turnResult) {
+        //todo jerry if somebody won, somehow notify ui and detach NetworkHandler for DiskPlayed
+        DiskPosition diskPosition = turnResult.getDiskPosition();
         this.view.showNewDiskForOpponent(diskPosition.getColumn(), diskPosition.getRow());
     }
 }
