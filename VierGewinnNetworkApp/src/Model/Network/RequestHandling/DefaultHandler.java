@@ -1,6 +1,5 @@
 package Model.Network.RequestHandling;
 
-import Model.Network.NetworkPlayerSearcher;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -18,7 +17,7 @@ public class DefaultHandler implements RequestHandler {
 
 	@Override
 	public void run() {
-		Logger.getLogger(NetworkPlayerSearcher.class.getName()).log(Level.WARNING, "Received unknown request: {0}", this.request);
+		Logger.getLogger(DefaultHandler.class.getName()).log(Level.WARNING, "Received unknown request: {0}", this.request);
 		if (!this.socket.isClosed()) {
 			try {
 				this.socket.close();

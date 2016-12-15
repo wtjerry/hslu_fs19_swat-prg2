@@ -34,7 +34,7 @@ public abstract class GameViewController implements GameViewListener, OpponentPl
 
     @Override
     public void opponentPlayedDisk(int row) {
-        Logger.getLogger(DefaultHandler.class.getName()).log(Level.INFO, "Opponent played disk in row: {0}:", row);
+        Logger.getLogger(GameViewController.class.getName()).log(Level.INFO, "Opponent played disk in row: {0}:", row);
         //this.view.showNewDisk(row, row, row);
     }
 }

@@ -26,7 +26,7 @@ public class InitGameHandler implements RequestHandler {
 				this.socket.close();
 			}
 		} catch (IOException ex) {
-			Logger.getLogger(NetworkListingHandler.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(InitGameHandler.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 	

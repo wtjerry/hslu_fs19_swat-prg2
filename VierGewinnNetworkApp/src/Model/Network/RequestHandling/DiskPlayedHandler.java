@@ -23,7 +23,7 @@ public class DiskPlayedHandler implements RequestHandler {
 		try {
 			BufferedReader streamIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			int row = Integer.parseInt(streamIn.readLine());
-			Logger.getLogger(DefaultHandler.class.getName()).log(Level.INFO, "Opponent played disk in row: {0}:", row);
+			Logger.getLogger(DiskPlayedHandler.class.getName()).log(Level.INFO, "Opponent played disk in row: {0}:", row);
 			if (!this.socket.isClosed()) {
 				this.socket.close();
 			}
@@ -32,7 +32,7 @@ public class DiskPlayedHandler implements RequestHandler {
 				this.opponentPlayedDiskListener.opponentPlayedDisk(row);
 			}
 		} catch (IOException ex) {
-			Logger.getLogger(NetworkListingHandler.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(DiskPlayedHandler.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 	
