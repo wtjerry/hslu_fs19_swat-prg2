@@ -1,41 +1,38 @@
 package Model;
+import Model.Network.Settings;
 import java.util.*;
 
 public class Game {
 
-	private String name;
-	private int width;
-	private int height;
-	private Player player1;
-	private Player player2;
-	private GameState state;
+	private final int width;
+	private final int height;
+	private final int myDiskId;
+	private final Player opponent;
     
          // example of a array with height (rows, r) 4 and width (columns, c) 6:
          // { c0r0, c1r0, c2r0, c3r0, c4r0, c5r0, c0r1, c1r1, c2r1 ... c2r3, c3r3, c4r3, c5r3 }
          // to get the index of, for example, c2r1 we can do 2 +1*6 (c+r*width) = 8 
-	private int[] gameArray;
+	private final int[] gameArray;
 
-	public Game(String name, int width, int height, String PlayerName1, String PlayerName2) {
-		this.name = name;
-		this.width = width;
-		this.height = height;
+	public Game(int myDiskId, Player opponent) {
+		this.width = Settings.getGameFieldWidth();
+		this.height = Settings.getGameFieldHeight();
+                  this.myDiskId = myDiskId;
+		this.opponent = opponent;
 		this.gameArray = new int[height * width];
-		this.player1 = new Player(PlayerName1);
-		this.player2 = new Player(PlayerName2);
-		//gameState
 	}
 	
-	public void setDisk(int column, boolean oponent)
+	public void playDisk(int column, boolean oponent)
 	{
 		if(column <= this.width)
 		{
 			if(oponent)
 			{
-				addDiskToArray(column, player1.getDiskId());
+				addDiskToArray(column, this.myDiskId);
 			}
 			else
 			{
-				addDiskToArray(column, player2.getDiskId());
+				addDiskToArray(column, this.opponent.getDiskId());
 			}
 		}
 	}
@@ -51,20 +48,18 @@ public class Game {
 		}
 	}
 	
-	
-	//Jesus
-	public int checkResult()
+	public TurnResult checkIfSomebodyWon()
 	{
-		int result = 0;
-		for(int i : getNumbers())
+		TurnResult result = TurnResult.NobodyWon;
+		for(int i : this.getNumbers())
 		{
-			if(i == this.player1.getDiskId() * 4)
+			if(i == this.myDiskId* 4)
 			{
-				result = 1;
+				result = TurnResult.IWon;
 			}
-			if(i == this.player2.getDiskId() * 4)
+			if(i == this.opponent.getDiskId() * 4)
 			{
-				result = 2;
+				result = TurnResult.OpponentWon;
 			}
 		}
 	    return result;
@@ -72,9 +67,7 @@ public class Game {
 
 	public ArrayList<Integer> getNumbers()
 	{
-		// List besser?
-		int possibilities = 4*height*width + 18 - 9*(width+height);
-		ArrayList<Integer> numbers = new ArrayList<Integer>();
+		ArrayList<Integer> numbers = new ArrayList<>();
 
 		//Vertikal
 		for(int gameheight = 0;gameheight < height*width;gameheight+=width)

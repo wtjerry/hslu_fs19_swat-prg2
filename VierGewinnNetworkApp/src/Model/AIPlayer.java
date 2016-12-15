@@ -12,7 +12,7 @@ public class AIPlayer extends Player_NEW {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Game_NEW.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(AIPlayer.class.getName()).log(Level.SEVERE, null, ex);
             }
             this.playDiskAndNotify();
         });

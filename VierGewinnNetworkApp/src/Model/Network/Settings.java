@@ -9,4 +9,12 @@ public class Settings {
     public static String getBaseIpAddress() {
         return "192.168.1.";
     }
+
+    public static int getGameFieldHeight() {
+        return 4;
+    }
+
+    public static int getGameFieldWidth() {
+        return 6;
+    }
 }
