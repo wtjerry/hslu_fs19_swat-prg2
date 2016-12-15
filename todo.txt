@@ -10,5 +10,5 @@ required:
 -doku
 
 nice to have:
--split up OpponentPlayedDiskListener
 -check log levels
+
