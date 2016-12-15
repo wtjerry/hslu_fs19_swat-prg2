@@ -2,24 +2,55 @@ package Views.subPanel;
 
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * @author dane
  */
 public class GameViewPanel extends JPanel implements GameView{
 
+    private GameViewListener gameViewListener;
+
     public GameViewPanel() {
+        this.initComponent();
     }
 
+    protected final void initComponent() {
+        this.diskRowTextField = new JTextField("1");
+        this.playDiskButton = new JButton("play disk");
+        this.log = new JTextArea();
+
+        this.playDiskButton.addActionListener(x -> {
+            if (this.gameViewListener != null) {
+                final int row = Integer.parseInt( this.diskRowTextField.getText());
+                this.gameViewListener.DiskRowPressed(row);
+            }
+        });
+
+        this.add(diskRowTextField);
+        this.add(playDiskButton);
+        this.add(log);
+        
+        this.log.append("view finished initializing\n");
+    }
+
+    private JTextField diskRowTextField;
+    private JButton playDiskButton;
+    private JTextArea log;
+    
     @Override
     public void showNewDiskForMe(int column, int row) {
         //todo implement showing my next disk on screen
+        this.log.append("showNewDiskForMe, column: " + column + ", row: " + row + "\n");
     }
     
     @Override
     public void showNewDiskForOpponent(int column, int row) {
         //todo implement showing opponents next disk on screen
+        this.log.append("showNewDiskForOpponent, column: " + column + ", row: " + row + "\n");
     }
 
     @Override
@@ -29,6 +60,6 @@ public class GameViewPanel extends JPanel implements GameView{
     
     @Override
     public void setListener(GameViewListener listener) {
+        this.gameViewListener = listener;
     }
-
 }
