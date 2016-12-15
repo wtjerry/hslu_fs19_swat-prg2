@@ -9,4 +9,3 @@ required:
 
 nice to have:
 -check log levels
--split up Game.java into Game.java and GameField.java
