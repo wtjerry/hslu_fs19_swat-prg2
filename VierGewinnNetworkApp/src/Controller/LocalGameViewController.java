@@ -2,6 +2,7 @@ package Controller;
 
 import Model.AIPlayer;
 import Model.Game;
+import Model.GameState;
 import Views.Interfaces.GameView;
 
 public class LocalGameViewController extends GameViewController {
@@ -11,9 +12,9 @@ public class LocalGameViewController extends GameViewController {
     }
 
     @Override
-    void init() {
+    void init(GameState startGameState) {
         AIPlayer opponent = new AIPlayer();
-        this.game = new Game(opponent);
+        this.game = new Game(opponent, startGameState);
         this.game.setListener(this);
         opponent.setListener(this.game);
         opponent.startWithFirstDisk();

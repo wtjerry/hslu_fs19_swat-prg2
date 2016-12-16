@@ -2,6 +2,7 @@ package Controller;
 
 import Model.DiskPosition;
 import Model.Game;
+import Model.GameState;
 import Model.TurnResult;
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
@@ -19,7 +20,7 @@ public abstract class GameViewController implements GameViewListener, OpponentTu
         this.navigator = navigator;
     }
 
-    abstract void init();
+    abstract void init(GameState startGameState);
     
     @Override
     public void DiskColumnPressed(int column) {

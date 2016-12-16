@@ -8,9 +8,9 @@ public class Game implements OpponentHasMadeATurnListener {
     private GameState currentGameState;
     private OpponentTurnEvaluatedListener opponentTurnEvaluatedListener;
 
-    public Game(Player opponent) {
+    public Game(Player opponent, GameState startGameState) {
         this.opponent = opponent;
-        this.currentGameState = GameState.OpponentsTurn;
+        this.currentGameState = startGameState;
         this.gameField = new GameField();
     }
 

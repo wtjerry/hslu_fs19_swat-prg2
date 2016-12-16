@@ -1,5 +1,6 @@
 package Model.Network.RequestHandling;
 
+import Controller.Navigator;
 import Model.Network.ProtocolKeywords;
 import Model.Network.Settings;
 import Model.OpponentHasMadeATurnListener;
@@ -19,6 +20,7 @@ public class NetworkRequestManager {
     private final ExecutorService threadPool;
     private boolean continueHandlingRequests;
     private OpponentHasMadeATurnListener opponentHasMadeATurnListener;
+    private Navigator navigator;
 
     public NetworkRequestManager() {
         this.port = Settings.getPort();
@@ -56,7 +58,7 @@ public class NetworkRequestManager {
                 requestHandler = new NetworkListingHandler(connectionSocket);
                 break;
             case ProtocolKeywords.InitGameRequest:
-                requestHandler = new InitGameHandler(connectionSocket);
+                requestHandler = new InitGameHandler(connectionSocket, this.navigator);
                 break;
             case ProtocolKeywords.DiskPlayed:
                 requestHandler = new DiskPlayedHandler(connectionSocket, this.opponentHasMadeATurnListener);
@@ -74,5 +76,9 @@ public class NetworkRequestManager {
 
     public void setOpponentHasMadeATurnListener(OpponentHasMadeATurnListener opponentHasMadeATurnListener) {
         this.opponentHasMadeATurnListener = opponentHasMadeATurnListener;
+    }
+    
+    public void setNavigator(Navigator navigator) {
+        this.navigator = navigator;
     }
 }

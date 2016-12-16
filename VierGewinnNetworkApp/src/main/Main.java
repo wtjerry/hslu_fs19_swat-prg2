@@ -15,6 +15,8 @@ public class Main {
         final NetworkPlayerSearcher networkPlayerSearcher = new NetworkPlayerSearcher();
         final Navigator navigator = new Navigator(viewHandler, networkPlayerSearcher, networkRequestManager);
         
+        networkRequestManager.setNavigator(navigator);
+        
         navigator.navigateToStartView();
     }
 }
