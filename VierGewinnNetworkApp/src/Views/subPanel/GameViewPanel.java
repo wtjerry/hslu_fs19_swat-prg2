@@ -57,4 +57,14 @@ public class GameViewPanel extends JPanel implements GameView{
     public void setListener(GameViewListener listener) {
         this.gameViewListener = listener;
     }
+
+    @Override
+    public void showIWonDialog() {
+        //todo implement i won dialog
+    }
+
+    @Override
+    public void showOpponentWonDialog() {
+        //todo implement opponent won dialog
+    }
 }
