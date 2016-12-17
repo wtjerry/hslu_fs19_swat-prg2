@@ -2,18 +2,17 @@ package Model;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game implements OpponentHasMadeATurnListener, Serializable {
+public class Game implements OpponentHasMadeATurnListener {
 
     private final Player opponent;
     private final GameField gameField;
     private final List<Integer> playedTurns;
     
     private GameState currentGameState;
-    private OpponentTurnEvaluatedListener opponentTurnEvaluatedListener;
+    private TurnEvaluatedListener turnEvaluatedListener;
 
     public Game(GameField gameField, Player opponent, GameState startGameState) {
         this.opponent = opponent;
@@ -22,7 +21,7 @@ public class Game implements OpponentHasMadeATurnListener, Serializable {
         this.currentGameState = startGameState;
     }
 
-    public TurnResult playDisk(int column) {
+    public void playDisk(int column) {
         if (this.currentGameState == GameState.OpponentsTurn) {
             throw new IllegalStateException("I played a disk while it was opponents turn.");
         }
@@ -35,7 +34,10 @@ public class Game implements OpponentHasMadeATurnListener, Serializable {
         
         this.opponent.makeYourTurnNowAsync(column);
 
-        return new TurnResult(winCheckResult, diskPosition);
+        if (this.turnEvaluatedListener != null) {
+            TurnResult turnResult = new TurnResult(winCheckResult, diskPosition);
+            this.turnEvaluatedListener.myTurnEvaluated(turnResult);
+        }
     }
 
     @Override
@@ -51,14 +53,14 @@ public class Game implements OpponentHasMadeATurnListener, Serializable {
         
         this.playedTurns.add(column);
         
-        if (this.opponentTurnEvaluatedListener != null) {
+        if (this.turnEvaluatedListener != null) {
             TurnResult turnResult = new TurnResult(winCheckResult, diskPosition);
-            this.opponentTurnEvaluatedListener.opponentTurnEvaluated(turnResult);
+            this.turnEvaluatedListener.opponentTurnEvaluated(turnResult);
         }
     }
 
-    public void setListener(OpponentTurnEvaluatedListener opponentTurnEvaluatedListener) {
-        this.opponentTurnEvaluatedListener = opponentTurnEvaluatedListener;
+    public void setListener(TurnEvaluatedListener opponentTurnEvaluatedListener) {
+        this.turnEvaluatedListener = opponentTurnEvaluatedListener;
     }
 
     public void saveTo(ObjectOutputStream gameSaveStream) throws IOException {

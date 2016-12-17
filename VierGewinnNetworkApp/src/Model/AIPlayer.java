@@ -1,13 +1,12 @@
 package Model;
 
 import Model.Network.Settings;
-import java.io.Serializable;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AIPlayer extends Player implements Serializable{
+public class AIPlayer extends Player{
 
     private final ValidTurnChecker validTurnChecker;
 

@@ -6,10 +6,10 @@ import Model.GameState;
 import Model.TurnResult;
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
-import Model.OpponentTurnEvaluatedListener;
 import Model.WinState;
+import Model.TurnEvaluatedListener;
 
-public abstract class GameViewController implements GameViewListener, OpponentTurnEvaluatedListener {
+public abstract class GameViewController implements GameViewListener, TurnEvaluatedListener {
 
     private final GameView view;
     private final Navigator navigator;
@@ -30,14 +30,17 @@ public abstract class GameViewController implements GameViewListener, OpponentTu
     
     @Override
     public void DiskColumnPressed(int column) {
-        TurnResult turnResult = this.game.playDisk(column);
+        this.game.playDisk(column);
+    }
 
+    @Override
+    public void myTurnEvaluated(TurnResult turnResult) {
         DiskPosition diskPosition = turnResult.getDiskPosition();
         this.view.showNewDiskForMe(diskPosition.getColumn(), diskPosition.getRow());
 
         this.notifyViewAboutWinIfRequired(turnResult.getWinState());
     }
-
+    
     @Override
     public void opponentTurnEvaluated(TurnResult turnResult) {
         DiskPosition diskPosition = turnResult.getDiskPosition();
