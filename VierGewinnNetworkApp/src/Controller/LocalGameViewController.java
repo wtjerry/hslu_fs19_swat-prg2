@@ -12,6 +12,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,22 +49,24 @@ public class LocalGameViewController extends GameViewController {
 
     @Override
     public void initForResumeGame() {
-//        ObjectInputStream in;
-//        try {
-//            String saveGamePath = Settings.getSaveGamePath();
-//            in = new ObjectInputStream(new FileInputStream(saveGamePath));
-//            Obj obj = (Obj) in.readObject();
-//            in.close();
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(GameViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException | ClassNotFoundException ex) {
-//            Logger.getLogger(GameViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        //todo implement resume game
-        //load ser
-        //nav to gameView
-        //pass ser or load byItself or whatever
-        //set both listeners again
-        //check whos turn it is and notfiy to make turn
+        ObjectInputStream in;
+        try {
+            String saveGamePath = Settings.getSaveGamePath();
+            in = new ObjectInputStream(new FileInputStream(saveGamePath));
+
+            GameField gameField = new GameField();
+            AIPlayer opponent = new AIPlayer(gameField);
+            this.game = new Game(gameField, opponent, GameState.OpponentsTurn);
+            this.game.setListener(this);
+            opponent.setListener(this.game);
+
+            this.game.resume(in);
+
+            in.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GameViewController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(GameViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

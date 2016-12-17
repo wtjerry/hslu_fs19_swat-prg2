@@ -1,6 +1,7 @@
 package Model;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ public class Game implements OpponentHasMadeATurnListener {
 
     private final Player opponent;
     private final GameField gameField;
-    private final List<Integer> playedTurns;
+    private final List<PlayedTurn> playedTurns;
     
     private GameState currentGameState;
     private TurnEvaluatedListener turnEvaluatedListener;
@@ -30,7 +31,7 @@ public class Game implements OpponentHasMadeATurnListener {
         DiskPosition diskPosition = this.gameField.setMyDisk(column);
         WinState winCheckResult = this.gameField.checkIfSomebodyWon();
         
-        this.playedTurns.add(column);
+        this.playedTurns.add(new PlayedTurn(true, column));
         
         this.opponent.makeYourTurnNowAsync(column);
 
@@ -51,7 +52,7 @@ public class Game implements OpponentHasMadeATurnListener {
         DiskPosition diskPosition = this.gameField.setOpponentsDisk(column);
         WinState winCheckResult = this.gameField.checkIfSomebodyWon();
         
-        this.playedTurns.add(column);
+        this.playedTurns.add(new PlayedTurn(false, column));
         
         if (this.turnEvaluatedListener != null) {
             TurnResult turnResult = new TurnResult(winCheckResult, diskPosition);
@@ -66,5 +67,17 @@ public class Game implements OpponentHasMadeATurnListener {
     public void saveTo(ObjectOutputStream gameSaveStream) throws IOException {
         gameSaveStream.writeObject(this.playedTurns);
         gameSaveStream.flush();
+    }
+    
+    public void resume(ObjectInputStream in) throws ClassNotFoundException, IOException {
+        List<PlayedTurn> turnsToBeReplayed = (ArrayList<PlayedTurn>) in.readObject();
+        
+        for (PlayedTurn turn : turnsToBeReplayed) {
+            if (turn.wasMyTurn()) {
+                this.playDisk(turn.getColumn());
+            } else {
+                this.opponentHasMadeATurn(turn.getColumn());
+            }
+        }
     }
 }

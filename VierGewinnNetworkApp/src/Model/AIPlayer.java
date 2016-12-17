@@ -18,7 +18,7 @@ public class AIPlayer extends Player{
     public void makeYourTurnNowAsync(int columnOfPreviousTurn) {
         CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException ex) {
                 Logger.getLogger(AIPlayer.class.getName()).log(Level.SEVERE, null, ex);
             }
