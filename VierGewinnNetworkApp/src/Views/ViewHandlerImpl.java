@@ -22,6 +22,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import Views.subPanel.HelpViewPanel;
 import Views.subPanel.NetworkViewPanel;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 
 public class ViewHandlerImpl extends JFrame implements ViewHandler{
@@ -57,6 +61,16 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
     }    
     @Override
     public GameView switchToGameView(){
+        clayout.show(cards, GAMEVIEW);
+        return gameView;
+    }
+    @Override
+    public GameView switchToGameViewForAcceptingNetworkGame() {
+        try {
+            SwingUtilities.invokeAndWait(() -> clayout.show(cards, GAMEVIEW));
+        } catch (InterruptedException | InvocationTargetException ex) {
+            Logger.getLogger(ViewHandlerImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         clayout.show(cards, GAMEVIEW);
         return gameView;
     }

@@ -20,6 +20,11 @@ public class DiskPlayedHandler implements RequestHandler {
 	
 	@Override
 	public void run() {
+        
+        
+        Logger.getLogger(DiskPlayedHandler.class.getName()).log(Level.INFO, "********** run");
+        
+        
 		try {
 			BufferedReader streamIn = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			int column = Integer.parseInt(streamIn.readLine());

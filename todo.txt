@@ -6,6 +6,11 @@ required:
 -doku
 
 
+bugs:
+-when initializing a game, the opponents view sometimes does not get loaded completely.
+-sometimes the opponent Turn does not get communinicated to the other network side's GameField.
+
+
 nice to have:
 -check log levels
 -When an init game is received nothing happens yet (notify controller, change state?, actually ask player if he wants to play?)

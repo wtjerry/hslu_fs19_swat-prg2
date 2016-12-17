@@ -8,6 +8,8 @@ import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
 import Model.OpponentTurnEvaluatedListener;
 import Model.WinState;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class GameViewController implements GameViewListener, OpponentTurnEvaluatedListener{
 
@@ -41,10 +43,13 @@ public abstract class GameViewController implements GameViewListener, OpponentTu
     @Override
     public void opponentTurnEvaluated(TurnResult turnResult) {
         
+        Logger.getLogger(GameViewController.class.getName()).log(Level.INFO, "********** opponentTurnEvaluated: start");
         DiskPosition diskPosition = turnResult.getDiskPosition();
         this.view.showNewDiskForOpponent(diskPosition.getColumn(), diskPosition.getRow());
         
         this.notifyViewAboutWinIfRequired(turnResult.getWinState());
+        
+        Logger.getLogger(Game.class.getName()).log(Level.INFO, "********** opponentTurnEvaluated: end");
     }
 
     private void notifyViewAboutWinIfRequired(WinState winState) {

@@ -9,6 +9,10 @@ import Views.Interfaces.LocalGameCreationView;
 import Views.Interfaces.NetworkView;
 import Views.Interfaces.StartView;
 import Views.Interfaces.ViewHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 public class Navigator {
 
@@ -58,7 +62,7 @@ public class Navigator {
     }
     
     public void navigateToGameViewForAcceptingNetworkPlay(String ipAddress) {
-        GameView view = this.viewHandler.switchToGameView();
+        GameView view = this.viewHandler.switchToGameViewForAcceptingNetworkGame();
         GameViewController controller = new NetworkGameViewController(view, this, this.networkRequestManager, ipAddress);
         view.setListener(controller);
         controller.init(GameState.MyTurn);

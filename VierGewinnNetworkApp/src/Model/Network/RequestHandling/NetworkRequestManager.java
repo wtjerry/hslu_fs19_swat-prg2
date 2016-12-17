@@ -43,7 +43,7 @@ public class NetworkRequestManager {
                 Socket connectionSocket = serverSocket.accept();
                 BufferedReader streamIn = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
                 String request = streamIn.readLine();
-                RequestHandler requestHandler = createRequestHandler(request, connectionSocket);
+                RequestHandler requestHandler = createRequestHandler(request, connectionSocket, streamIn);
                 this.threadPool.submit(requestHandler);
             }
         } catch (IOException e) {
@@ -51,7 +51,7 @@ public class NetworkRequestManager {
         }
     }
 
-    private RequestHandler createRequestHandler(String request, Socket connectionSocket) {
+    private RequestHandler createRequestHandler(String request, Socket connectionSocket, BufferedReader streamIn) {
         RequestHandler requestHandler;
         switch (request) {
             case ProtocolKeywords.AvailableNetworkPlayerListingRequest:
@@ -61,7 +61,8 @@ public class NetworkRequestManager {
                 requestHandler = new InitGameHandler(connectionSocket, this.navigator);
                 break;
             case ProtocolKeywords.DiskPlayed:
-                requestHandler = new DiskPlayedHandler(connectionSocket, this.opponentHasMadeATurnListener);
+                //requestHandler = new DiskPlayedHandler(connectionSocket, this.opponentHasMadeATurnListener);
+                requestHandler = new DiskPlayedHandler_NEW(streamIn, connectionSocket, this.opponentHasMadeATurnListener);
                 break;
             default:
                 requestHandler = new DefaultHandler(request, connectionSocket);

@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.concurrent.CompletableFuture;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NetworkPlayer extends Player {
 
@@ -25,6 +27,12 @@ public class NetworkPlayer extends Player {
     }
 
     private void sendPlayDisk(int columnOfPreviousTurn) {
+        
+        
+        Logger.getLogger(Game.class.getName()).log(Level.INFO, "********** sendPlayDisk: {0}", columnOfPreviousTurn);
+        
+        
+        
         try {
             try (Socket hostSocket = new Socket(this.opponentAddress, this.port)) {
                 DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
@@ -32,8 +40,10 @@ public class NetworkPlayer extends Player {
                 streamToHost.writeBytes(ProtocolKeywords.DiskPlayed + "\n");
                 streamToHost.writeBytes(columnOfPreviousTurn + "\n");
                 streamToHost.flush();
+                Logger.getLogger(Game.class.getName()).log(Level.INFO, "++++++++ sendPlayDisk checkpoint 2");
             }
         } catch (IOException ex) {
+            Logger.getLogger(NetworkPlayer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

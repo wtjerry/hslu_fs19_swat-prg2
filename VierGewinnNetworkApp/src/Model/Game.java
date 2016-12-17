@@ -1,5 +1,8 @@
 package Model;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Game implements OpponentHasMadeATurnListener {
 
     private final Player opponent;
@@ -15,6 +18,12 @@ public class Game implements OpponentHasMadeATurnListener {
     }
 
     public TurnResult playDisk(int column) {
+        
+        
+        Logger.getLogger(Game.class.getName()).log(Level.INFO, "********** playDisk: {0}", column);
+        
+        
+        
         if (this.currentGameState == GameState.OpponentsTurn) {
             throw new IllegalStateException("I played a disk while it was opponents turn.");
         }
@@ -30,6 +39,12 @@ public class Game implements OpponentHasMadeATurnListener {
 
     @Override
     public void opponentHasMadeATurn(int column) {
+        
+        
+        Logger.getLogger(Game.class.getName()).log(Level.INFO, "********** opponentHasMadeATurn: {0}", column);
+        
+        
+        
         if (this.currentGameState == GameState.MyTurn) {
             throw new IllegalStateException("Opponent played a disk while it was my turn.");
         }
@@ -39,10 +54,18 @@ public class Game implements OpponentHasMadeATurnListener {
         DiskPosition diskPosition = this.gameField.setOpponentsDisk(column);
         WinState winCheckResult = this.gameField.checkIfSomebodyWon();
         
+        Logger.getLogger(Game.class.getName()).log(Level.INFO, "********** opponentHasMadeATurn: checkpoint 2");
         if (this.opponentTurnEvaluatedListener != null) {
+            Logger.getLogger(Game.class.getName()).log(Level.INFO, "********** opponentHasMadeATurn: checkpoint 3");
             TurnResult turnResult = new TurnResult(winCheckResult, diskPosition);
             this.opponentTurnEvaluatedListener.opponentTurnEvaluated(turnResult);
         }
+        
+        
+        
+        Logger.getLogger(Game.class.getName()).log(Level.INFO, "++++++ opponentHasMadeATurn END");
+        
+        
     }
 
     public void setListener(OpponentTurnEvaluatedListener opponentTurnEvaluatedListener) {
