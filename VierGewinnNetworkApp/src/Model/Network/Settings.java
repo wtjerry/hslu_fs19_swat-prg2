@@ -1,5 +1,7 @@
 package Model.Network;
 
+import java.io.File;
+
 public class Settings {
 
     public static int getPort() {
@@ -16,5 +18,11 @@ public class Settings {
 
     public static int getGameFieldWidth() {
         return 6;
+    }
+
+    public static String getSaveGamePath() {
+        String homeDirectory = System.getProperty("user.home");
+        String gameFilePath = homeDirectory + File.separator + "saveGame.ser";
+        return gameFilePath;
     }
 }

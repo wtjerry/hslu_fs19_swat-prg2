@@ -27,4 +27,9 @@ public class NetworkGameViewController extends GameViewController{
         this.game.setListener(this);
         this.networkRequestManager.setOpponentHasMadeATurnListener(this.game);
     }
+
+    @Override
+    public void SaveGamePressed() {
+        throw new UnsupportedOperationException("Saving a network game is not supported.");
+    }
 }

@@ -1,6 +1,10 @@
 package Model;
 
-public class Game implements OpponentHasMadeATurnListener {
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Game implements OpponentHasMadeATurnListener, Serializable {
 
     private final Player opponent;
     private final GameField gameField;
@@ -47,5 +51,11 @@ public class Game implements OpponentHasMadeATurnListener {
 
     public void setListener(OpponentTurnEvaluatedListener opponentTurnEvaluatedListener) {
         this.opponentTurnEvaluatedListener = opponentTurnEvaluatedListener;
+    }
+
+    public void saveTo(ObjectOutputStream gameSaveStream) throws IOException {
+        this.opponentTurnEvaluatedListener = null;
+        gameSaveStream.writeObject(this);
+        gameSaveStream.flush();
     }
 }

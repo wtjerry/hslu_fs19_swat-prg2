@@ -20,10 +20,16 @@ public class GameViewPanel extends JPanel implements GameView{
     }
 
     protected final void initComponent() {
+        this.saveButton = new JButton("save");
         this.diskColumnTextField = new JTextField("1");
         this.playDiskButton = new JButton("play disk");
         this.log = new JTextArea();
-
+        
+        this.saveButton.addActionListener(x -> {
+            if (this.gameViewListener != null) {
+                this.gameViewListener.SaveGamePressed();
+            }
+        });
         this.playDiskButton.addActionListener(x -> {
             if (this.gameViewListener != null) {
                 final int column = Integer.parseInt( this.diskColumnTextField.getText());
@@ -31,13 +37,15 @@ public class GameViewPanel extends JPanel implements GameView{
             }
         });
 
-        this.add(diskColumnTextField);
-        this.add(playDiskButton);
-        this.add(log);
+        this.add(this.saveButton);
+        this.add(this.diskColumnTextField);
+        this.add(this.playDiskButton);
+        this.add(this.log);
         
         this.log.append("view finished initializing\n");
     }
 
+    private JButton saveButton;
     private JTextField diskColumnTextField;
     private JButton playDiskButton;
     private JTextArea log;

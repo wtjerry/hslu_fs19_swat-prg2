@@ -1,9 +1,10 @@
 package Model;
 
 import Model.Network.Settings;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameField implements ValidTurnChecker {
+public class GameField implements ValidTurnChecker, Serializable {
 
     final int FreeField = 0;
 

@@ -22,6 +22,9 @@ public abstract class GameViewController implements GameViewListener, OpponentTu
     }
 
     abstract void init(GameState startGameState);
+
+    @Override
+    public abstract void SaveGamePressed();
     
     @Override
     public void DiskColumnPressed(int column) {
@@ -31,11 +34,6 @@ public abstract class GameViewController implements GameViewListener, OpponentTu
         this.view.showNewDiskForMe(diskPosition.getColumn(), diskPosition.getRow());
         
         this.notifyViewAboutWinIfRequired(turnResult.getWinState());
-    }
-
-    @Override
-    public void SaveGamePressed() {
-        //todo implement save game handling
     }
 
     @Override
