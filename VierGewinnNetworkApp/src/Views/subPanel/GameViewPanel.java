@@ -2,8 +2,6 @@ package Views.subPanel;
 
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -52,13 +50,8 @@ public class GameViewPanel extends JPanel implements GameView{
     
     @Override
     public void showNewDiskForOpponent(int column, int row) {
-        
-        Logger.getLogger(GameViewPanel.class.getName()).log(Level.INFO, "********** showNewDiskForOpponent: start");
-        
         //todo implement showing opponents next disk on screen
-        this.log.append("showNewDiskForOpponent, column: " + column + ", row: " + row + "\n");
-        
-        Logger.getLogger(GameViewPanel.class.getName()).log(Level.INFO, "********** showNewDiskForOpponent: end");
+        this.log.append("showNewDiskForOpponent, column: " + column + ", row: " + row + "\n");        
     }
 
     @Override

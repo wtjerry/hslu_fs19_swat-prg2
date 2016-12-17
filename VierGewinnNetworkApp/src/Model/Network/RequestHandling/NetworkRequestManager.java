@@ -45,7 +45,7 @@ public class NetworkRequestManager {
             ServerSocket serverSocket = new ServerSocket(this.port);
             while (this.continueHandlingRequests) {
                 Socket connectionSocket = serverSocket.accept();
-                RequestHandler_NEW requestHandler = createRequestHandler(connectionSocket);
+                RequestHandler requestHandler = createRequestHandler(connectionSocket);
                 this.threadPool.submit(() -> callHandlerAndAfterwardsCloseSocket(requestHandler, connectionSocket));
             }
         } catch (IOException e) {
@@ -53,7 +53,7 @@ public class NetworkRequestManager {
         }
     }
 
-    private void callHandlerAndAfterwardsCloseSocket(RequestHandler_NEW requestHandler, Socket connectionSocket) {
+    private void callHandlerAndAfterwardsCloseSocket(RequestHandler requestHandler, Socket connectionSocket) {
         try {
             requestHandler.handle();
             if (connectionSocket.isClosed() == false) {
@@ -64,27 +64,27 @@ public class NetworkRequestManager {
         }
     }
 
-    private RequestHandler_NEW createRequestHandler(Socket socket) throws IOException {
+    private RequestHandler createRequestHandler(Socket socket) throws IOException {
         BufferedReader streamIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         DataOutputStream streamOut = new DataOutputStream(socket.getOutputStream());
 
         String request = streamIn.readLine();
         
-        RequestHandler_NEW requestHandler;
+        RequestHandler requestHandler;
         switch (request) {
             case ProtocolKeywords.AvailableNetworkPlayerListingRequest:
-                requestHandler = new NetworkListingHandler_NEW(streamOut);
+                requestHandler = new NetworkListingHandler(streamOut);
                 break;
             case ProtocolKeywords.InitGameRequest:
                 InetAddress inetAddress = socket.getInetAddress();
                 String hostAddress = inetAddress.getHostAddress();
-                requestHandler = new InitGameHandler_NEW(streamOut, hostAddress, this.navigator);
+                requestHandler = new InitGameHandler(streamOut, hostAddress, this.navigator);
                 break;
             case ProtocolKeywords.DiskPlayed:
-                requestHandler = new DiskPlayedHandler_NEW(streamIn, this.opponentHasMadeATurnListener);
+                requestHandler = new DiskPlayedHandler(streamIn, this.opponentHasMadeATurnListener);
                 break;
             default:
-                requestHandler = new DefaultHandler_NEW(request);
+                requestHandler = new DefaultHandler(request);
                 break;
         }
         return requestHandler;

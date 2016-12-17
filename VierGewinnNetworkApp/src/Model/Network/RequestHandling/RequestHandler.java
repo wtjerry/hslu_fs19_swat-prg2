@@ -1,4 +1,7 @@
 package Model.Network.RequestHandling;
 
-public interface RequestHandler extends Runnable {
+import java.io.IOException;
+
+public interface RequestHandler {
+    void handle() throws IOException;
 }

@@ -27,12 +27,6 @@ public class NetworkPlayer extends Player {
     }
 
     private void sendPlayDisk(int columnOfPreviousTurn) {
-        
-        
-        Logger.getLogger(Game.class.getName()).log(Level.INFO, "********** sendPlayDisk: {0}", columnOfPreviousTurn);
-        
-        
-        
         try {
             try (Socket hostSocket = new Socket(this.opponentAddress, this.port)) {
                 DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
@@ -40,7 +34,6 @@ public class NetworkPlayer extends Player {
                 streamToHost.writeBytes(ProtocolKeywords.DiskPlayed + "\n");
                 streamToHost.writeBytes(columnOfPreviousTurn + "\n");
                 streamToHost.flush();
-                Logger.getLogger(Game.class.getName()).log(Level.INFO, "++++++++ sendPlayDisk checkpoint 2");
             }
         } catch (IOException ex) {
             Logger.getLogger(NetworkPlayer.class.getName()).log(Level.SEVERE, null, ex);
