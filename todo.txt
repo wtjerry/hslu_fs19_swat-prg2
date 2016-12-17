@@ -7,7 +7,7 @@ required:
 
 
 bugs:
--when initializing a game, the opponents view sometimes does not get loaded completely.
+-when initializing a game, the opponents view sometimes does not get loaded completely. Same happens for any view updates which originate from a differnt thread (eg network request handling). --> use SwingUtilities.invokeAndWait(..) to solve.
 -sometimes the opponent Turn does not get communinicated to the other network side's GameField.
 
 
