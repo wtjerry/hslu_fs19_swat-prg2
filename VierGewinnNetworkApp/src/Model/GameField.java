@@ -3,7 +3,9 @@ package Model;
 import Model.Network.Settings;
 import java.util.ArrayList;
 
-public class GameField {
+public class GameField implements ValidTurnChecker {
+
+    final int FreeField = 0;
 
     private final int height;
     private final int width;
@@ -19,7 +21,7 @@ public class GameField {
         this.width = Settings.getGameFieldWidth();
         this.height = Settings.getGameFieldHeight();
         this.gameArray = new int[this.width * this.height];
-        
+
         this.myDiskId = PrimeNumberProvider.nextPrimeNumber();
         this.opponentDiskId = PrimeNumberProvider.nextPrimeNumber();
     }
@@ -31,12 +33,12 @@ public class GameField {
     public DiskPosition setOpponentsDisk(int column) {
         return addDiskToArray(column, this.opponentDiskId);
     }
-    
+
     private DiskPosition addDiskToArray(int column, int diskId) {
         if (column <= this.width) {
             for (int indexOfCurrentHeight = 0; indexOfCurrentHeight < this.height; indexOfCurrentHeight++) {
                 int index = column + indexOfCurrentHeight * this.width;
-                if (this.gameArray[index] == 0) {
+                if (this.gameArray[index] == FreeField) {
                     this.gameArray[index] = diskId;
                     return new DiskPosition(column, indexOfCurrentHeight);
                 }
@@ -45,14 +47,14 @@ public class GameField {
 
         return DiskPosition.getInvalidDiskPosition();
     }
-    
+
     public WinState checkIfSomebodyWon() {
         WinState result = WinState.NobodyWon;
         for (int i : this.getNumbers()) {
             if (i == this.myDiskId * 4) {
                 result = WinState.IWon;
             }
-            if (i == this.opponentDiskId* 4) {
+            if (i == this.opponentDiskId * 4) {
                 result = WinState.OpponentWon;
             }
         }
@@ -107,5 +109,14 @@ public class GameField {
         }
 
         return numbers;
+    }
+
+    @Override
+    public boolean isValidTurn(int column) {
+        int gameFieldWidth = Settings.getGameFieldWidth();
+        int topRowIndex = Settings.getGameFieldHeight() - 1;
+        int gameFieldIndex = column + topRowIndex * width;
+        boolean isStillFree = this.gameArray[gameFieldIndex] == FreeField;
+        return isStillFree;
     }
 }

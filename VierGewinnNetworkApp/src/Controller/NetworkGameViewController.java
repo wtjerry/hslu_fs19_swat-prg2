@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Game;
+import Model.GameField;
 import Model.GameState;
 import Model.Network.RequestHandling.NetworkRequestManager;
 import Model.NetworkPlayer;
@@ -20,8 +21,9 @@ public class NetworkGameViewController extends GameViewController{
 
     @Override
     void init(GameState startGameState) {
+        GameField gameField = new GameField();
         Player opponent = new NetworkPlayer(this.ipAddress);
-        this.game = new Game(opponent, startGameState);
+        this.game = new Game(gameField, opponent, startGameState);
         this.game.setListener(this);
         this.networkRequestManager.setOpponentHasMadeATurnListener(this.game);
     }

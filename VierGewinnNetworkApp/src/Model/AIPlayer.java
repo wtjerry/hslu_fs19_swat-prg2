@@ -1,10 +1,18 @@
 package Model;
 
+import Model.Network.Settings;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AIPlayer extends Player {
+
+    private final ValidTurnChecker validTurnChecker;
+
+    public AIPlayer(ValidTurnChecker validTurnChecker) {
+        this.validTurnChecker = validTurnChecker;
+    }
 
     @Override
     public void makeYourTurnNowAsync(int columnOfPreviousTurn) {
@@ -21,10 +29,14 @@ public class AIPlayer extends Player {
     public void startWithFirstDisk() {
         this.playDiskAndNotify();
     }
-    
-    private void playDiskAndNotify(){
-        //todo determine where to play my next disk. May be done as easy as just choosing a random column
-        int columnOfMyNextDisk = 1;
+
+    private void playDiskAndNotify() {
+        int columnOfMyNextDisk;
+        do {
+            int maxColumn = Settings.getGameFieldWidth();
+            columnOfMyNextDisk = new Random().nextInt(maxColumn);
+        } while (this.validTurnChecker.isValidTurn(columnOfMyNextDisk) == false);
+
         this.notifyOpponentHadMadeATurn(columnOfMyNextDisk);
     }
 }

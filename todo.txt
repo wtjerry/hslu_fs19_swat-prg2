@@ -1,7 +1,7 @@
 
 required:
 -todos
--playing (me / opponent) when not my / opponents turn raises currently an exception
+-playing a disk (me / opponent) while it is not my / opponents turn raises an exception currently
 -ui
 -doku
 
@@ -11,7 +11,8 @@ bugs:
 
 
 nice to have:
--check log levels
+-check logs (correct class name, still required, meaningfull, correct level)
+-more intelligent AIPlayer
 -When an init game is received nothing happens yet (notify controller, change state?, actually ask player if he wants to play?)
--playing an invalid disk (outside column-range / column full / etc) not handled
+-playing an invalid disk (outside column-range / column full / etc) not handled (will not be possible from ui side)
 

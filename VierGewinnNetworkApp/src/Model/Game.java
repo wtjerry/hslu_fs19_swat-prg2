@@ -8,10 +8,10 @@ public class Game implements OpponentHasMadeATurnListener {
     private GameState currentGameState;
     private OpponentTurnEvaluatedListener opponentTurnEvaluatedListener;
 
-    public Game(Player opponent, GameState startGameState) {
+    public Game(GameField gameField, Player opponent, GameState startGameState) {
         this.opponent = opponent;
         this.currentGameState = startGameState;
-        this.gameField = new GameField();
+        this.gameField = gameField;
     }
 
     public TurnResult playDisk(int column) {
