@@ -6,5 +6,4 @@ public interface ViewHandler {
     public HelpView switchToHelpView();
     public NetworkView switchToNetworkView();
     public GameView switchToGameView();
-    public GameView switchToGameViewForAcceptingNetworkGame();
 }
