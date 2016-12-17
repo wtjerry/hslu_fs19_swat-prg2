@@ -1,23 +1,23 @@
 
 required:
 -todos
--playing a disk (me / opponent) while it is not my / opponents turn raises an exception currently
 -ui
 -doku
 
 
-potential bugs:
--load when nothing saved
-
-
 bugs:
+-resume when nothing saved throws exception (jerry: should check if file available and otherwise not navigating to other view / controller)
 -when initializing a game, the opponents view sometimes does not get loaded completely. This might be because the view gets updated by a different thread (eg network request handling). --> use SwingUtilities.invokeAndWait(..) to solve. But it may also just be a problem switching from the VM window to the Host.
 
 
+bugs which should not happen as soon as view is implemented:
+-playing a disk (me / opponent) while it is not my / opponents turn raises an exception currently
+-playing an invalid disk (outside column-range / column full / etc) not handled (will not be possible from ui side)
+
+
 nice to have:
--introduce interfaces
+-introduce interfaces for Navigator, NetworkRequestManager, NetworkPlayerSearcher
 -check logs (correct class name, still required, meaningfull, correct level)
 -more intelligent AIPlayer
--When an init game is received nothing happens yet (notify controller, change state?, actually ask player if he wants to play?)
--playing an invalid disk (outside column-range / column full / etc) not handled (will not be possible from ui side)
+-When an init game is received player does not get asked whether he actually wants to play, but game starts automatically
 
