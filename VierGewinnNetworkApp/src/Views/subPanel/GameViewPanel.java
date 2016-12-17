@@ -3,6 +3,7 @@ package Views.subPanel;
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -61,10 +62,12 @@ public class GameViewPanel extends JPanel implements GameView{
     @Override
     public void showIWonDialog() {
         //todo implement i won dialog
+        JOptionPane.showMessageDialog(this, "I won");
     }
 
     @Override
     public void showOpponentWonDialog() {
         //todo implement opponent won dialog
+        JOptionPane.showMessageDialog(this, "Opponent won");
     }
 }
