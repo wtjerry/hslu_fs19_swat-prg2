@@ -3,19 +3,23 @@ package Model;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game implements OpponentHasMadeATurnListener, Serializable {
 
     private final Player opponent;
     private final GameField gameField;
-
+    private final List<Integer> playedTurns;
+    
     private GameState currentGameState;
     private OpponentTurnEvaluatedListener opponentTurnEvaluatedListener;
 
     public Game(GameField gameField, Player opponent, GameState startGameState) {
         this.opponent = opponent;
-        this.currentGameState = startGameState;
         this.gameField = gameField;
+        this.playedTurns = new ArrayList<>();
+        this.currentGameState = startGameState;
     }
 
     public TurnResult playDisk(int column) {
@@ -26,6 +30,8 @@ public class Game implements OpponentHasMadeATurnListener, Serializable {
         this.currentGameState = GameState.OpponentsTurn;
         DiskPosition diskPosition = this.gameField.setMyDisk(column);
         WinState winCheckResult = this.gameField.checkIfSomebodyWon();
+        
+        this.playedTurns.add(column);
         
         this.opponent.makeYourTurnNowAsync(column);
 
@@ -43,6 +49,8 @@ public class Game implements OpponentHasMadeATurnListener, Serializable {
         DiskPosition diskPosition = this.gameField.setOpponentsDisk(column);
         WinState winCheckResult = this.gameField.checkIfSomebodyWon();
         
+        this.playedTurns.add(column);
+        
         if (this.opponentTurnEvaluatedListener != null) {
             TurnResult turnResult = new TurnResult(winCheckResult, diskPosition);
             this.opponentTurnEvaluatedListener.opponentTurnEvaluated(turnResult);
@@ -54,8 +62,7 @@ public class Game implements OpponentHasMadeATurnListener, Serializable {
     }
 
     public void saveTo(ObjectOutputStream gameSaveStream) throws IOException {
-        this.opponentTurnEvaluatedListener = null;
-        gameSaveStream.writeObject(this);
+        gameSaveStream.writeObject(this.playedTurns);
         gameSaveStream.flush();
     }
 }
