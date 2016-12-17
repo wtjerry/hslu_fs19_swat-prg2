@@ -5,12 +5,16 @@ import Model.Network.ProtocolKeywords;
 import Model.Network.Settings;
 import Model.OpponentHasMadeATurnListener;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class NetworkRequestManager {
 
@@ -41,31 +45,46 @@ public class NetworkRequestManager {
             ServerSocket serverSocket = new ServerSocket(this.port);
             while (this.continueHandlingRequests) {
                 Socket connectionSocket = serverSocket.accept();
-                BufferedReader streamIn = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-                String request = streamIn.readLine();
-                RequestHandler requestHandler = createRequestHandler(request, connectionSocket, streamIn);
-                this.threadPool.submit(requestHandler);
+                RequestHandler_NEW requestHandler = createRequestHandler(connectionSocket);
+                this.threadPool.submit(() -> callHandlerAndAfterwardsCloseSocket(requestHandler, connectionSocket));
             }
         } catch (IOException e) {
             System.err.println("Unable to process client request");
         }
     }
 
-    private RequestHandler createRequestHandler(String request, Socket connectionSocket, BufferedReader streamIn) {
-        RequestHandler requestHandler;
+    private void callHandlerAndAfterwardsCloseSocket(RequestHandler_NEW requestHandler, Socket connectionSocket) {
+        try {
+            requestHandler.handle();
+            if (connectionSocket.isClosed() == false) {
+                connectionSocket.close();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(NetworkRequestManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private RequestHandler_NEW createRequestHandler(Socket socket) throws IOException {
+        BufferedReader streamIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        DataOutputStream streamOut = new DataOutputStream(socket.getOutputStream());
+
+        String request = streamIn.readLine();
+        
+        RequestHandler_NEW requestHandler;
         switch (request) {
             case ProtocolKeywords.AvailableNetworkPlayerListingRequest:
-                requestHandler = new NetworkListingHandler(connectionSocket);
+                requestHandler = new NetworkListingHandler_NEW(streamOut);
                 break;
             case ProtocolKeywords.InitGameRequest:
-                requestHandler = new InitGameHandler(connectionSocket, this.navigator);
+                InetAddress inetAddress = socket.getInetAddress();
+                String hostAddress = inetAddress.getHostAddress();
+                requestHandler = new InitGameHandler_NEW(streamOut, hostAddress, this.navigator);
                 break;
             case ProtocolKeywords.DiskPlayed:
-                //requestHandler = new DiskPlayedHandler(connectionSocket, this.opponentHasMadeATurnListener);
-                requestHandler = new DiskPlayedHandler_NEW(streamIn, connectionSocket, this.opponentHasMadeATurnListener);
+                requestHandler = new DiskPlayedHandler_NEW(streamIn, this.opponentHasMadeATurnListener);
                 break;
             default:
-                requestHandler = new DefaultHandler(request, connectionSocket);
+                requestHandler = new DefaultHandler_NEW(request);
                 break;
         }
         return requestHandler;
@@ -78,7 +97,7 @@ public class NetworkRequestManager {
     public void setOpponentHasMadeATurnListener(OpponentHasMadeATurnListener opponentHasMadeATurnListener) {
         this.opponentHasMadeATurnListener = opponentHasMadeATurnListener;
     }
-    
+
     public void setNavigator(Navigator navigator) {
         this.navigator = navigator;
     }
