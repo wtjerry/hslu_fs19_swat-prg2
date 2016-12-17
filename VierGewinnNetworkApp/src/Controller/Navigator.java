@@ -49,6 +49,13 @@ public class Navigator {
         view.setListener(controller);
         controller.init(GameState.OpponentsTurn);
     }
+
+    public void navigateToGameViewForResumingLocalGame() {
+        GameView view = this.viewHandler.switchToGameView();
+        GameViewController controller = new LocalGameViewController(view, this);
+        view.setListener(controller);
+        controller.initForResumeGame();
+    }
     
     public void navigateToGameViewForInitializingNetworkPlay(String ipAddress) {
         GameView view = this.viewHandler.switchToGameView();

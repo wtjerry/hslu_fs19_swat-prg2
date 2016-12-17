@@ -15,7 +15,7 @@ public class LocalGameCreationViewController implements LocalGameCreationViewLis
     
     @Override
     public void ResumeGamePressed() {
-        //todo implement resume game pressed.
+        this.navigator.navigateToGameViewForResumingLocalGame();
     }
 
     @Override

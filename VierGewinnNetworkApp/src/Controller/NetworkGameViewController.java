@@ -32,4 +32,9 @@ public class NetworkGameViewController extends GameViewController{
     public void SaveGamePressed() {
         throw new UnsupportedOperationException("Saving a network game is not supported.");
     }
+
+    @Override
+    public void initForResumeGame() {
+        throw new UnsupportedOperationException("Resuming a network game is not supported.."); 
+    }
 }

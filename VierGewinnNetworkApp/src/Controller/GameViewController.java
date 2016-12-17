@@ -9,11 +9,11 @@ import Views.Interfaces.GameViewListener;
 import Model.OpponentTurnEvaluatedListener;
 import Model.WinState;
 
-public abstract class GameViewController implements GameViewListener, OpponentTurnEvaluatedListener{
+public abstract class GameViewController implements GameViewListener, OpponentTurnEvaluatedListener {
 
     private final GameView view;
     private final Navigator navigator;
-    
+
     protected Game game;
 
     GameViewController(GameView view, Navigator navigator) {
@@ -23,16 +23,18 @@ public abstract class GameViewController implements GameViewListener, OpponentTu
 
     abstract void init(GameState startGameState);
 
+    public abstract void initForResumeGame();
+    
     @Override
     public abstract void SaveGamePressed();
     
     @Override
     public void DiskColumnPressed(int column) {
         TurnResult turnResult = this.game.playDisk(column);
-        
+
         DiskPosition diskPosition = turnResult.getDiskPosition();
         this.view.showNewDiskForMe(diskPosition.getColumn(), diskPosition.getRow());
-        
+
         this.notifyViewAboutWinIfRequired(turnResult.getWinState());
     }
 
@@ -40,7 +42,7 @@ public abstract class GameViewController implements GameViewListener, OpponentTu
     public void opponentTurnEvaluated(TurnResult turnResult) {
         DiskPosition diskPosition = turnResult.getDiskPosition();
         this.view.showNewDiskForOpponent(diskPosition.getColumn(), diskPosition.getRow());
-        
+
         this.notifyViewAboutWinIfRequired(turnResult.getWinState());
     }
 
@@ -49,7 +51,7 @@ public abstract class GameViewController implements GameViewListener, OpponentTu
             this.view.showOpponentWonDialog();
             this.navigator.navigateToStartView();
         }
-        if (winState== WinState.IWon) {
+        if (winState == WinState.IWon) {
             this.view.showIWonDialog();
             this.navigator.navigateToStartView();
         }
