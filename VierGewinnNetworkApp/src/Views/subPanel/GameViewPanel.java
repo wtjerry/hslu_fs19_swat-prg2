@@ -2,6 +2,9 @@ package Views.subPanel;
 
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
+import Views.subPanel.Components.PlayGround;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -14,52 +17,36 @@ import javax.swing.JTextField;
 public class GameViewPanel extends JPanel implements GameView{
 
     private GameViewListener gameViewListener;
+    private PlayGround playGround;
 
     public GameViewPanel() {
         this.initComponent();
     }
 
     protected final void initComponent() {
-        this.saveButton = new JButton("save");
-        this.diskColumnTextField = new JTextField("1");
-        this.playDiskButton = new JButton("play disk");
-        this.log = new JTextArea();
-        
-        this.saveButton.addActionListener(x -> {
-            if (this.gameViewListener != null) {
-                this.gameViewListener.SaveGamePressed();
+        this.playGround = new PlayGround(7, 4);
+        playGround.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e){
+                gameViewListener.DiskColumnPressed(playGround.getColumn());
             }
         });
-        this.playDiskButton.addActionListener(x -> {
-            if (this.gameViewListener != null) {
-                final int column = Integer.parseInt( this.diskColumnTextField.getText());
-                this.gameViewListener.DiskColumnPressed(column);
-            }
-        });
-
-        this.add(this.saveButton);
-        this.add(this.diskColumnTextField);
-        this.add(this.playDiskButton);
-        this.add(this.log);
-        
-        this.log.append("view finished initializing\n");
+        this.add(this.playGround);
     }
-
-    private JButton saveButton;
-    private JTextField diskColumnTextField;
-    private JButton playDiskButton;
-    private JTextArea log;
     
     @Override
     public void showNewDiskForMe(int column, int row) {
+        playGround.playerDiskPlayed(column, row);
+        System.out.println("x-> " + column + "   y-> " + row);
         //todo implement showing my next disk on screen
-        this.log.append("showNewDiskForMe, column: " + column + ", row: " + row + "\n");
+        //this.log.append("showNewDiskForMe, column: " + column + ", row: " + row + "\n");
     }
     
     @Override
     public void showNewDiskForOpponent(int column, int row) {
+        playGround.opponentDiskPlayed(column, row);
+        System.out.println("x-> " + column + "   y-> " + row);
         //todo implement showing opponents next disk on screen
-        this.log.append("showNewDiskForOpponent, column: " + column + ", row: " + row + "\n");        
+        //this.log.append("showNewDiskForOpponent, column: " + column + ", row: " + row + "\n");        
     }
 
     @Override
@@ -77,5 +64,8 @@ public class GameViewPanel extends JPanel implements GameView{
     public void showOpponentWonDialog() {
         //todo implement opponent won dialog
         JOptionPane.showMessageDialog(this, "Opponent won");
+    }
+    public void start(){
+        playGround.start();
     }
 }
