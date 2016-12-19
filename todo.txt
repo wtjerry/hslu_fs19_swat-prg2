@@ -2,8 +2,6 @@
 required:
 -todos
 -ui
-  -show which players turn it currently is
-  -do not allow to play a disk if it currently is not my turn
 -doku
 
 
