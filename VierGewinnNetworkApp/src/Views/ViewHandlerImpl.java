@@ -22,6 +22,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import Views.subPanel.HelpViewPanel;
 import Views.subPanel.NetworkViewPanel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 
 public class ViewHandlerImpl extends JFrame implements ViewHandler{
@@ -87,6 +90,21 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
         networkView = new NetworkViewPanel();
         localGameCreationView = new LocalGameCreationViewPanel();
         gameView = new GameViewPanel();
+
+        menuBar = new JMenuBar();
+        gameMenu = new JMenu("Game");
+        helpMenu = new JMenu("Help");
+        gameSaveItem = new JMenuItem("Save");
+        gameCloseItem = new JMenuItem("Close");
+        helpAboutItem = new JMenuItem("About");
+        helpAboutItem.addActionListener(x -> {new AboutDialog(this, true).setVisible(true);});
+        
+        gameMenu.add(gameSaveItem);
+        gameMenu.add(gameCloseItem);
+        helpMenu.add(helpAboutItem);
+        menuBar.add(gameMenu);
+        menuBar.add(helpMenu);
+        setJMenuBar(menuBar);
         
         
         cards.add(startView, STARTVIEWNAME);
@@ -108,6 +126,12 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
     private HelpViewPanel helpView;
     private NetworkViewPanel networkView;
     private GameViewPanel gameView;
-
+                 
+    private JMenuBar menuBar;
+    private JMenu gameMenu;
+    private JMenu helpMenu;
+    private JMenuItem gameCloseItem;
+    private JMenuItem gameSaveItem;
+    private JMenuItem helpAboutItem;
     
 }
