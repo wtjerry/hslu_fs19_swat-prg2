@@ -22,7 +22,7 @@ public class StartViewPanel extends JPanel implements StartView{
     
     protected final void initComponent(){
         GridLayout layout = new GridLayout(3, 1);        
-        startAI = new JButton("Play again AI");
+        startAI = new JButton("Play against AI");
         startNetGame = new JButton("Play over Network");
         openHelp = new JButton("Help");
         
