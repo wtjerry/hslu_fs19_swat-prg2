@@ -18,13 +18,15 @@ public class GameViewPanel extends JPanel implements GameView{
 
     private GameViewListener gameViewListener;
     private PlayGround playGround;
+    private boolean dialogOpened;
 
     public GameViewPanel() {
         this.initComponent();
     }
 
     protected final void initComponent() {
-        this.playGround = new PlayGround(7, 4);
+        this.dialogOpened = false;
+        this.playGround = new PlayGround(6, 4);
         playGround.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 gameViewListener.DiskColumnPressed(playGround.getColumn());
@@ -57,15 +59,22 @@ public class GameViewPanel extends JPanel implements GameView{
     @Override
     public void showIWonDialog() {
         //todo implement i won dialog
-        JOptionPane.showMessageDialog(this, "I won");
+        if(!this.dialogOpened){
+            this.dialogOpened = true;
+            JOptionPane.showMessageDialog(this, "I won");
+        }
     }
 
     @Override
     public void showOpponentWonDialog() {
         //todo implement opponent won dialog
-        JOptionPane.showMessageDialog(this, "Opponent won");
+        if(!this.dialogOpened){
+            this.dialogOpened = true;
+            JOptionPane.showMessageDialog(this, "Opponent won");
+        }
     }
     public void startGame(){
+        this.dialogOpened = false;
         playGround.start();
     }
 
