@@ -35,7 +35,7 @@ public class GameViewPanel extends JPanel implements GameView{
     
     @Override
     public void showNewDiskForMe(int column, int row) {
-        playGround.playerDiskPlayed(column, row);
+        playGround.playerDiskPlayedUpsideDown(column, row);
         System.out.println("x-> " + column + "   y-> " + row);
         //todo implement showing my next disk on screen
         //this.log.append("showNewDiskForMe, column: " + column + ", row: " + row + "\n");
@@ -43,7 +43,7 @@ public class GameViewPanel extends JPanel implements GameView{
     
     @Override
     public void showNewDiskForOpponent(int column, int row) {
-        playGround.opponentDiskPlayed(column, row);
+        playGround.opponentDiskPlayedUpsideDown(column, row);
         System.out.println("x-> " + column + "   y-> " + row);
         //todo implement showing opponents next disk on screen
         //this.log.append("showNewDiskForOpponent, column: " + column + ", row: " + row + "\n");        

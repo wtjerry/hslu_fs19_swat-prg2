@@ -132,5 +132,13 @@ public class PlayGround extends JComponent{
             }
         }        
     }
+
+    public void playerDiskPlayedUpsideDown(int x, int y) {
+        this.playerDiskPlayed(x, (this.yCount-1)-y);
+    }
+
+    public void opponentDiskPlayedUpsideDown(int x, int y) {
+       this.opponentDiskPlayed(x, (this.yCount-1)-y);
+    }
 }
     
