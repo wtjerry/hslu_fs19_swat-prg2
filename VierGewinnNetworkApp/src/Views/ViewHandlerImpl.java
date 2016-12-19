@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Model.Network.Settings;
 import Views.subPanel.LocalGameCreationViewPanel;
 import Views.subPanel.GameViewPanel;
 import Views.Interfaces.GameView;
@@ -40,45 +41,47 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
     
     @Override
     public StartView switchToStartView(){
-        gameMenu.setVisible(false);
+        this.restoreAfterGame();
         clayout.show(cards, STARTVIEWNAME);
         return startView;
     }
     @Override
     public HelpView switchToHelpView(){
-        gameMenu.setVisible(false);
+        this.restoreAfterGame();
         clayout.show(cards, HELPVIEWNAME);
         return helpView;
     }
     @Override
     public NetworkView switchToNetworkView(){
-        gameMenu.setVisible(false);
+        this.restoreAfterGame();
         clayout.show(cards, NETWORKVIEW);
         return networkView;
     }
     @Override
     public LocalGameCreationView switchToLocalGameCreationView(){
-        gameMenu.setVisible(false);
+        this.restoreAfterGame();
         clayout.show(cards, LOCALGAMECREATIONVIEW);
         return localGameCreationView;
     }    
     @Override
     public GameView switchToGameView(){
-        gameView.startGame();
-        gameMenu.setVisible(true);
-        clayout.show(cards, GAMEVIEW);
-        return gameView;
+        return this.swtichToGameView(Settings.getGameFieldWidth(), Settings.getGameFieldHeight());
     }
 
     @Override
     public GameView swtichToGameView(int x, int y) {
-        System.out.println(x + "  " + y);
         gameView.startGame(x, y);
+        System.out.println(gameView.getSize().height);
+        this.setSize(gameView.getSize().width+50, gameView.getSize().height+100);
         gameMenu.setVisible(true);
         clayout.show(cards, GAMEVIEW);
         return gameView;
     }
     
+    private void restoreAfterGame(){
+        gameMenu.setVisible(false);
+        this.setSize(MIN_WIDTH, MIN_HEIGHT);
+    }
     public ViewHandlerImpl(){
         initComponent();
     }

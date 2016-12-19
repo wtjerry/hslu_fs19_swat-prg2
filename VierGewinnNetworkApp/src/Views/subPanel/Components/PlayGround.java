@@ -157,5 +157,9 @@ public class PlayGround extends JComponent{
     public boolean notFull() {
         return !this.disks[this.currentLocation][0].isPlayed();
     }
+    @Override
+    public Dimension getSize(){
+        return new Dimension((xCount+1)*spaceX+xCount*diskSize, (yCount+1)*spaceY+yCount*diskSize);
+    }
 }
     
