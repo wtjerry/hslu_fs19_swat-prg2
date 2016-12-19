@@ -72,7 +72,7 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
     public GameView swtichToGameView(int x, int y) {
         gameView.startGame(x, y);
         System.out.println(gameView.getSize().height);
-        this.setSize(gameView.getSize().width+50, gameView.getSize().height+100);
+        this.setSize(gameView.getSize().width+50, gameView.getSize().height+140);
         gameMenu.setVisible(true);
         clayout.show(cards, GAMEVIEW);
         return gameView;
