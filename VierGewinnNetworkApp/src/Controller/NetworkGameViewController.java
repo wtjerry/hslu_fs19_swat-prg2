@@ -37,9 +37,4 @@ public class NetworkGameViewController extends GameViewController{
     public void initForResumeGame() {
         throw new UnsupportedOperationException("Resuming a network game is not supported.."); 
     }
-
-    @Override
-    public void CloseGamePressed() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
