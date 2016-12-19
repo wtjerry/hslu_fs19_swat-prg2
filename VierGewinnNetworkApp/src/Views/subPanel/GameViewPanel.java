@@ -3,6 +3,7 @@ package Views.subPanel;
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
 import Views.subPanel.Components.PlayGround;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
@@ -80,7 +81,17 @@ public class GameViewPanel extends JPanel implements GameView{
         this.dialogOpened = false;
         playGround.start();
     }
-
+    public void startGame(int x, int y){
+        playGround = new PlayGround(x, y);
+        this.dialogOpened = false;
+    }
+    public void startGame(Dimension size, int x, int y){
+        playGround = new PlayGround(size, x, y);
+        this.dialogOpened = false;
+    }
+    public Dimension getSize(){
+        return this.playGround.getSize();
+    }
     public void closeGame() {
         gameViewListener.CloseGamePressed();
     }

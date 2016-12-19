@@ -37,8 +37,11 @@ public class PlayGround extends JComponent{
     public PlayGround(Dimension size){
         this(size, ROWCOUNT, COLUMNCOUNT, GAPSIZEPROZENT);
     }
-    public PlayGround(int rowCount, int columntCount){
-        this(new Dimension(XSIZE, YSIZE), rowCount, columntCount, GAPSIZEPROZENT);
+    public PlayGround(int rowCount, int columnCount){
+        this(new Dimension(XSIZE, YSIZE), rowCount, columnCount, GAPSIZEPROZENT);
+    }
+    public PlayGround(Dimension size, int rowCount, int columnCount){
+        this(size, rowCount, columnCount, GAPSIZEPROZENT);        
     }
     public PlayGround(int rowCount, int columntCount, double gapSizeProzent){
         this(new Dimension(XSIZE, YSIZE), rowCount, columntCount, gapSizeProzent);
