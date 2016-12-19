@@ -31,6 +31,8 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
         back = new JButton("Back");
         startGame = new JButton("Start Game");
         
+        startGame.setEnabled(false);
+        
         computerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listScrollPane.setViewportView(computerList);
         
@@ -43,6 +45,7 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
         startGame.addActionListener(x -> {
             if (this.networkViewListener != null) {
                 String selectedIpAddress = this.computerList.getSelectedValue();
+                System.out.println(selectedIpAddress);
                 this.networkViewListener.StartGamePressed(selectedIpAddress);
             }
         });
@@ -55,6 +58,12 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
     public void showAvailablePlayers(List<String> allPlayers) {
         this.computerListModel.removeAllElements();
         allPlayers.forEach(player -> this.computerListModel.addElement(player));
+        if(allPlayers.isEmpty())
+            startGame.setEnabled(false);
+        else{
+            startGame.setEnabled(true);
+            this.computerList.setSelectedIndex(0);
+        }
     }
     
     private final DefaultListModel computerListModel;
