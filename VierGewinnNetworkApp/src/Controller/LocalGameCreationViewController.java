@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Network.Settings;
 import Views.Interfaces.LocalGameCreationViewListener;
 
 public class LocalGameCreationViewController implements LocalGameCreationViewListener {
@@ -19,13 +20,12 @@ public class LocalGameCreationViewController implements LocalGameCreationViewLis
     }
 
     @Override
-    public void NewGamePressed() {
+    public void NewGamePressed(int width, int height) {
+        Settings.setGameFieldWidth(width);
+        Settings.setGameFieldHeight(height);
         this.navigator.navigateToGameViewForLocalPlay();
     }
-    @Override
-    public void NewGamePressed(int x, int y) {
-        this.navigator.navigateToGameViewForLocalPlay(x, y);
-    }
+
     @Override
     public void BackPressed() {
         this.navigator.navigateToStartView();

@@ -22,7 +22,6 @@ public abstract class GameViewController implements GameViewListener, TurnEvalua
     }
 
     abstract void init(GameState startGameState);
-    abstract void init(GameState startGameState, int x, int y);
 
     public abstract void initForResumeGame();
     

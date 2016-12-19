@@ -1,13 +1,10 @@
 package Views.subPanel.Components;
 
-import Views.subPanel.Components.DiskField;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Arc2D;
 import javax.swing.*;
-import javax.swing.event.MouseInputAdapter;
 
 public class PlayGround extends JComponent{
     private static final int ROWCOUNT=4;

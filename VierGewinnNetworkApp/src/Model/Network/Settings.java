@@ -4,25 +4,52 @@ import java.io.File;
 
 public class Settings {
 
+    private static Settings instance;
+    
+    private final int port;
+    private final String baseIpAddress;
+    private final String saveGamePath;
+    
+    private int gameFieldHeight;
+    private int gameFieldWidth;
+
+    public Settings() {
+        this.port = 5400;
+        this.baseIpAddress = "192.168.1.";
+        this.gameFieldHeight = 4;
+        this.gameFieldWidth = 6;
+        this.saveGamePath = System.getProperty("user.home") + File.separator + "saveGame.ser";
+    }
+
     public static int getPort() {
-        return 5400;
+        return instance.port;
     }
 
     public static String getBaseIpAddress() {
-        return "192.168.1.";
+        return instance.baseIpAddress;
     }
 
     public static int getGameFieldHeight() {
-        return 4;
+        return instance.gameFieldHeight;
     }
 
     public static int getGameFieldWidth() {
-        return 6;
+        return instance.gameFieldWidth;
     }
 
     public static String getSaveGamePath() {
-        String homeDirectory = System.getProperty("user.home");
-        String gameFilePath = homeDirectory + File.separator + "saveGame.ser";
-        return gameFilePath;
+        return instance.saveGamePath;
+    }
+
+    public static void setGameFieldHeight(int height) {
+        instance.gameFieldHeight = height;
+    }
+
+    public static void setGameFieldWidth(int width) {
+        instance.gameFieldWidth = width;
+    }
+
+    public static void init() {
+        instance = new Settings();
     }
 }

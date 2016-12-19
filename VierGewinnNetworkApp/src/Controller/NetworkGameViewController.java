@@ -29,12 +29,6 @@ public class NetworkGameViewController extends GameViewController{
     }
 
     @Override
-    void init(GameState startGameState, int x, int y) {
-        this.init(startGameState);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void SaveGamePressed() {
         throw new UnsupportedOperationException("Saving a network game is not supported.");
     }

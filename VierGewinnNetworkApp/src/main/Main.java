@@ -3,11 +3,14 @@ package main;
 import Controller.Navigator;
 import Model.Network.NetworkPlayerSearcher;
 import Model.Network.RequestHandling.NetworkRequestManager;
+import Model.Network.Settings;
 import Views.ViewHandlerImpl;
 
 public class Main {
 
     public static void main(String[] args) {
+        Settings.init();
+        
         NetworkRequestManager networkRequestManager = new NetworkRequestManager();
         networkRequestManager.start();
         

@@ -3,6 +3,7 @@ package Controller;
 import Model.GameState;
 import Model.Network.NetworkPlayerSearcher;
 import Model.Network.RequestHandling.NetworkRequestManager;
+import Model.Network.Settings;
 import Views.Interfaces.GameView;
 import Views.Interfaces.HelpView;
 import Views.Interfaces.LocalGameCreationView;
@@ -44,34 +45,28 @@ public class Navigator {
     }
 
     public void navigateToGameViewForLocalPlay() {
-        GameView view = this.viewHandler.switchToGameView();
+        GameView view = this.switchToGameViewWithSizeDefinedInSettings();
         GameViewController controller = new LocalGameViewController(view, this);
         view.setListener(controller);
         controller.init(GameState.OpponentsTurn);
     }
-    public void navigateToGameViewForLocalPlay(int x, int y){
-        GameView view = this.viewHandler.swtichToGameView(x, y);
-        GameViewController controller = new LocalGameViewController(view, this);
-        view.setListener(controller);
-        controller.init(GameState.OpponentsTurn, x, y);        
-    }
 
     public void navigateToGameViewForResumingLocalGame() {
-        GameView view = this.viewHandler.switchToGameView();
+        GameView view = this.switchToGameViewWithSizeDefinedInSettings();
         GameViewController controller = new LocalGameViewController(view, this);
         view.setListener(controller);
         controller.initForResumeGame();
     }
     
     public void navigateToGameViewForInitializingNetworkPlay(String ipAddress) {
-        GameView view = this.viewHandler.switchToGameView();
+        GameView view = this.switchToGameViewWithSizeDefinedInSettings();
         GameViewController controller = new NetworkGameViewController(view, this, this.networkRequestManager, ipAddress);
         view.setListener(controller);
         controller.init(GameState.OpponentsTurn);
     }
     
     public void navigateToGameViewForAcceptingNetworkPlay(String ipAddress) {
-        GameView view = this.viewHandler.switchToGameView();
+        GameView view = this.switchToGameViewWithSizeDefinedInSettings();
         GameViewController controller = new NetworkGameViewController(view, this, this.networkRequestManager, ipAddress);
         view.setListener(controller);
         controller.init(GameState.MyTurn);
@@ -82,5 +77,9 @@ public class Navigator {
         HelpViewController controller = new HelpViewController(this);
         view.setListener(controller);
         controller.init();
+    }
+    
+    private GameView switchToGameViewWithSizeDefinedInSettings(){
+        return this.viewHandler.switchToGameView(Settings.getGameFieldWidth(), Settings.getGameFieldHeight());
     }
 }

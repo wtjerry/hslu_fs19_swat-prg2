@@ -5,7 +5,6 @@
  */
 package Views;
 
-import Model.Network.Settings;
 import Views.subPanel.LocalGameCreationViewPanel;
 import Views.subPanel.GameViewPanel;
 import Views.Interfaces.GameView;
@@ -64,13 +63,8 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
         return localGameCreationView;
     }    
     @Override
-    public GameView switchToGameView(){
-        return this.swtichToGameView(Settings.getGameFieldWidth(), Settings.getGameFieldHeight());
-    }
-
-    @Override
-    public GameView swtichToGameView(int x, int y) {
-        gameView.startGame(x, y);
+    public GameView switchToGameView(int width, int height) {
+        gameView.startGame(width, height);
         System.out.println(gameView.getSize().height);
         this.setSize(gameView.getSize().width+50, gameView.getSize().height+100);
         gameMenu.setVisible(true);
