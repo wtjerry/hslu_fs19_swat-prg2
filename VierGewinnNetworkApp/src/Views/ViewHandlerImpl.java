@@ -64,6 +64,7 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
     }    
     @Override
     public GameView switchToGameView(){
+        gameView.startGame();
         gameMenu.setVisible(true);
         clayout.show(cards, GAMEVIEW);
         return gameView;

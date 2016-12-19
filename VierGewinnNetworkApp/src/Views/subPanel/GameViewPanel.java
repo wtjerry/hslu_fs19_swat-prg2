@@ -65,7 +65,14 @@ public class GameViewPanel extends JPanel implements GameView{
         //todo implement opponent won dialog
         JOptionPane.showMessageDialog(this, "Opponent won");
     }
-    public void start(){
+    public void startGame(){
         playGround.start();
+    }
+
+    public void closeGame() {
+        gameViewListener.CloseGamePressed();
+    }
+    public void saveGame(){
+        gameViewListener.SaveGamePressed();
     }
 }
