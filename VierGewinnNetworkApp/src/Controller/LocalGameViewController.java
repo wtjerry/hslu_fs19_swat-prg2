@@ -12,8 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,15 +30,7 @@ public class LocalGameViewController extends GameViewController {
         opponent.setListener(this.game);
         opponent.startWithFirstDisk();
     }
-    void init(GameState startGameState, int x, int y){
-        GameField gameField = new GameField(x, y);
-        AIPlayer opponent = new AIPlayer(gameField);
-        this.game = new Game(gameField, opponent, startGameState);
-        this.game.setListener(this);
-        opponent.setListener(this.game);
-        opponent.startWithFirstDisk();        
-    }
-
+    
     @Override
     public void SaveGamePressed() {
         try {

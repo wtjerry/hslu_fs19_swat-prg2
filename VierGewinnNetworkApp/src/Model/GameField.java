@@ -17,12 +17,9 @@ public class GameField implements ValidTurnChecker {
     // to get the index of, for example, c2r1 we can do 2 +1*6 (c+r*width) = 8 
     private final int[] gameArray;
 
-    public GameField() {
-        this(Settings.getGameFieldWidth(), Settings.getGameFieldHeight());
-    }
-    public GameField(int width, int height){
-        this.width = width;
-        this.height = height;
+    public GameField(){
+        this.width = Settings.getGameFieldWidth();
+        this.height = Settings.getGameFieldHeight();
         this.gameArray = new int[this.width * this.height];
 
         this.myDiskId = PrimeNumberProvider.nextPrimeNumber();
