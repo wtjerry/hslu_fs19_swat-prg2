@@ -69,4 +69,10 @@ public class LocalGameViewController extends GameViewController {
             Logger.getLogger(GameViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public void CloseGamePressed() {
+        SaveGamePressed();
+        super.CloseGamePressed();
+    }
 }

@@ -40,26 +40,31 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
     
     @Override
     public StartView switchToStartView(){
+        gameMenu.setVisible(false);
         clayout.show(cards, STARTVIEWNAME);
         return startView;
     }
     @Override
     public HelpView switchToHelpView(){
+        gameMenu.setVisible(false);
         clayout.show(cards, HELPVIEWNAME);
         return helpView;
     }
     @Override
     public NetworkView switchToNetworkView(){
+        gameMenu.setVisible(false);
         clayout.show(cards, NETWORKVIEW);
         return networkView;
     }
     @Override
     public LocalGameCreationView switchToLocalGameCreationView(){
+        gameMenu.setVisible(false);
         clayout.show(cards, LOCALGAMECREATIONVIEW);
         return localGameCreationView;
     }    
     @Override
     public GameView switchToGameView(){
+        gameMenu.setVisible(true);
         clayout.show(cards, GAMEVIEW);
         return gameView;
     }
@@ -81,9 +86,9 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
         
         this.setSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         this.setResizable(false);
+        
         clayout = new CardLayout();
         cards = new JPanel(clayout);
-        
         
         startView = new StartViewPanel();
         helpView = new HelpViewPanel();
@@ -97,7 +102,12 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
         gameSaveItem = new JMenuItem("Save");
         gameCloseItem = new JMenuItem("Close");
         helpAboutItem = new JMenuItem("About");
-        helpAboutItem.addActionListener(x -> {new AboutDialog(this, true).setVisible(true);});
+        
+        helpAboutItem.addActionListener(x -> new AboutDialog(this, true).setVisible(true));
+        gameCloseItem.addActionListener(x -> gameView.closeGame());
+        gameSaveItem.addActionListener(x -> gameView.saveGame());
+        
+        gameMenu.setVisible(false);
         
         gameMenu.add(gameSaveItem);
         gameMenu.add(gameCloseItem);

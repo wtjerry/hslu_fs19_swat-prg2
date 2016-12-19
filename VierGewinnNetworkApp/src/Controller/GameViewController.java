@@ -13,7 +13,7 @@ public abstract class GameViewController implements GameViewListener, TurnEvalua
 
     private final GameView view;
     private final Navigator navigator;
-
+    
     protected Game game;
 
     GameViewController(GameView view, Navigator navigator) {
@@ -27,6 +27,9 @@ public abstract class GameViewController implements GameViewListener, TurnEvalua
     
     @Override
     public abstract void SaveGamePressed();
+    @Override public void CloseGamePressed(){
+        this.navigator.navigateToStartView();
+    }
     
     @Override
     public void DiskColumnPressed(int column) {
