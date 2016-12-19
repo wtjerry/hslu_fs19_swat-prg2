@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class GameField implements ValidTurnChecker {
 
     final int FreeField = 0;
+    final int NumberOfStonesToWin = 4;
 
     private final int height;
     private final int width;
@@ -60,51 +61,48 @@ public class GameField implements ValidTurnChecker {
         }
         return result;
     }
-
+    
     public ArrayList<Integer> getNumbers() {
         ArrayList<Integer> numbers = new ArrayList<>();
 
-        //Vertikal
-        for (int gameHeight = 0; gameHeight < height * width; gameHeight += width) {
-            for (int gamePosition = 0; gamePosition < (width - 3); gamePosition++) {
-                int result = 0;
-                for (int gameWidth = 0; gameWidth < 4; gameWidth++) {
-                    result += this.gameArray[gameHeight + gamePosition + gameWidth];
+        //starting bottom left corner. left to right and bottom to top.
+        for (int row = 0; row < this.height; row++) {
+            for (int column = 0; column < this.width; column++) {
+                if (this.diskHasEnoughNeighboursToTheRightToPotentiallyHave4InARow(column)) {
+                    int sumOfNext4DiskIdsToTheRight = 0;
+                    for (int currentXOffsetToTheRight = 0; currentXOffsetToTheRight < NumberOfStonesToWin; currentXOffsetToTheRight++) {
+                        final int index = (column + currentXOffsetToTheRight) + (row * this.width);
+                        sumOfNext4DiskIdsToTheRight += this.gameArray[index];
+                    }
+                    numbers.add(sumOfNext4DiskIdsToTheRight);
                 }
-                numbers.add(result);
-            }
-        }
-
-        //Height
-        for (int gameWidth = 0; gameWidth < height - 3; gameWidth++) {
-            for (int gameposition = 0; gameposition < (width); gameposition++) {
-                int result = 0;
-                for (int gameheight = 0; gameheight < 4 * width; gameheight += width) {
-                    result += this.gameArray[gameheight + gameposition + gameWidth];
+                
+                if (this.diskHasEnoughNeighboursToTheTopToPotentiallyHave4InARow(row)) {
+                    int sumOfNext4DiskIdsToTheTop = 0;
+                    for (int currentYOffsetToTheTop = 0; currentYOffsetToTheTop < NumberOfStonesToWin; currentYOffsetToTheTop++) {
+                        final int index = column + ((row + currentYOffsetToTheTop) * this.width);
+                        sumOfNext4DiskIdsToTheTop += this.gameArray[index];
+                    }
+                    numbers.add(sumOfNext4DiskIdsToTheTop);
                 }
-                numbers.add(result);
-            }
-        }
-
-        //Diagonal
-        for (int gameWidth = 0; gameWidth < height - 3; gameWidth += width) {
-            for (int gameposition = 0; gameposition < (width - 3); gameposition++) {
-                int result = 0;
-                for (int gameheight = 0; gameheight < 4 * (width + 1); gameheight += width + 1) {
-                    result += this.gameArray[gameheight + gameposition + gameWidth];
+                
+                if (this.diskHasEnoughNeighboursToTheTopRightToPotentiallyHave4InARow(column, row)) {
+                    int sumOfNext4DiskIdsToTheTopRight = 0;
+                    for (int currentXYOffsetToTheTopRight = 0; currentXYOffsetToTheTopRight < NumberOfStonesToWin; currentXYOffsetToTheTopRight++) {
+                        final int index = (column + currentXYOffsetToTheTopRight) + ((row + currentXYOffsetToTheTopRight) * this.width);
+                        sumOfNext4DiskIdsToTheTopRight += this.gameArray[index];
+                    }
+                    numbers.add(sumOfNext4DiskIdsToTheTopRight);
                 }
-                numbers.add(result);
-            }
-        }
-
-        //Diagonal
-        for (int gameWidth = 0; gameWidth < height - 3; gameWidth += width) {
-            for (int gameposition = 0; gameposition < (width - 3); gameposition++) {
-                int result = 0;
-                for (int gameheight = 3; gameheight < 4 * (width - 1); gameheight += width - 1) {
-                    result += this.gameArray[gameheight + gameposition + gameWidth];
+                
+                if (this.diskHasEnoughNeighboursToTheTopLeftToPotentiallyHave4InARow(column, row)) {
+                    int sumOfNext4DiskIdsToTheTopLeft = 0;
+                    for (int currentXYOffsetToTheTopLeft = 0; currentXYOffsetToTheTopLeft < NumberOfStonesToWin; currentXYOffsetToTheTopLeft++) {
+                        final int index = (column - currentXYOffsetToTheTopLeft) + ((row + currentXYOffsetToTheTopLeft) * this.width);
+                        sumOfNext4DiskIdsToTheTopLeft += this.gameArray[index];
+                    }
+                    numbers.add(sumOfNext4DiskIdsToTheTopLeft);
                 }
-                numbers.add(result);
             }
         }
 
@@ -118,5 +116,23 @@ public class GameField implements ValidTurnChecker {
         int gameFieldIndex = column + topRowIndex * width;
         boolean isStillFree = this.gameArray[gameFieldIndex] == FreeField;
         return isStillFree;
+    }
+
+    private boolean diskHasEnoughNeighboursToTheRightToPotentiallyHave4InARow(int column) {
+        return (column + NumberOfStonesToWin) <= this.width;
+    }
+
+    private boolean diskHasEnoughNeighboursToTheTopToPotentiallyHave4InARow(int row) {
+        return (row + NumberOfStonesToWin) <= this.height;
+    }
+
+    private boolean diskHasEnoughNeighboursToTheTopRightToPotentiallyHave4InARow(int column, int row) {
+        return this.diskHasEnoughNeighboursToTheRightToPotentiallyHave4InARow(column) 
+                && this.diskHasEnoughNeighboursToTheTopToPotentiallyHave4InARow(row);
+    }
+
+    private boolean diskHasEnoughNeighboursToTheTopLeftToPotentiallyHave4InARow(int column, int row) {
+        return (column + 1 - NumberOfStonesToWin) >= 0
+                && this.diskHasEnoughNeighboursToTheTopToPotentiallyHave4InARow(row);
     }
 }
