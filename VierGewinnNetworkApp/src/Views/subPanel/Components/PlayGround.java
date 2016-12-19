@@ -142,5 +142,9 @@ public class PlayGround extends JComponent{
     public void opponentDiskPlayedUpsideDown(int x, int y) {
        this.opponentDiskPlayed(x, (this.yCount-1)-y);
     }
+
+    public boolean notFull() {
+        return !this.disks[this.currentLocation][0].isPlayed();
+    }
 }
     

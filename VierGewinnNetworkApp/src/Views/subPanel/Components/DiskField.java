@@ -36,6 +36,9 @@ public class DiskField {
         this.diskPlayed();
         this.setColor(color);
     }
+    public boolean isPlayed(){
+        return this.played;
+    }
     
     public void draw(int x, int y, Graphics g, int size){/*
         g.setColor(Color.RED);
