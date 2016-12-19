@@ -1,15 +1,12 @@
 
 required:
--todos
--ui
- -create a settings view
 -doku
 
 
 bugs:
 -resume when nothing saved throws exception (jerry: should check if file available and otherwise not navigating to other view / controller)
 -sometimes a field gets skipped when playing a disk and it falls down
--when initializing a game, the opponents view sometimes does not get loaded completely. This might be because the view gets updated by a different thread (eg network request handling). --> use SwingUtilities.invokeAndWait(..) to solve. But it may also just be a problem switching from the VM window to the Host.
+-when initializing a network game, the opponents view sometimes does not get loaded completely. This might be because the view gets updated by a different thread (eg network request handling). --> use SwingUtilities.invokeAndWait(..) to solve. But it may also just be a problem switching from the VM window to the Host.
 
 
 bugs which should not happen as soon as view is implemented:
@@ -17,8 +14,10 @@ bugs which should not happen as soon as view is implemented:
 
 
 nice to have:
+-create a settings view
 -introduce interfaces for Navigator, NetworkRequestManager, NetworkPlayerSearcher
 -check logs (correct class name, still required, meaningfull, correct level)
 -more intelligent AIPlayer
 -When an init game is received player does not get asked whether he actually wants to play, but game starts automatically
+
 
