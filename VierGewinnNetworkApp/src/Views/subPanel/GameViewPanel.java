@@ -6,11 +6,13 @@ import Views.subPanel.Components.PlayGround;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
 
 /**
  * @author dane
@@ -19,32 +21,71 @@ public class GameViewPanel extends JPanel implements GameView{
 
     private GameViewListener gameViewListener;
     private PlayGround playGround;
+    private JTextField stateTextField;
+    
     private boolean dialogOpened;
+    private int playerState;
 
     public GameViewPanel() {
         this.initComponent();
     }
 
     protected final void initComponent() {
+        this.playerState = 1;
         this.dialogOpened = false;
         this.playGround = new PlayGround(6, 4);
+        this.stateTextField = new JTextField();
+        this.stateTextField.setEditable(false);
+        this.stateTextField.setMaximumSize(new Dimension(1000, 20));
         playGround.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 if(playGround.notFull())
                     gameViewListener.DiskColumnPressed(playGround.getColumn());
             }
         });
-        this.add(this.playGround);
+
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(stateTextField, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(playGround, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 139, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(stateTextField)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(playGround, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        
+        
+        
+        //this.add(this.playGround);
     }
     
     @Override
     public void showNewDiskForMe(int column, int row) {
+        this.playerState = 0;
+        stateTextField.setText("Waiting for opponent...");
+        playGround.setEnabled(false);
         playGround.playerDiskPlayedUpsideDown(column, row);
         System.out.println("x-> " + column + "   y-> " + row);
     }
     
     @Override
     public void showNewDiskForOpponent(int column, int row) {
+        stateTextField.setText("Your Turn!");
+        playGround.setEnabled(true);
+        this.playerState = 1;
         playGround.opponentDiskPlayedUpsideDown(column, row);
         System.out.println("x-> " + column + "   y-> " + row);
     }
@@ -58,7 +99,7 @@ public class GameViewPanel extends JPanel implements GameView{
     public void showIWonDialog() {
         if(!this.dialogOpened){
             this.dialogOpened = true;
-            JOptionPane.showMessageDialog(this, "I won");
+            JOptionPane.showMessageDialog(this, "You won");
             this.dialogOpened = false;
         }
     }

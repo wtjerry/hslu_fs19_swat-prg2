@@ -90,11 +90,12 @@ public class PlayGround extends JComponent{
     @Override
     public void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
-        
-        graphics.setColor((this.currentPlayer==0)?this.player:this.opponent);
-        ((Graphics2D) (graphics)).fill(new Arc2D.Double(this.currentLocation*
-                (this.spaceX+this.diskSize)+(this.spaceX), 0, this.diskSize, 
-                this.diskSize, 0, 180, Arc2D.PIE));
+        if(this.isEnabled()){
+            graphics.setColor((this.currentPlayer==0)?this.player:this.opponent);
+            ((Graphics2D) (graphics)).fill(new Arc2D.Double(this.currentLocation*
+                    (this.spaceX+this.diskSize)+(this.spaceX), 0, this.diskSize, 
+                    this.diskSize, 0, 180, Arc2D.PIE));
+        }
         
         graphics.setColor(this.color);
         graphics.fillRect(0,this.diskSize/2, this.getWidth(), this.getHeight()-(this.diskSize/2));
@@ -110,7 +111,7 @@ public class PlayGround extends JComponent{
     }
     public void mouseMovedInComponent(MouseEvent event){
         int loc = calcLocation(event.getX());
-        if(this.currentLocation != loc  && this.mouseEventEnabled){
+        if(this.currentLocation != loc  && this.mouseEventEnabled && this.isEnabled()){
             this.currentLocation = loc;
             this.repaint(0, 0, this.getWidth(),this.diskSize/2);
         }
@@ -122,7 +123,10 @@ public class PlayGround extends JComponent{
         return ret;
     }
     public int getColumn(){
-        return this.currentLocation;
+        if(this.isEnabled())
+            return this.currentLocation;
+        else
+            return -1;
     }
     public void playerDiskPlayed(int x, int y){
         this.disks[x][y].diskPlayed(this.player);
@@ -152,7 +156,7 @@ public class PlayGround extends JComponent{
     }
 
     public boolean notFull() {
-        return !this.disks[this.currentLocation][0].isPlayed();
+        return (!this.disks[this.currentLocation][0].isPlayed()) && this.isEnabled();
     }
     @Override
     public Dimension getSize(){
