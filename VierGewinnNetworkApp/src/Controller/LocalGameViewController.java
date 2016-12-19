@@ -32,6 +32,14 @@ public class LocalGameViewController extends GameViewController {
         opponent.setListener(this.game);
         opponent.startWithFirstDisk();
     }
+    void init(GameState startGameState, int x, int y){
+        GameField gameField = new GameField(x, y);
+        AIPlayer opponent = new AIPlayer(gameField);
+        this.game = new Game(gameField, opponent, startGameState);
+        this.game.setListener(this);
+        opponent.setListener(this.game);
+        opponent.startWithFirstDisk();        
+    }
 
     @Override
     public void SaveGamePressed() {

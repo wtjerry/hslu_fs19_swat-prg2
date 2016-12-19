@@ -22,7 +22,10 @@ public class LocalGameCreationViewController implements LocalGameCreationViewLis
     public void NewGamePressed() {
         this.navigator.navigateToGameViewForLocalPlay();
     }
-
+    @Override
+    public void NewGamePressed(int x, int y) {
+        this.navigator.navigateToGameViewForLocalPlay(x, y);
+    }
     @Override
     public void BackPressed() {
         this.navigator.navigateToStartView();

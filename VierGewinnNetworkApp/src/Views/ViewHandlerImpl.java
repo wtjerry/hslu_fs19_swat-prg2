@@ -69,6 +69,15 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
         clayout.show(cards, GAMEVIEW);
         return gameView;
     }
+
+    @Override
+    public GameView swtichToGameView(int x, int y) {
+        System.out.println(x + "  " + y);
+        gameView.startGame(x, y);
+        gameMenu.setVisible(true);
+        clayout.show(cards, GAMEVIEW);
+        return gameView;
+    }
     
     public ViewHandlerImpl(){
         initComponent();

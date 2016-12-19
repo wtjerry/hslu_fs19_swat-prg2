@@ -27,6 +27,7 @@ public class PlayGround extends JComponent{
     private int diskSize;
     private boolean mouseEventEnabled;
     private int currentPlayer;
+    private double gap;
     
     private DiskField[][] disks;
     
@@ -51,6 +52,10 @@ public class PlayGround extends JComponent{
     }
     public PlayGround(Dimension size, int xCount, int yCount, double gapProzent){
         super();
+        this.initialize(size, xCount, yCount, gapProzent);
+    }
+    private void initialize(Dimension size, int xCount, int yCount, double gapProzent){
+        this.gap = gapProzent;
         this.xCount = xCount;
         this.yCount = yCount;
         this.color = new Color(51, 153, 255);
@@ -79,6 +84,7 @@ public class PlayGround extends JComponent{
                 mouseMovedInComponent(e);
             }        
         });
+        
     }
     
     public void setColor(Color color){
@@ -135,9 +141,11 @@ public class PlayGround extends JComponent{
             for(int i2=0; i2<yCount;i2++){
                 this.disks[i][i2] = new DiskField(this.diskSize);
             }
-        }        
+        }
     }
-
+    public void start(int x, int y){
+        this.initialize(this.getSize(), x, y, this.gap);
+    }
     public void playerDiskPlayedUpsideDown(int x, int y) {
         this.playerDiskPlayed(x, (this.yCount-1)-y);
     }

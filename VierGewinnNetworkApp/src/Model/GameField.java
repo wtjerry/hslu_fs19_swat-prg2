@@ -18,12 +18,15 @@ public class GameField implements ValidTurnChecker {
     private final int[] gameArray;
 
     public GameField() {
-        this.width = Settings.getGameFieldWidth();
-        this.height = Settings.getGameFieldHeight();
+        this(Settings.getGameFieldWidth(), Settings.getGameFieldHeight());
+    }
+    public GameField(int width, int height){
+        this.width = width;
+        this.height = height;
         this.gameArray = new int[this.width * this.height];
 
         this.myDiskId = PrimeNumberProvider.nextPrimeNumber();
-        this.opponentDiskId = PrimeNumberProvider.nextPrimeNumber();
+        this.opponentDiskId = PrimeNumberProvider.nextPrimeNumber();        
     }
 
     public DiskPosition setMyDisk(int column) {

@@ -49,6 +49,12 @@ public class Navigator {
         view.setListener(controller);
         controller.init(GameState.OpponentsTurn);
     }
+    public void navigateToGameViewForLocalPlay(int x, int y){
+        GameView view = this.viewHandler.swtichToGameView(x, y);
+        GameViewController controller = new LocalGameViewController(view, this);
+        view.setListener(controller);
+        controller.init(GameState.OpponentsTurn, x, y);        
+    }
 
     public void navigateToGameViewForResumingLocalGame() {
         GameView view = this.viewHandler.switchToGameView();

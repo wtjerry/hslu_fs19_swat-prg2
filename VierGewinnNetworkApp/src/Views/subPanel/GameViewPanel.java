@@ -82,7 +82,8 @@ public class GameViewPanel extends JPanel implements GameView{
         playGround.start();
     }
     public void startGame(int x, int y){
-        playGround = new PlayGround(x, y);
+        playGround.start(x, y);
+        this.repaint();
         this.dialogOpened = false;
     }
     public void startGame(Dimension size, int x, int y){
