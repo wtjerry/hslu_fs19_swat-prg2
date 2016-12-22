@@ -1,5 +1,6 @@
 package Views.subPanel;
 
+import Model.GameState;
 import Views.Interfaces.GameView;
 import Views.Interfaces.GameViewListener;
 import Views.subPanel.Components.PlayGround;
@@ -74,18 +75,14 @@ public class GameViewPanel extends JPanel implements GameView{
     
     @Override
     public void showNewDiskForMe(int column, int row) {
-        this.playerState = 0;
-        stateTextField.setText("Waiting for opponent...");
-        playGround.setEnabled(false);
+        this.setPlayer(GameState.OpponentsTurn);
         playGround.playerDiskPlayedUpsideDown(column, row);
         System.out.println("x-> " + column + "   y-> " + row);
     }
     
     @Override
     public void showNewDiskForOpponent(int column, int row) {
-        stateTextField.setText("Your Turn!");
-        playGround.setEnabled(true);
-        this.playerState = 1;
+        this.setPlayer(GameState.MyTurn);
         playGround.opponentDiskPlayedUpsideDown(column, row);
         System.out.println("x-> " + column + "   y-> " + row);
     }
@@ -133,5 +130,19 @@ public class GameViewPanel extends JPanel implements GameView{
     }
     public void saveGame(){
         gameViewListener.SaveGamePressed();
+    }
+
+    @Override
+    public void setPlayer(GameState gameState) {
+        if(gameState == GameState.MyTurn){
+            stateTextField.setText("Your Turn!");
+            playGround.setEnabled(true);
+            this.playerState = 1;
+            
+        }else{
+            this.playerState = 0;
+            stateTextField.setText("Waiting for opponent...");
+            playGround.setEnabled(false);            
+        }
     }
 }

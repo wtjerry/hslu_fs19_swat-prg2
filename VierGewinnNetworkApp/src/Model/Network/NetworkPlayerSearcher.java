@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class NetworkPlayerSearcher {
 
-    private final int timeoutInMilliseconds = 50;
+    private final int timeoutInMilliseconds = 200;
     private final int port;
     private final String baseIpAddress;
 
@@ -58,11 +58,12 @@ public class NetworkPlayerSearcher {
 
         InetAddress localHostLANAddress = LocalIpProvider.getLocalHostLANAddress();
         String localHostAddress = localHostLANAddress.getHostAddress();
-
+        
         for (int i = 0; i < 255; i++) {
             String host = baseIpAddress + i;
             if (!host.equals(localHostAddress)) {
                 boolean isReachable = InetAddress.getByName(host).isReachable(this.timeoutInMilliseconds);
+                System.out.println(host + " -> " + isReachable);
                 if (isReachable) {
                     availableHosts.add(host);
                 }
