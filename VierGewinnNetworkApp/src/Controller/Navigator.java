@@ -70,7 +70,7 @@ public class Navigator {
         GameView view = this.switchToGameViewWithSizeDefinedInSettings();
         GameViewController controller = new NetworkGameViewController(view, this, this.networkRequestManager, ipAddress);
         view.setListener(controller);
-        view.setPlayer(GameState.MyTurn);
+        view.setPlayer(0);
         controller.init(GameState.MyTurn);
     }
 

@@ -75,14 +75,14 @@ public class GameViewPanel extends JPanel implements GameView{
     
     @Override
     public void showNewDiskForMe(int column, int row) {
-        this.setPlayer(GameState.OpponentsTurn);
+        this.setPlayer(0);
         playGround.playerDiskPlayedUpsideDown(column, row);
         System.out.println("x-> " + column + "   y-> " + row);
     }
     
     @Override
     public void showNewDiskForOpponent(int column, int row) {
-        this.setPlayer(GameState.MyTurn);
+        this.setPlayer(1);
         playGround.opponentDiskPlayedUpsideDown(column, row);
         System.out.println("x-> " + column + "   y-> " + row);
     }
