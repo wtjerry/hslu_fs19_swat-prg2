@@ -8,6 +8,6 @@ public interface GameView extends ListenerSetter<GameViewListener> {
     public void showIWonDialog();
     public void showOpponentWonDialog();
 
-    public void setPlayer(GameState gameState);
+    public void setPlayer(int gameState);
     
 }
