@@ -1,2 +1,17 @@
+sudo: false
+
 language: java
+
 jdk: openjdk11
+
+script: "./gradlew clean build --rerun-tasks --scan"
+
+before_deploy:
+  - ./gradlew clean
+  - ./gradlew jar
+
+deploy:
+  provider: releases
+  api_key: $GIT_AUTH
+  file: "build/libs/*"
+  skip_cleanup: true
