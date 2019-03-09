@@ -17,9 +17,6 @@ build.xml
 
 # Gradle
 .gradle/
-gradle/
-gradlew.bat
-gradlew
 
 
 # Windows image file caches
