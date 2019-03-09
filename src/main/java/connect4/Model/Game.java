@@ -68,8 +68,10 @@ public class Game implements OpponentHasMadeATurnListener {
         gameSaveStream.writeObject(this.playedTurns);
         gameSaveStream.flush();
     }
-    
+
+    @SuppressWarnings("unchecked")
     public void resume(ObjectInputStream in) throws ClassNotFoundException, IOException {
+
         List<PlayedTurn> turnsToBeReplayed = (ArrayList<PlayedTurn>) in.readObject();
         
         for (PlayedTurn turn : turnsToBeReplayed) {

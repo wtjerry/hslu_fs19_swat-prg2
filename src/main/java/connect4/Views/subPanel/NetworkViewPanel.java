@@ -17,6 +17,10 @@ import javax.swing.ListSelectionModel;
 
 
 public class NetworkViewPanel extends JPanel implements NetworkView{
+
+    private final DefaultListModel computerListModel;
+    private JList<String> computerList;
+    private JButton startGame;
     
     private NetworkViewListener networkViewListener;
     
@@ -24,10 +28,11 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
         this.computerListModel = new DefaultListModel();
         initComponent();
     }
-    
+
+    @SuppressWarnings("unchecked")
     private void initComponent(){
         JScrollPane listScrollPane = new JScrollPane();
-        computerList = new JList<>(this.computerListModel);
+        computerList = new JList<String>(this.computerListModel);
         JButton back = new JButton("Back");
         startGame = new JButton("Start Game");
         
@@ -54,6 +59,8 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
         this.add(back);
         this.add(startGame);
     }
+
+    @SuppressWarnings("unchecked")
     @Override
     public void showAvailablePlayers(List<String> allPlayers) {
         this.computerListModel.removeAllElements();
@@ -65,10 +72,6 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
             this.computerList.setSelectedIndex(0);
         }
     }
-    
-    private final DefaultListModel computerListModel;
-    private JList<String> computerList;
-    private JButton startGame;
 
     @Override
     public void setListener(NetworkViewListener networkViewListener) {
