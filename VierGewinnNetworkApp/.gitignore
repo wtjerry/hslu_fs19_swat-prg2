@@ -1,5 +1,22 @@
+
+# a lot of other things
 /bin/
 nbproject/
 build/
 dist/
+out/
+target/
+*.class
+
+# Intellij files
+.idea/
+*.iml
+
+*.jar
 build.xml
+
+# Gradle
+.gradle/
+gradle/
+gradlew.bat
+gradlew
