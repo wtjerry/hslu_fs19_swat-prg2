@@ -4,18 +4,16 @@ language: java
 
 jdk: openjdk11
 
-script: "./gradlew clean build --rerun-tasks --scan"
-
 before_deploy:
-  - ./gradlew clean
-  - ./gradlew jar
+    - ./gradlew clean
+    - ./gradlew jar
 
 deploy:
-  provider: releases
-  api_key: $GIT_AUTH
-  file_glob: true
-  file: "build/libs/*"
-  skip_cleanup: true
-  on:
-    branch: master
-    repo: crydeb/hslu_fs19_swat-prg2
+    provider: releases
+    api_key: $GIT_AUTH
+    file_glob: true
+    file: "build/libs/*"
+    skip_cleanup: true
+    on:
+        branch: master
+        repo: CryDeb/hslu_fs19_swat-prg2
