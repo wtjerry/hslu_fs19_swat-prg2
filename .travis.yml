@@ -14,7 +14,7 @@ deploy:
     file_glob: true
     file: "build/libs/*"
     skip_cleanup: true
-    draft: true
+    prerelease: true
     name: Build $(date +'%d.%m.%Y %R')
     on:
         branch: master
