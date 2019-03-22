@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.lang.System.err;
+
 public class NetworkPlayerSearcher {
 
     private final int port;
@@ -86,6 +88,7 @@ public class NetworkPlayerSearcher {
                     }
                 }
             } catch (IOException ignored) {
+                err.println(ignored);
             }
         }
 

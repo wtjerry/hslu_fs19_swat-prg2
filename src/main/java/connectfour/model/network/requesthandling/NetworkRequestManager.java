@@ -33,8 +33,7 @@ public class NetworkRequestManager {
     }
 
     private void handleRequests() {
-        try {
-            ServerSocket serverSocket = new ServerSocket(this.port);
+        try (var serverSocket = new ServerSocket(this.port)) {
             while (this.continueHandlingRequests) {
                 Socket connectionSocket = serverSocket.accept();
                 RequestHandler requestHandler = this.requestHandlerFactory.createRequestHandler(connectionSocket);

@@ -12,6 +12,7 @@ import java.util.Enumeration;
  *
  */
 class LocalIpProvider {
+    private LocalIpProvider() {}
 
     /**
      * Returns an <code>InetAddress</code> object encapsulating what is most
@@ -44,7 +45,7 @@ class LocalIpProvider {
      * @throws UnknownHostException If the LAN address of the machine cannot be
      * found.
      */
-    public static InetAddress getLocalHostLANAddress() throws UnknownHostException {
+    static InetAddress getLocalHostLANAddress() throws UnknownHostException {
         try {
             InetAddress candidateAddress = null;
             // Iterate all NICs (network interface cards)...

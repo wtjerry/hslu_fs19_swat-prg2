@@ -32,6 +32,7 @@ public class GameViewPanel extends JPanel implements GameView{
         this.stateTextField.setEditable(false);
         this.stateTextField.setMaximumSize(new Dimension(1000, 20));
         playGround.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent e){
                 if(playGround.notFull())
                     gameViewListener.diskColumnPressed(playGround.getColumn());
@@ -117,15 +118,12 @@ public class GameViewPanel extends JPanel implements GameView{
 
     @Override
     public void setPlayer(int gameState) {
-        switch(gameState){
-            case 0:
-                stateTextField.setText("Waiting for opponent...");
-                playGround.setEnabled(false);
-                break;
-            case 1:
-                stateTextField.setText("Your Turn!");
-                playGround.setEnabled(true);
-                break;
+        if (gameState == 0) {
+            stateTextField.setText("Waiting for opponent...");
+            playGround.setEnabled(false);
+        } else if (gameState == 1) {
+            stateTextField.setText("Your Turn!");
+            playGround.setEnabled(true);
         }
     }
 }

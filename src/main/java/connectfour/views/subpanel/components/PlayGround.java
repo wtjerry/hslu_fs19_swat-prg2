@@ -26,9 +26,8 @@ public class PlayGround extends JComponent{
     private int currentPlayer;
     private double gap;
     
-    private DiskField[][] disks;
-    
-    
+    private DiskField[][] gameField;
+
     public PlayGround(){
         this(new Dimension(XSIZE, YSIZE), ROWCOUNT, COLUMNCOUNT, GAPSIZEPROZENT);
     }
@@ -69,7 +68,7 @@ public class PlayGround extends JComponent{
         this.setPreferredSize(size);
         this.currentLocation = 0;
         
-        this.disks = new DiskField[xCount][yCount];
+        this.gameField = new DiskField[xCount][yCount];
 
         this.start();
         this.addMouseMotionListener(new MouseMotionAdapter() {
@@ -94,7 +93,7 @@ public class PlayGround extends JComponent{
         graphics.setColor(this.color);
         graphics.fillRect(0,this.diskSize/2, this.getWidth(), this.getHeight()-(this.diskSize/2));
         int x=this.spaceX;
-        for(DiskField[] disks:this.disks){
+        for(DiskField[] disks:this.gameField){
             int y=this.spaceY+this.diskSize/2;
             for(DiskField disk:disks){
                 disk.draw(x, y, graphics);
@@ -123,18 +122,18 @@ public class PlayGround extends JComponent{
             return -1;
     }
     private void playerDiskPlayed(int x, int y){
-        this.disks[x][y].diskPlayed(this.player);
+        this.gameField[x][y].diskPlayed(this.player);
         repaint();
     }
     private void opponentDiskPlayed(int x, int y){
-        this.disks[x][y].diskPlayed(this.opponent);
+        this.gameField[x][y].diskPlayed(this.opponent);
         repaint();
     }
 
     public void start() {
         for(int i=0;i<xCount;i++){
             for(int i2=0; i2<yCount;i2++){
-                this.disks[i][i2] = new DiskField(this.diskSize);
+                this.gameField[i][i2] = new DiskField(this.diskSize);
             }
         }
     }
@@ -150,7 +149,7 @@ public class PlayGround extends JComponent{
     }
 
     public boolean notFull() {
-        return (!this.disks[this.currentLocation][0].isPlayed()) && this.isEnabled();
+        return (!this.gameField[this.currentLocation][0].isPlayed()) && this.isEnabled();
     }
     @Override
     public Dimension getSize(){

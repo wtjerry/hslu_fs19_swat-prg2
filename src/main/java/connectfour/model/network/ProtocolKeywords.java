@@ -1,6 +1,8 @@
 package connectfour.model.network;
 
-public class ProtocolKeywords {
+public final class ProtocolKeywords {
+	private ProtocolKeywords() {}
+
 	public static final String AVAILABLE_NETWORK_PLAYER_LISTING_REQUEST = "NetworkListing";
 	public static final String AVAILABLE_NETWORK_PLAYER_LISTING_ANSWER = "I am available.";
 	

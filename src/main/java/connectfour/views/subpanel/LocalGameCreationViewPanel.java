@@ -25,8 +25,8 @@ public class LocalGameCreationViewPanel extends JPanel implements LocalGameCreat
         JButton backButton = new JButton("back");
         JButton resumeGameButton = new JButton("resume");
         JButton newGameButton = new JButton("new");
-        xSizeInput = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(new DecimalFormat("#0"))));
-        ySizeInput = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(new DecimalFormat("#0"))));
+        JFormattedTextField xSizeInput = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(new DecimalFormat("#0"))));
+        JFormattedTextField ySizeInput = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(new DecimalFormat("#0"))));
         
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -85,16 +85,13 @@ public class LocalGameCreationViewPanel extends JPanel implements LocalGameCreat
                         Integer.parseInt(ySizeInput.getText()));
             }
         });
-        this.add(this.xSizeInput);
-        this.add(this.ySizeInput);
+        this.add(xSizeInput);
+        this.add(ySizeInput);
         this.add(backButton);
         this.add(resumeGameButton);
         this.add(newGameButton);
     }
 
-    private JFormattedTextField xSizeInput;
-    private JFormattedTextField ySizeInput;
-    
     @Override
     public void setListener(LocalGameCreationViewListener localGameCreationViewListener) {
         this.localGameCreationViewListener = localGameCreationViewListener;

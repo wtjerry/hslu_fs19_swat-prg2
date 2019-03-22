@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 class PrimeNumberProvider {
+    private PrimeNumberProvider() {}
 
+    private static final Random random = new Random();
     private static final ArrayList<Integer> alreadyUsedPrimes = new ArrayList<>();
 
-    public static int nextPrimeNumber() {
+    static int nextPrimeNumber() {
         int prime;
         do {
             prime = generatePrimeNumber();
@@ -18,10 +20,9 @@ class PrimeNumberProvider {
     }
 
     private static int generatePrimeNumber() {
-        Random rand = new Random();
-        int potentialPrimeNumber = rand.nextInt(1000) + 1;
+        int potentialPrimeNumber = random.nextInt(1000) + 1;
         while (!isPrime(potentialPrimeNumber)) {
-            potentialPrimeNumber = rand.nextInt(1000) + 1;
+            potentialPrimeNumber = random.nextInt(1000) + 1;
         }
 
         return potentialPrimeNumber;

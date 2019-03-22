@@ -7,13 +7,10 @@ public class LocalGameCreationViewController implements LocalGameCreationViewLis
 
     private final Navigator navigator;
 
-    public LocalGameCreationViewController(Navigator navigator) {
+    LocalGameCreationViewController(Navigator navigator) {
         this.navigator = navigator;
     }
 
-    void init() {
-    }
-    
     @Override
     public void resumeGamePressed() {
         this.navigator.navigateToGameViewForResumingLocalGame();

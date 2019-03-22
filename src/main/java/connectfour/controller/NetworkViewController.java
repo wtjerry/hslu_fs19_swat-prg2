@@ -14,6 +14,8 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.List;
 
+import static java.lang.System.err;
+
 public class NetworkViewController implements NetworkViewListener, NewPlayersFoundListener {
 
     private final NetworkView view;
@@ -61,6 +63,7 @@ public class NetworkViewController implements NetworkViewListener, NewPlayersFou
                 }
             }
         } catch (IOException ignored) {
+            err.println(ignored);
         }
         
         return potentialOpponentWantToPlay;

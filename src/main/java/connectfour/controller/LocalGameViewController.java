@@ -45,10 +45,8 @@ public class LocalGameViewController extends GameViewController {
 
     @Override
     public void initForResumeGame() {
-        ObjectInputStream in;
-        try {
-            String saveGamePath = Settings.getSaveGamePath();
-            in = new ObjectInputStream(new FileInputStream(saveGamePath));
+        String saveGamePath = Settings.getSaveGamePath();
+        try (var in = new ObjectInputStream(new FileInputStream(saveGamePath))) {
 
             GameField gameField = new GameField();
             AIPlayer opponent = new AIPlayer(gameField);
@@ -57,8 +55,6 @@ public class LocalGameViewController extends GameViewController {
             opponent.setListener(this.game);
 
             this.game.resume(in);
-
-            in.close();
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(GameViewController.class.getName()).log(Level.SEVERE, null, ex);
         }

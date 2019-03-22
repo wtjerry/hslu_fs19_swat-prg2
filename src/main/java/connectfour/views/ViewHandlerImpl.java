@@ -139,5 +139,4 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
     private GameViewPanel gameView;
 
     private JMenu gameMenu;
-
 }
