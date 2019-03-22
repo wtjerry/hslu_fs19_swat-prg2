@@ -82,7 +82,7 @@ public class GameField implements ValidTurnChecker {
 
     @Override
     public boolean isValidTurn(int column) {
-        int topRowIndex = Settings.getGameFieldHeight() - 1;
+        int topRowIndex = this.height - 1;
         int gameFieldIndex = column + topRowIndex * width;
         return this.gameArray[gameFieldIndex] == FREE_FIELD;
     }

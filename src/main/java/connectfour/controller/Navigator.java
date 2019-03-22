@@ -27,14 +27,12 @@ public class Navigator {
         StartView view = this.viewHandler.switchToStartView();
         StartViewController controller = new StartViewController(this);
         view.setListener(controller);
-        controller.init();
     }
 
     public void navigateToLocalGameCreationView() {
         LocalGameCreationView view = this.viewHandler.switchToLocalGameCreationView();
         LocalGameCreationViewController controller = new LocalGameCreationViewController(this);
         view.setListener(controller);
-        controller.init();
     }
 
     public void navigateToNetworkView() {
@@ -78,7 +76,6 @@ public class Navigator {
         HelpView view = this.viewHandler.switchToHelpView();
         HelpViewController controller = new HelpViewController(this);
         view.setListener(controller);
-        controller.init();
     }
     
     private GameView switchToGameViewWithSizeDefinedInSettings(){
