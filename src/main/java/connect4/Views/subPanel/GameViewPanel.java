@@ -134,14 +134,14 @@ public class GameViewPanel extends JPanel implements GameView{
     public void setPlayer(int gameState) {
         switch(gameState){
             case 0:
+                this.playerState = 0;
+                stateTextField.setText("Waiting for opponent...");
+                playGround.setEnabled(false);
+                break;
+            case 1:
                 stateTextField.setText("Your Turn!");
                 playGround.setEnabled(true);
                 this.playerState = 1;
-                break;
-            case 1:
-                this.playerState = 0;
-                stateTextField.setText("Waiting for opponent...");
-                playGround.setEnabled(false);  
                 break;
         }
     }
