@@ -18,4 +18,4 @@ deploy:
     name: Build $(date +'%d.%m.%Y %R')
     on:
         branch: master
-        repo: CryDeb/hslu_fs19_swat-prg2
+        repo: wtjerry/hslu_fs19_swat-prg2
