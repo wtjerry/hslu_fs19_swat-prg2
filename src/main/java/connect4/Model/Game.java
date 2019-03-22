@@ -23,11 +23,11 @@ public class Game implements OpponentHasMadeATurnListener {
     }
 
     public void playDisk(int column) {
-        if (this.currentGameState == GameState.OpponentsTurn) {
+        if (this.currentGameState == GameState.OPPONENTS_TURN) {
             throw new IllegalStateException("I played a disk while it was opponents turn.");
         }
 
-        this.currentGameState = GameState.OpponentsTurn;
+        this.currentGameState = GameState.OPPONENTS_TURN;
         DiskPosition diskPosition = this.gameField.setMyDisk(column);
         WinState winCheckResult = this.gameField.checkIfSomebodyWon();
         
@@ -43,11 +43,11 @@ public class Game implements OpponentHasMadeATurnListener {
 
     @Override
     public void opponentHasMadeATurn(int column) {
-        if (this.currentGameState == GameState.MyTurn) {
+        if (this.currentGameState == GameState.MY_TURN) {
             throw new IllegalStateException("Opponent played a disk while it was my turn.");
         }
 
-        this.currentGameState = GameState.MyTurn;
+        this.currentGameState = GameState.MY_TURN;
 
         DiskPosition diskPosition = this.gameField.setOpponentsDisk(column);
         WinState winCheckResult = this.gameField.checkIfSomebodyWon();

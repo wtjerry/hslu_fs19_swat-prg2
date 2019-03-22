@@ -15,19 +15,19 @@ public class LocalGameCreationViewController implements LocalGameCreationViewLis
     }
     
     @Override
-    public void ResumeGamePressed() {
+    public void resumeGamePressed() {
         this.navigator.navigateToGameViewForResumingLocalGame();
     }
 
     @Override
-    public void NewGamePressed(int width, int height) {
+    public void newGamePressed(int width, int height) {
         Settings.setGameFieldWidth(width);
         Settings.setGameFieldHeight(height);
         this.navigator.navigateToGameViewForLocalPlay();
     }
 
     @Override
-    public void BackPressed() {
+    public void backPressed() {
         this.navigator.navigateToStartView();
     }
 }

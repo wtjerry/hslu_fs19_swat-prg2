@@ -11,7 +11,7 @@ public class HelpViewControllerTest {
         Navigator navigatorMock = mock(Navigator.class);
         HelpViewController helpViewController = new HelpViewController(navigatorMock);
 
-        helpViewController.BackPressed();
+        helpViewController.backPressed();
 
         verify(navigatorMock).navigateToStartView();
     }

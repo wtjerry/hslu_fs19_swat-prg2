@@ -28,7 +28,7 @@ public class HelpViewPanel extends JPanel implements HelpView{
         
         back.addActionListener(x -> {
             if (this.helpViewListener != null) {
-                this.helpViewListener.BackPressed();
+                this.helpViewListener.backPressed();
             }
         });
         

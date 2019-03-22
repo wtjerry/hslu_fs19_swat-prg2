@@ -3,17 +3,14 @@ package connect4.Model;
 import connect4.Model.Network.ProtocolKeywords;
 import connect4.Model.Network.Settings;
 
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.concurrent.CompletableFuture;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class NetworkPlayer extends Player {
-
     private final String opponentAddress;
     private final int port;
 
@@ -31,8 +28,7 @@ public class NetworkPlayer extends Player {
         try {
             try (Socket hostSocket = new Socket(this.opponentAddress, this.port)) {
                 DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
-                BufferedReader streamFromHost = new BufferedReader(new InputStreamReader(hostSocket.getInputStream()));
-                streamToHost.writeBytes(ProtocolKeywords.DiskPlayed + "\n");
+                streamToHost.writeBytes(ProtocolKeywords.DISK_PLAYED + "\n");
                 streamToHost.writeBytes(columnOfPreviousTurn + "\n");
                 streamToHost.flush();
             }

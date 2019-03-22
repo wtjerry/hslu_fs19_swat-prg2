@@ -26,13 +26,13 @@ public abstract class GameViewController implements GameViewListener, TurnEvalua
     public abstract void initForResumeGame();
     
     @Override
-    public abstract void SaveGamePressed();
-    @Override public void CloseGamePressed(){
+    public abstract void saveGamePressed();
+    @Override public void closeGamePressed(){
         this.navigator.navigateToStartView();
     }
     
     @Override
-    public void DiskColumnPressed(int column) {
+    public void diskColumnPressed(int column) {
         this.game.playDisk(column);
     }
 
@@ -53,11 +53,11 @@ public abstract class GameViewController implements GameViewListener, TurnEvalua
     }
 
     private void notifyViewAboutWinIfRequired(WinState winState) {
-        if (winState == WinState.OpponentWon) {
+        if (winState == WinState.OPPONENT_WON) {
             this.view.showOpponentWonDialog();
             this.navigator.navigateToStartView();
         }
-        if (winState == WinState.IWon) {
+        if (winState == WinState.I_WON) {
             this.view.showIWonDialog();
             this.navigator.navigateToStartView();
         }

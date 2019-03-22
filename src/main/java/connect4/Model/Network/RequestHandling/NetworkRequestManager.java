@@ -1,6 +1,5 @@
 package connect4.Model.Network.RequestHandling;
 
-import connect4.Controller.Navigator;
 import connect4.Model.Network.Settings;
 import connect4.Model.OpponentHasMadeATurnListener;
 import java.io.IOException;
@@ -18,7 +17,6 @@ public class NetworkRequestManager {
     private final ExecutorService threadPool;
 
     private boolean continueHandlingRequests;
-    private Navigator navigator;
 
     public NetworkRequestManager(RequestHandlerFactory requestHandlerFactory) {
         this.requestHandlerFactory = requestHandlerFactory;

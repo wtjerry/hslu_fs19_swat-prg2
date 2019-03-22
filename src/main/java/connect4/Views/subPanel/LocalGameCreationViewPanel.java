@@ -69,19 +69,19 @@ public class LocalGameCreationViewPanel extends JPanel implements LocalGameCreat
 
         backButton.addActionListener(x -> {
             if (this.localGameCreationViewListener != null) {
-                this.localGameCreationViewListener.BackPressed();
+                this.localGameCreationViewListener.backPressed();
             }
         });
         
         resumeGameButton.addActionListener(x -> {
             if (this.localGameCreationViewListener != null) {
-                this.localGameCreationViewListener.ResumeGamePressed();
+                this.localGameCreationViewListener.resumeGamePressed();
             }
         });
         
         newGameButton.addActionListener(x -> {
             if (this.localGameCreationViewListener != null) {
-                this.localGameCreationViewListener.NewGamePressed(Integer.parseInt(xSizeInput.getText()), 
+                this.localGameCreationViewListener.newGamePressed(Integer.parseInt(xSizeInput.getText()),
                         Integer.parseInt(ySizeInput.getText()));
             }
         });

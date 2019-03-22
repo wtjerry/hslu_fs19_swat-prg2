@@ -14,7 +14,7 @@ public class NetworkListingHandler implements RequestHandler {
 
     @Override
     public void handle() throws IOException {
-        this.streamOut.writeBytes(ProtocolKeywords.AvailableNetworkPlayerListingAnswer + "\n");
+        this.streamOut.writeBytes(ProtocolKeywords.AVAILABLE_NETWORK_PLAYER_LISTING_ANSWER + "\n");
         this.streamOut.flush();
     }
 }

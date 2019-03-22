@@ -32,7 +32,7 @@ public class LocalGameViewController extends GameViewController {
     }
     
     @Override
-    public void SaveGamePressed() {
+    public void saveGamePressed() {
         try {
             String saveGamePath = Settings.getSaveGamePath();
             try (ObjectOutputStream gameSaveStream = new ObjectOutputStream(new FileOutputStream(saveGamePath))) {
@@ -52,7 +52,7 @@ public class LocalGameViewController extends GameViewController {
 
             GameField gameField = new GameField();
             AIPlayer opponent = new AIPlayer(gameField);
-            this.game = new Game(gameField, opponent, GameState.OpponentsTurn);
+            this.game = new Game(gameField, opponent, GameState.OPPONENTS_TURN);
             this.game.setListener(this);
             opponent.setListener(this.game);
 
@@ -65,8 +65,8 @@ public class LocalGameViewController extends GameViewController {
     }
 
     @Override
-    public void CloseGamePressed() {
-        SaveGamePressed();
-        super.CloseGamePressed();
+    public void closeGamePressed() {
+        saveGamePressed();
+        super.closeGamePressed();
     }
 }

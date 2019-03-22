@@ -32,7 +32,7 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
     @SuppressWarnings("unchecked")
     private void initComponent(){
         JScrollPane listScrollPane = new JScrollPane();
-        computerList = new JList<String>(this.computerListModel);
+        computerList = new JList<>(this.computerListModel);
         JButton back = new JButton("Back");
         startGame = new JButton("Start Game");
         
@@ -43,7 +43,7 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
         
         back.addActionListener(x -> {
             if (this.networkViewListener != null) {
-                this.networkViewListener.BackPressed();
+                this.networkViewListener.backPressed();
             }
         });
         
@@ -51,7 +51,7 @@ public class NetworkViewPanel extends JPanel implements NetworkView{
             if (this.networkViewListener != null) {
                 String selectedIpAddress = this.computerList.getSelectedValue();
                 System.out.println(selectedIpAddress);
-                this.networkViewListener.StartGamePressed(selectedIpAddress);
+                this.networkViewListener.startGamePressed(selectedIpAddress);
             }
         });
                 

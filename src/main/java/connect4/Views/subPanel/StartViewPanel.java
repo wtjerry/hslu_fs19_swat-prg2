@@ -31,19 +31,19 @@ public class StartViewPanel extends JPanel implements StartView{
         
         startAI.addActionListener(x -> { 
             if (this.startViewListener != null) {                
-                this.startViewListener.PlayerAgainstComputerPressed();
+                this.startViewListener.playerAgainstComputerPressed();
             }
         });
         
         startNetGame.addActionListener(x -> {
             if (this.startViewListener != null) {
-                this.startViewListener.PlayOverNetworkPressed();
+                this.startViewListener.playOverNetworkPressed();
             }
         });
         
         openHelp.addActionListener(x -> {
             if (this.startViewListener != null) {
-                this.startViewListener.OpenHelpPressed();
+                this.startViewListener.openHelpPressed();
             }
         });
                 

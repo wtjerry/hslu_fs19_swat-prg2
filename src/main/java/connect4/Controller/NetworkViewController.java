@@ -32,31 +32,31 @@ public class NetworkViewController implements NetworkViewListener, NewPlayersFou
     }
 
     @Override
-    public void BackPressed() {
+    public void backPressed() {
         this.networkPlayerSearcher.stopSearching();
         this.navigator.navigateToStartView();
     }
 
     @Override
-    public void StartGamePressed(String ipAddress) {
-        boolean potentialOpponentWantToPlay = AskPotentialOpponentToPlay(ipAddress);
+    public void startGamePressed(String ipAddress) {
+        boolean potentialOpponentWantToPlay = askPotentialOpponentToPlay(ipAddress);
         if (potentialOpponentWantToPlay) {
             this.networkPlayerSearcher.stopSearching();
             this.navigator.navigateToGameViewForInitializingNetworkPlay(ipAddress);
         }
     }
 
-    private boolean AskPotentialOpponentToPlay(String ipAddress) {
+    private boolean askPotentialOpponentToPlay(String ipAddress) {
         boolean potentialOpponentWantToPlay = false;
         try {
             int port = Settings.getPort();
             try (Socket hostSocket = new Socket(ipAddress, port)) {
                 DataOutputStream streamToHost = new DataOutputStream(hostSocket.getOutputStream());
                 BufferedReader streamFromHost = new BufferedReader(new InputStreamReader(hostSocket.getInputStream()));
-                streamToHost.writeBytes(ProtocolKeywords.InitGameRequest + "\n");
+                streamToHost.writeBytes(ProtocolKeywords.INIT_GAME_REQUEST + "\n");
                 streamToHost.flush();
                 String response = streamFromHost.readLine();
-                if (ProtocolKeywords.InitGameAnswer.equals(response)) {
+                if (ProtocolKeywords.INIT_GAME_ANSWER.equals(response)) {
                     potentialOpponentWantToPlay = true;
                 }
             }
@@ -67,7 +67,7 @@ public class NetworkViewController implements NetworkViewListener, NewPlayersFou
     }
 
     @Override
-    public void NewPlayersFound(List<String> newPlayers) {
+    public void newPlayersFound(List<String> newPlayers) {
         this.view.showAvailablePlayers(newPlayers);
     }
 }

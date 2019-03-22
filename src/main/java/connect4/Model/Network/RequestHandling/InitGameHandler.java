@@ -19,7 +19,7 @@ public class InitGameHandler implements RequestHandler {
 
     @Override
     public void handle() throws IOException {
-        this.streamOut.writeBytes(ProtocolKeywords.InitGameAnswer + "\n");
+        this.streamOut.writeBytes(ProtocolKeywords.INIT_GAME_ANSWER + "\n");
         this.streamOut.flush();
 
         this.navigator.navigateToGameViewForAcceptingNetworkPlay(this.opponentHost);

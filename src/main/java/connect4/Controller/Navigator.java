@@ -48,7 +48,7 @@ public class Navigator {
         GameView view = this.switchToGameViewWithSizeDefinedInSettings();
         GameViewController controller = new LocalGameViewController(view, this);
         view.setListener(controller);
-        controller.init(GameState.OpponentsTurn);
+        controller.init(GameState.OPPONENTS_TURN);
     }
 
     public void navigateToGameViewForResumingLocalGame() {
@@ -63,7 +63,7 @@ public class Navigator {
         GameViewController controller = new NetworkGameViewController(view, this, this.networkRequestManager, ipAddress);
         view.setListener(controller);
         view.setPlayer(1);
-        controller.init(GameState.OpponentsTurn);
+        controller.init(GameState.OPPONENTS_TURN);
     }
     
     public void navigateToGameViewForAcceptingNetworkPlay(String ipAddress) {
@@ -71,7 +71,7 @@ public class Navigator {
         GameViewController controller = new NetworkGameViewController(view, this, this.networkRequestManager, ipAddress);
         view.setListener(controller);
         view.setPlayer(0);
-        controller.init(GameState.MyTurn);
+        controller.init(GameState.MY_TURN);
     }
 
     public void navigateToHelpView() {

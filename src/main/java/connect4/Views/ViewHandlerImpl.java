@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package connect4.Views;
 
 import connect4.Views.subPanel.LocalGameCreationViewPanel;
@@ -27,49 +22,50 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-
 public class ViewHandlerImpl extends JFrame implements ViewHandler{
-    private final int MIN_HEIGHT = 300;
-    private final int MIN_WIDTH = 400;
-    
-    private static final String STARTVIEWNAME = "startview";
-    private static final String HELPVIEWNAME = "helpview";
-    private static final String NETWORKVIEW = "networkview";
-    private static final String LOCALGAMECREATIONVIEW = "localgamecreationview";
-    private static final String GAMEVIEW = "gameview";
-    
-    
+    private static final int MIN_HEIGHT = 300;
+    private static final int MIN_WIDTH = 400;
+    private static final String START_VIEW_NAME = "startview";
+    private static final String HELP_VIEW_NAME = "helpview";
+    private static final String NETWORK_VIEW = "networkview";
+    private static final String LOCAL_GAME_CREATION_VIEW = "localgamecreationview";
+    private static final String GAME_VIEW = "gameview";
+
     @Override
     public StartView switchToStartView(){
         this.restoreAfterGame();
-        clayout.show(cards, STARTVIEWNAME);
+        clayout.show(cards, START_VIEW_NAME);
         return startView;
     }
+
     @Override
     public HelpView switchToHelpView(){
         this.restoreAfterGame();
-        clayout.show(cards, HELPVIEWNAME);
+        clayout.show(cards, HELP_VIEW_NAME);
         return helpView;
     }
+
     @Override
     public NetworkView switchToNetworkView(){
         this.restoreAfterGame();
-        clayout.show(cards, NETWORKVIEW);
+        clayout.show(cards, NETWORK_VIEW);
         return networkView;
     }
+
     @Override
     public LocalGameCreationView switchToLocalGameCreationView(){
         this.restoreAfterGame();
-        clayout.show(cards, LOCALGAMECREATIONVIEW);
+        clayout.show(cards, LOCAL_GAME_CREATION_VIEW);
         return localGameCreationView;
-    }    
+    }
+
     @Override
     public GameView switchToGameView(int width, int height) {
         gameView.startGame(width, height);
         System.out.println(gameView.getSize().height);
         this.setSize(gameView.getSize().width+50, gameView.getSize().height+140);
         gameMenu.setVisible(true);
-        clayout.show(cards, GAMEVIEW);
+        clayout.show(cards, GAME_VIEW);
         return gameView;
     }
     
@@ -77,7 +73,8 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
         gameMenu.setVisible(false);
         this.setSize(MIN_WIDTH, MIN_HEIGHT);
     }
-    public ViewHandlerImpl(){
+
+    protected ViewHandlerImpl(){
         initComponent();
     }
     
@@ -89,8 +86,7 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         this.setName("Four_connect");
         this.setTitle("Four_connect");
-                
-        
+
         this.setSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         this.setResizable(false);
         
@@ -122,19 +118,17 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
         menuBar.add(gameMenu);
         menuBar.add(helpMenu);
         setJMenuBar(menuBar);
-        
-        
-        cards.add(startView, STARTVIEWNAME);
-        cards.add(helpView, HELPVIEWNAME);
-        cards.add(networkView, NETWORKVIEW);
-        cards.add(gameView, GAMEVIEW);
-        cards.add(localGameCreationView, LOCALGAMECREATIONVIEW);
+
+        cards.add(startView, START_VIEW_NAME);
+        cards.add(helpView, HELP_VIEW_NAME);
+        cards.add(networkView, NETWORK_VIEW);
+        cards.add(gameView, GAME_VIEW);
+        cards.add(localGameCreationView, LOCAL_GAME_CREATION_VIEW);
         
         this.add(cards);
         this.setVisible(true);        
     }
-    
-    
+
     private CardLayout clayout;
     private JPanel cards;
     

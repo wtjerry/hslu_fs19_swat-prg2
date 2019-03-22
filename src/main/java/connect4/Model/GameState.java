@@ -1,6 +1,6 @@
 package connect4.Model;
 
 public enum GameState {
-    MyTurn,
-    OpponentsTurn
+    MY_TURN,
+    OPPONENTS_TURN
 }

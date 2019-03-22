@@ -1,7 +1,7 @@
 package connect4.Views.Interfaces;
 
 public interface GameViewListener {
-	void DiskColumnPressed(int column);
-	void SaveGamePressed();
-	void CloseGamePressed();
+	void diskColumnPressed(int column);
+	void saveGamePressed();
+	void closeGamePressed();
 }

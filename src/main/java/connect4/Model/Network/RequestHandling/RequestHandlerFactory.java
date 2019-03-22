@@ -23,15 +23,15 @@ public class RequestHandlerFactory {
 
         RequestHandler requestHandler;
         switch (request) {
-            case ProtocolKeywords.AvailableNetworkPlayerListingRequest:
+            case ProtocolKeywords.AVAILABLE_NETWORK_PLAYER_LISTING_REQUEST:
                 requestHandler = new NetworkListingHandler(streamOut);
                 break;
-            case ProtocolKeywords.InitGameRequest:
+            case ProtocolKeywords.INIT_GAME_REQUEST:
                 InetAddress inetAddress = socket.getInetAddress();
                 String hostAddress = inetAddress.getHostAddress();
                 requestHandler = new InitGameHandler(streamOut, hostAddress, this.navigator);
                 break;
-            case ProtocolKeywords.DiskPlayed:
+            case ProtocolKeywords.DISK_PLAYED:
                 requestHandler = new DiskPlayedHandler(streamIn, this.opponentHasMadeATurnListener);
                 break;
             default:

@@ -72,11 +72,6 @@ public class PlayGround extends JComponent{
         this.disks = new DiskField[xCount][yCount];
 
         this.start();
-//        for(int i=0;i<xCount;i++){
-//            for(int i2=0; i2<yCount;i2++){
-//                this.disks[i][i2] = new DiskField(this.diskSize);
-//            }
-//        }
         this.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e){
@@ -86,9 +81,6 @@ public class PlayGround extends JComponent{
         
     }
     
-    public void setColor(Color color){
-        this.color = color;
-    }
     @Override
     public void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
