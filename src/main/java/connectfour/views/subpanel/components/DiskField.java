@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 class DiskField {
-    private int diameter;
     private Color color;
     private boolean played;
-    
+    private final int diameter;
+
     DiskField(int diameter) {
         this.diameter = diameter;
         this.played = false;

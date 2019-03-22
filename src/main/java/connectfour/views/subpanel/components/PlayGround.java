@@ -7,8 +7,6 @@ import java.awt.geom.Arc2D;
 import javax.swing.*;
 
 public class PlayGround extends JComponent{
-    private static final int ROWCOUNT=4;
-    private static final int COLUMNCOUNT=4;
     private static final int YSIZE=200;
     private static final int XSIZE=250;
     private static final double GAPSIZEPROZENT=0.02;
@@ -28,28 +26,15 @@ public class PlayGround extends JComponent{
     
     private DiskField[][] gameField;
 
-    public PlayGround(){
-        this(new Dimension(XSIZE, YSIZE), ROWCOUNT, COLUMNCOUNT, GAPSIZEPROZENT);
-    }
-    public PlayGround(Dimension size){
-        this(size, ROWCOUNT, COLUMNCOUNT, GAPSIZEPROZENT);
-    }
     public PlayGround(int rowCount, int columnCount){
         this(new Dimension(XSIZE, YSIZE), rowCount, columnCount, GAPSIZEPROZENT);
     }
-    public PlayGround(Dimension size, int rowCount, int columnCount){
-        this(size, rowCount, columnCount, GAPSIZEPROZENT);        
-    }
-    public PlayGround(int rowCount, int columntCount, double gapSizeProcent){
-        this(new Dimension(XSIZE, YSIZE), rowCount, columntCount, gapSizeProcent);
-    }
-    public PlayGround(int xWidth, int yWidth, int rowCount,int columnCount){
-        this(new Dimension(xWidth, yWidth), rowCount, columnCount, GAPSIZEPROZENT);
-    }
+
     private PlayGround(Dimension size, int xCount, int yCount, double gapProzent){
         super();
         this.initialize(size, xCount, yCount, gapProzent);
     }
+
     private void initialize(Dimension size, int xCount, int yCount, double gapProzent){
         this.gap = gapProzent;
         this.xCount = xCount;
@@ -77,7 +62,6 @@ public class PlayGround extends JComponent{
                 mouseMovedInComponent(e);
             }        
         });
-        
     }
     
     @Override
@@ -130,7 +114,7 @@ public class PlayGround extends JComponent{
         repaint();
     }
 
-    public void start() {
+    private void start() {
         for(int i=0;i<xCount;i++){
             for(int i2=0; i2<yCount;i2++){
                 this.gameField[i][i2] = new DiskField(this.diskSize);

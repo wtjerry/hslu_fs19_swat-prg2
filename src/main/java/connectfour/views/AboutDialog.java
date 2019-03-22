@@ -3,8 +3,8 @@ package connectfour.views;
 import java.awt.FlowLayout;
 
 class AboutDialog extends javax.swing.JDialog {
-    AboutDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    AboutDialog(java.awt.Frame parent) {
+        super(parent, true);
         initComponents();
     }
 	

@@ -10,7 +10,7 @@ public class Game implements OpponentHasMadeATurnListener {
 
     private final Player opponent;
     private final GameField gameField;
-    private final List<PlayedTurn> playedTurns;
+    private final ArrayList<PlayedTurn> playedTurns;
     
     private GameState currentGameState;
     private TurnEvaluatedListener turnEvaluatedListener;

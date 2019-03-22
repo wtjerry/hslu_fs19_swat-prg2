@@ -106,7 +106,7 @@ public class ViewHandlerImpl extends JFrame implements ViewHandler{
         JMenuItem gameCloseItem = new JMenuItem("Close");
         JMenuItem helpAboutItem = new JMenuItem("About");
         
-        helpAboutItem.addActionListener(x -> new AboutDialog(this, true).setVisible(true));
+        helpAboutItem.addActionListener(x -> new AboutDialog(this).setVisible(true));
         gameCloseItem.addActionListener(x -> gameView.closeGame());
         gameSaveItem.addActionListener(x -> gameView.saveGame());
         
