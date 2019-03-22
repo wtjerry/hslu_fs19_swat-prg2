@@ -9,7 +9,7 @@ sourceCompatibility = 1.11
 
 jar {
     manifest {
-        attributes 'Main-Class': 'connect4.main.Main'
+        attributes 'Main-Class': 'connectfour.main.Main'
     }
 }
 
