@@ -15,8 +15,10 @@ jar {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "org.mockito:mockito-core:2.+"
 }
