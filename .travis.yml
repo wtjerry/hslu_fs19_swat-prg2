@@ -19,3 +19,13 @@ deploy:
     on:
         branch: master
         repo: wtjerry/hslu_fs19_swat-prg2
+
+
+addons:
+    sonarcloud:
+        organization: "wtjerry-github"
+
+
+script:
+    - ./gradlew cleanTest test
+    - sonar-scanner
